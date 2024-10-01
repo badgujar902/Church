@@ -1,0 +1,699 @@
+﻿@model Church.Models.MAS_LEADER
+
+@{
+    ViewBag.Title = "UpdateLeader";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .important {
+        color: red;
+        margin-left: 5px; /* Optional: Add some space between the label text and the asterisk */
+    }
+
+    .fill {
+        color: darkorange;
+        font: bold;
+    }
+
+    .fillError {
+        color: red;
+    }
+</style>
+
+<div id="content" class="content">
+    @*<div id="list">
+            <p class="m-b-10" style="padding-left:10px;">
+                <a href="#" onclick="location.href='@Url.Action("LeaderCreateList", "LeaderCreateList",new {area="Admin" })'" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul" style="color:white"></i>Leader List</a>
+            </p>
+        </div>*@
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Update Leader</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                @if (ViewBag.LeaderType != "Head Leader")
+                {
+
+                    <div class="col-md-8">
+                        <form class="form-horizontal" action="/Admin/LeaderCreateList/SaveUpdateLeader" method="post" id="frmAddLeader" data-parsley-validate="" name="demo-form" enctype="multipart/form-data">
+                            <div>
+                                <div id="basic">
+                                    @Html.HiddenFor(m => m.FID)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    State Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.StateFid, new SelectList(ViewBag.GEtStateName, "Id", "Name"), "--Select--", new { @class = "form-control default-select2", id = "MasStateId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    City Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.CityName, new SelectList(ViewBag.GetLeaderCity, "Name", "Name"), "--Select--", new { @class = "form-control default-select2", id = "MasCity" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Assign Area
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("Area", new SelectList(ViewBag.GetArea, "Name", "Name")
+                                                            , "--Select--", new { @class = "select2 m-b-10 select2-multiple", id = "Area", multiple = "multiple", style = "width:100%" })
+
+                                                    <span class="fillError" id="Area1"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Church Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.MAS_CHC_FID, new SelectList(ViewBag.GetChurchList, "FID", "CHC_Name"), "--Select--", new { @class = "form-control default-select2", id = "MAS_CHC_FID" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Full Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_Name, new { @class = "form-control", id = "IND_Name", placeholder = "Enter Full Name", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Contact No
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_Mob, new { @class = "form-control", id = "IND_Mob", maxlength = "10", pattern = @"\d{10}", placeholder = "999-999-9999", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Position
+                                                    <span class="important">*</span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("Postion", new List<SelectListItem>
+                                                      {
+                                                          new SelectListItem { Text="Head Pastor",Value="Head Pastor" },
+                                                          new SelectListItem { Text="Co-Worker",Value="Co-Worker" },
+
+
+                                                      }.Select(x=> {
+                                                          x.Selected = x.Value == (ViewBag.LeaderPosition?.ToString() ?? "");
+                                                          return x;
+                                                      }), "--Select--", new { @class = "form-control", name = "Type", id = "dllPostion" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Email Id
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_EmailID, new { @class = "form-control", id = "IND_Email", type = "email", placeholder = "Enter Email Id", @autocomplete = "off" })
+                                                    <span class="fillError" id="Email"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Date Of Birth
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "IND_DOB", type = "date", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Gender
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+                                                      {
+                                                          new SelectListItem { Text="Male",Value="Male" },
+                                                          new SelectListItem { Text="Female",Value="Female" },
+                                                             new SelectListItem { Text="Other",Value="Other" },
+
+                                                      }, "--Select--", new { @class = "form-control", name = "Type", id = "dllGender" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @*<div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Address
+                                                        <span class="important"></span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextAreaFor(m => m.Lead_Add, new { @class = "form-control", id = "IND_Address", placeholder = "Enter Address", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Upload Image
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="file" name="file" data-max-size="32154" accept=".png,.jpeg, .jpg" id="file" value="" class="form-control" />
+                                                    <span class="fill" id="fill">@ViewBag.file</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <input type="hidden" name="tableData" id="tableData" />
+                            @*<select hidden name="tableData" class="select2 form-control form-select" id="tableData" multiple>
+                                    <option>--Select--</option>
+                                </select>*@
+                        </form>
+                    </div>
+                    if (ViewBag.LeaderType != "Head Leader")
+                    {
+                        <div class="col-md-4">
+
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle" id="tblUpdateLeader" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                @*<th hidden></th>*@
+                                                <th width="1%">Remove</th>
+                                                <th>Assign Area</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.GetAssignArea)
+                                            {
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <button type="button" onclick="deleteRow(this)" id="btnDelete"
+                                                                class="btn btn-warning btnpress ListBtn">
+                                                            <i class="fas fa-remove"></i>
+                                                        </button>
+                                                    </td>
+
+                                                    <td>@item.Area</td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        <form class="form-horizontal" action="/Admin/LeaderCreateList/SaveUpdateLeader" method="post" id="frmAddLeader" data-parsley-validate="" name="demo-form" enctype="multipart/form-data">
+                            <div>
+                                <div id="basic">
+                                    @Html.HiddenFor(m => m.FID)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    State Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.StateFid, new SelectList(ViewBag.GEtStateName, "Id", "Name"), "--Select--", new { @class = "form-control default-select2", id = "MasStateId" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Church Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.MAS_CHC_FID, new SelectList(ViewBag.GetChurchList, "FID", "CHC_Name"), "--Select--", new { @class = "form-control default-select2", id = "MAS_CHC_FID" })
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Full Name
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_Name, new { @class = "form-control", id = "IND_Name", placeholder = "Enter Full Name", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Position
+                                                    <span class="important">*</span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownList("Postion", new List<SelectListItem>
+                                                      {
+                                                          new SelectListItem { Text="Head Pastor",Value="Head Pastor" },
+                                                          new SelectListItem { Text="Co-Worker",Value="Co-Worker" },
+
+
+                                                      }.Select(x =>
+                                                      {
+                                                          x.Selected = x.Value == (ViewBag.LeaderPosition?.ToString() ?? "");
+                                                          return x;
+                                                      }), "--Select--", new { @class = "form-control", name = "Type", id = "dllPostion" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Contact No
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_Mob, new { @class = "form-control", id = "IND_Mob", maxlength = "10", pattern = @"\d{10}", placeholder = "999-999-9999", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Email Id
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_EmailID, new { @class = "form-control", id = "IND_Email", type = "email", placeholder = "Enter Email Id", @autocomplete = "off" })
+                                                    <span class="fillError" id="Email"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Date Of Birth
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.TextBoxFor(m => m.Lead_DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", id = "IND_DOB", type = "date", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Gender
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+                                                      {
+                                                          new SelectListItem { Text="Male",Value="Male" },
+                                                          new SelectListItem { Text="Female",Value="Female" },
+                                                             new SelectListItem { Text="Other",Value="Other" },
+
+                                                      }, "--Select--", new { @class = "form-control", name = "Type", id = "dllGender" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        @*<div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Address
+                                                        <span class="important"></span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextAreaFor(m => m.Lead_Add, new { @class = "form-control", id = "IND_Address", placeholder = "Enter Address", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        <div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Upload Image
+                                                    <span class="important"></span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    <input type="file" name="file" data-max-size="32154" accept=".png,.jpeg, .jpg" id="file" value="" class="form-control" />
+                                                    <span class="fill" id="fill">@ViewBag.file</span>
+                                                </div>
+                                            </div>
+                                        </div>                                      
+                                    </div>
+
+                                    @*<div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                       Assign Area
+                                                        <span class="important"></span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("Area", new SelectList(ViewBag.GetArea,"Name","Name"), "--Select--", new { @class = "select2 m-b-10 select2-multiple", id = "Area", multiple = "multiple", style = "width:100%" })
+                                                        <span class="fillError" id="Area1"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+
+
+                                </div>
+                            </div>
+                            <input type="hidden" name="tableData" id="tableData" />
+                            @*<select hidden name="tableData" class="select2 form-control form-select" id="tableData" multiple>
+                                    <option>--Select--</option>
+                                </select>*@
+                        </form>
+                    </div>
+                }
+
+
+
+
+
+            </div>
+            <hr />
+            <div class="text-center" style="margin-top:10px;">
+                @*<button type="button" id="btnSave" class="btn btn-sm btn-primary m-r-5"><i class="fas fa-lg fa-fw m-r-10 fa-save" style="color:white"></i>Register</button>*@
+                <button type="button" id="btnSave" class="btn btn-sm btn-primary m-r-5 btn-custom-height">Update</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- end panel -->
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        debugger;
+        $("#MAS_CHC_FID").select2();
+        $("#dllGender").select2();
+        $("#MasStateId").select2();
+        $("#MasCity").select2();
+        $("#dllPostion").select2();
+
+
+
+
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        if (Message!=null) {
+            if(Icon!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+
+        }
+        $("#MasStateId").on("change", function () {
+            debugger;
+            $("#MasCity").find("option").remove();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetCity", "LeaderCreateList")',
+                data: { StateId: StateId },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#MasCity").append("<option value=''>--Select-- </option>");
+                        $.each(data, function (i, p) {
+                            $("#MasCity").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+        $("#MasCity").on("change", function () {
+            debugger;
+            $("#Area").find("option").remove();
+            $("#MAS_CHC_FID").find("option").remove();
+            var MasCityName = $("#MasCity").val();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetArea", "LeaderCreateList")',
+                data: {StateId:StateId, MasCityName: MasCityName },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        var GetArea  = data.Data;
+                        var GetChurch=data.GetChurch;
+                        if(GetArea!=null)
+                        {
+                            $("#Area").append("<option value=''>--Select--</option>");
+                            $.each(GetArea, function (i, p) {
+                                $("#Area").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                            });
+                        }
+                        if(GetChurch!=null)
+                        {
+                            $("#MAS_CHC_FID").append("<option value=''>--Select--</option>");
+                            $.each(GetChurch, function (i, p) {
+                                $("#MAS_CHC_FID").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                            });
+                        }
+                   
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+        $('#IND_Mob').on('keydown', function (e) {
+            if (e.which == 8) { // Backspace key
+                $("#UserName").val('');
+            }
+        })
+
+        $('#IND_Email').on('keypress', function (e) {
+            if (e.which == 32) {
+                Swal.fire({
+                    title: '',
+                    text: "Space not Allowed",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+                return false;
+            }
+
+        });
+
+        $("#Area").change(function(){
+            $("#Area1").html("");
+        });
+
+        $("#btnSave").click(function(){
+            debugger;
+            var Myarr=[];
+            var MobileNumber=$("#IND_Mob").val();
+            var Email=$("#IND_Email").val();
+            var Area=$("#Area").val();
+            var LeaderFid=$("#FID").val();
+            //e.preventDefault();
+            Myarr=Area;
+            var form = $('#frmAddLeader');
+            serializeTable();
+            //e.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("IsExistsData", "LeaderCreateList", new { area= "Admin" })',
+                //method:"get",
+                method: "POST",
+                //data:{Email:Email,MobileNumber:MobileNumber,Area:Myarr},
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    LeaderFId: LeaderFid,
+                    Email: Email,
+                    MobileNumber: MobileNumber, // Array of strings
+                    Area:Myarr
+                }),
+                success:function(response){
+                    debugger;
+                    var Message1 = response.Message;
+                    var Icon1 = response.Icon;
+                    var Area=response.Area;
+                    if (response.Icon=="error") {
+                        if (Message1 != null) {
+                            if (Message1 != null) {
+                                if(Message1=="Email Already Exist")
+                                {
+                                    $(".Userloaderbg").css("display", "none");
+                                    $("#Email").html(Message1);
+                                    $("#IND_Email").css("border", "1px solid red");
+
+                                    return false;
+                                }else if(Message1=="Area Already Assigned to Leader")
+                                {
+                                    $(".Userloaderbg").css("display", "none");
+                                    $("#Area1").html(Area);
+                                    $("#Area").css("border", "1px solid red");
+                                    return false;
+                                }
+                                else{
+                                    $(".Userloaderbg").css("display", "none");
+                                    Swal.fire({
+                                        title: '',
+                                        text: Message1,
+                                        icon: Icon1,
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                }
+
+                            }
+                        }
+                    }
+                    else{
+                        if (form[0].checkValidity()) {
+                            $(".Userloaderbg").css("display", "flex");
+
+                        }
+                        $("#frmAddLeader").submit();
+
+
+                    }
+                }
+            });
+
+        });
+        $("#Area").select2();
+        multiple=true;
+
+    });//Ready
+</script>
+<script>
+    function serializeTable() {
+        debugger;
+        var tableData = [];
+        $('#tblUpdateLeader tbody tr').each(function() {
+            debugger;
+            var row = $(this);
+            var rowData = {
+                area: row.find('td').eq(1).text().trim()
+            };
+            tableData.push(rowData);
+        });
+        $('#tableData').val(JSON.stringify(tableData));
+    }
+</script>
+
+<script>
+    $('#ShowPassword').click(function() {
+        debugger;
+        var passwordInput = $('#U_Pass');
+        var buttonIcon = $('#ShowPassword i');
+
+        // Toggle password visibility
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            buttonIcon.removeClass('fa-eye').addClass('fa-eye-slash'); // Change icon to 'eye-slash' icon
+        } else {
+            passwordInput.attr('type', 'password');
+            buttonIcon.removeClass('fa-eye-slash').addClass('fa-eye'); // Change icon back to 'eye' icon
+        }
+    });
+</script>
+<script>
+    function deleteRow(button) {
+        var row = button.closest('tr'); // Find the closest <tr> parent element
+        row.remove(); // Remove the row from the DOM
+    }
+</script>
+
+
+

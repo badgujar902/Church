@@ -1,0 +1,418 @@
+﻿@model Church.Models.Mas_AssignArea
+
+@{
+    ViewBag.Title = "UpdateAssignArea";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .important {
+        color: red;
+        margin-left: 5px; /* Optional: Add some space between the label text and the asterisk */
+    }
+
+    .fillError {
+        color: red;
+    }
+</style>
+
+<div id="content" class="content">
+    @*<ol class="breadcrumb float-xl-right">
+            @*<li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Login","Home",new { area = "" })'">Login</a></li>*
+            <li class="breadcrumb-item">
+                <a href="#" onclick="location.href='@Url.Action("Login", "Home", new { area = "" })'">
+                    <i class="fa fa-sign-in-alt"></i> Login
+                </a>
+            </li>
+
+        </ol>*@
+    <!-- begin page-header -->
+    @*<h1 class="page-header"></h1>*@
+    <!-- end page-header -->
+    <!-- begin panel -->
+    <div id="list">
+        <p class="m-b-10" style="padding-left:10px;">
+            <a href="#" onclick="location.href='@Url.Action("AssignAreaList", "AssignArea",new {area="Admin" })'" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul" style="color:white"></i>Leader List</a>
+        </p>
+    </div>
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Update Assign Area</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <form class="form-horizontal" action="/Admin/AssignArea/SaveUpdateAssignArea" method="post" id="frmAddLeader" data-parsley-validate="" name="demo-form" enctype="multipart/form-data">
+                        <div>
+                            <div id="basic">
+                                @Html.HiddenFor(m =>m.Mas_churchFId)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row mb-15px" style="margin-bottom:15px;">
+                                            <label class="form-label col-form-label col-md-4">
+                                                State Name
+                                                <span class="important">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.StateFid, new SelectList(ViewBag.GEtStateName, "Id", "Name"), "--Select--", new { @class = "form-control default-select2", id = "MasStateId", @required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row mb-15px" style="margin-bottom:15px;">
+                                            <label class="form-label col-form-label col-md-4">
+                                                City Name
+                                                <span class="important">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.DropDownListFor(m => m.City, new SelectList(ViewBag.GetCityName,"Name","Name"), "--Select--", new { @class = "form-control default-select2", id = "MasCity", @required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row mb-15px" style="margin-bottom:15px;">
+                                            <label class="form-label col-form-label col-md-4">
+                                                Area
+                                                <span class="important">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @*@Html.DropDownListFor(m => m.Area, new SelectList(ViewBag.GEtStateName, "Id", "Name"), "--Select--", new { @class = "form-control default-select2", id = "MasArea", @required = "required" })*@
+                                                @Html.DropDownListFor(m => m.Area, new MultiSelectList(ViewBag.GetAreaName, "Name", "Name"), "--Select--", new { @class = "select2 m-b-10 select2-multiple", id = "Area", multiple = "multiple", style = "width:100%" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div class="col-md-6">
+                                            <div class="row mb-15px" style="margin-bottom:15px;">
+                                                <label class="form-label col-form-label col-md-4">
+                                                    Post Code
+                                                    <span class="important">*</span>
+                                                </label>
+                                                <div class="col-md-8">
+                                                    @Html.DropDownListFor(m=>m.PostCode, new SelectList(""), "--Select--", new { @class = "form-control default-select2", id = "MasPostCode", @required = "required" })
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    <div class="col-md-6">
+                                        <div class="row mb-15px" style="margin-bottom:15px;">
+                                            <label class="form-label col-form-label col-md-4">
+                                                Leader Name
+                                                <span class="important">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @*@Html.TextBoxFor(m => m.Mas_LeaderFid, new { @class = "form-control", id = "IND_Name", placeholder = "Enter Full Name", @required = "required", @autocomplete = "off" })*@
+                                                @Html.DropDownListFor(m => m.Mas_LeaderFid, new SelectList(ViewBag.GetLeaderName, "Id", "Name"), new { @class = "form-control default-select2", id = "Mas_LeaderFid", @required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="text-center">
+                                    @*<button type="button" id="btnSave" class="btn btn-sm btn-primary m-r-5"><i class="fas fa-lg fa-fw m-r-10 fa-save" style="color:white"></i>Register</button>*@
+                                    <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btn-custom-height">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end panel -->
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        debugger;
+        $("#MasStateId").select2();
+        $("#MasCity").select2();
+        $("#MAS_CHC_FID").select2();
+        $("#dllGender").select2();
+        $("#MasArea").select2();
+        $("#MasPostCode").select2();
+        $("#dllPostion").select2();
+
+
+
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        if (Message!=null) {
+            if(Icon!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+
+        }
+
+
+
+        $("#MasStateId").on("change", function () {
+            debugger;
+            $("#MasCity").find("option").remove();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetCity", "AssignArea")',
+                data: { StateId: StateId },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#MasCity").append("<option value=''>--Select-- </option>");
+                        $.each(data, function (i, p) {
+                            $("#MasCity").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+
+        @*$("#MasPostCode").on("change", function () {
+            debugger;
+            $("#MAS_CHC_FID").find("option").remove();
+            var MasCityName = $("#MasCity").val();
+            var StateId = $("#MasStateId").val();
+            var CityArea = $("#MasArea").val();
+            var PostCode = $("#MasPostCode").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetChurchName", "AddLeader")',
+                data: {StateId:StateId, MasCityName: MasCityName ,CityArea:CityArea,PostCode:PostCode},
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#MAS_CHC_FID").append("<option value=''>--Select--</option>");
+                        $.each(data, function (i, p) {
+                            $("#MAS_CHC_FID").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });*@
+
+
+        $("#MasCity").on("change", function () {
+            debugger;
+            $("#Area").find("option").remove();
+            var MasCityName = $("#MasCity").val();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetArea", "AssignArea")',
+                data: {StateId:StateId, MasCityName: MasCityName },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#Area").append("<option value=''>--Select--</option>");
+                        $.each(data, function (i, p) {
+                            $("#Area").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+        @*$("#MasArea").on("change", function () {
+            debugger;
+            $("#MasPostCode").find("option").remove();
+            var CityArea = $("#MasArea").val();
+            var StateId = $("#MasStateId").val();
+            var MasCityName = $("#MasCity").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetChurchName", "AddLeader")',
+                data: {StateId:StateId, CityArea: CityArea,MasCityName:MasCityName },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        //$("#MAS_CHC_FID").append("<option value=''>--Select--</option>");
+                        $.each(data, function (i, p) {
+                            $("#MAS_CHC_FID").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });*@
+
+
+
+        $('#IND_Mob').on('input', function (e) {
+            debugger;
+            var input = $(this).val();
+            if (e.which == 32) {
+
+                Swal.fire({
+                    title: '',
+                    text: "Space not Allowed",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+                return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+            {
+                //swal("", "Enter Only Digits", "error");
+                Swal.fire({
+                    title: '',
+                    text:"Enter Only Digits",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+                return false;
+            }
+            if (!/^\d*$/.test(input)) {
+                Swal.fire({
+                    title: '',
+                    text: "Enter Only Digits",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+
+                $(this).val(input.replace(/\D/g, '')); // Remove non-digit characters from input
+                return false;
+            }
+            $("#UserName").val(input);
+
+        });
+
+        $('#IND_Mob').on('keydown', function (e) {
+            if (e.which == 8) { // Backspace key
+                $("#UserName").val('');
+            }
+        })
+
+        $('#IND_Email').on('keypress', function (e) {
+            if (e.which == 32) {
+                Swal.fire({
+                    title: '',
+                    text: "Space not Allowed",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+                return false;
+            }
+
+        });
+
+        @*$("#btnSave").click(function(){
+            debugger;
+            var LeaderFid=$("#Mas_LeaderFid").val();
+            var ChurchFid=$("#Mas_churchFId").val();
+            var url = '@Url.Action("SaveUpdateAssignArea", "AssignArea")' + '?LeaderFid=' + LeaderFid + '&ChurchFid=' + ChurchFid;
+            window.location.href = url;
+        });*@
+
+        @*$("#btnSave").click(function(){
+            debugger;
+            var MobileNumber=$("#IND_Mob").val();
+            var Email=$("#IND_Email").val();
+            var form = $('#frmAddLeader');
+
+            //e.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("IsExistsData", "AddLeader", new { area= "Admin" })',
+                method:"get",
+                data:{Email:Email,MobileNumber:MobileNumber},
+                success:function(response){
+                    debugger;
+                    var Message1 = response.Message;
+                    var Icon1 = response.Icon;
+                    if (response.Icon=="error") {
+                        if (Message1 != null) {
+                            if (Message1 != null) {
+                                if(Message1=="Email Already Exist")
+                                {
+                                    $(".Userloaderbg").css("display", "none");
+                                    $("#Email").html(Message1);
+                                    $("#IND_Email").css("border", "1px solid red");
+
+                                    return false;
+                                }else{
+                                    $(".Userloaderbg").css("display", "none");
+                                    Swal.fire({
+                                        title: '',
+                                        text: Message1,
+                                        icon: Icon1,
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                }
+
+                            }
+                        }
+                    }
+                    else{
+                        if (form[0].checkValidity()) {
+                            $(".Userloaderbg").css("display", "flex");
+
+                        }
+                            $("#frmAddLeader").submit();
+
+
+                    }
+                }
+            });
+
+        });*@
+
+        $("#Area").select2();
+        multiple=true;
+    });//Ready
+</script>
+
+
+
+
+
+

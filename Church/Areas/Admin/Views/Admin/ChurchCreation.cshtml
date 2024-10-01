@@ -1,0 +1,266 @@
+﻿@model Church.Models.ChurchCreate
+@{
+    ViewBag.Title = "ChurchCreation";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<style>
+    .error {
+        color: red;
+    }
+
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+</style>
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+
+
+
+
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="javascript:;">Church Creation</a></li>
+        <li class="breadcrumb-item active">Church Form</li>
+    </ol>*@
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+ 
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div id="list">
+            <p class="m-b-10" style="padding-left:10px;">
+                <a href="#" onclick="location.href='@Url.Action("ChurchCreationList", "ChurchCreationList",new {area="Admin" })'" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul" style="color:white"></i>Church List</a>
+            </p>
+        </div>
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Church Creation</h4>
+
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <form action="/Admin/Admin/SaveChurchCreation" id="userForm" method="post" data-parsley-validate="true">
+                        @*@Html.HiddenFor(m => m.FID)*@
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-2 col-form-label">Church Name:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.ChurchName, new { @class = "form-control", id = "CHC_Name", @placeholder = "Enter Church Name", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-4 col-sm-4 col-form-label">State Name:<span style="color:red">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        @Html.DropDownListFor(m => m.Mas_StateId, new SelectList(ViewBag.GEtStateName, "Id", "Name"), "Select", new { @class = "form-control default-select2", id = "MasStateId", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-2 col-form-label">City Name:<span style="color:red">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        @Html.DropDownListFor(m => m.Mas_City, new SelectList(""), "Select", new { @class = "form-control default-select2", id = "MasCity", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-4 col-sm-4 col-form-label">Area:<span style="color:red">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        @Html.DropDownListFor(m => m.Area, new SelectList(""), "Select", new { @class = "form-control default-select2", id = "CityArea", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-2 col-form-label">Pin-Code:<span style="color:red">*</span></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        @Html.DropDownListFor(m => m.PinCode, new SelectList(""), "Select", new { @class = "form-control default-select2", id = "PinCode", @required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-2 col-form-label">Address:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextAreaFor(m => m.ChurchAddress, new { @class = "form-control", id = "CHC_Address", @placeholder = "Enter Church Address", @required = "required" })
+                            </div>                           
+                        </div>
+                        <hr />
+                        <div class="text-center">                            
+                            <button type="submit" id="btnadd" class="btn btn-sm btn-primary m-r-5">CREATE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        debugger;
+        $("#MasStateId").select2();
+        $("#MasCity").select2();
+        $("#CityArea").select2();
+        $("#PinCode").select2();
+
+
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        if (Message!=null) {
+            if(Icon!=null)
+            {              
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+
+          }
+
+
+        $("#MasStateId").on("change", function () {
+            debugger;
+            $("#MasCity").find("option").remove();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetCity", "Admin")',
+                data: { StateId: StateId },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#MasCity").append("<option value=''>--Select-- </option>");
+                        $.each(data, function (i, p) {
+                            $("#MasCity").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+
+        $("#MasCity").on("change", function () {
+            debugger;
+            $("#CityArea").find("option").remove();
+            var MasCityName = $("#MasCity").val();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetArea", "Admin")',
+                data: {StateId:StateId, MasCityName: MasCityName },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#CityArea").append("<option value=''>--Select--</option>");
+                        $.each(data, function (i, p) {
+                            $("#CityArea").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+
+        $("#CityArea").on("change", function () {
+            debugger;
+            $("#PinCode").find("option").remove();
+            var CityArea = $("#CityArea").val();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("PostCode", "Admin")',
+                data: {StateId:StateId, CityArea: CityArea },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#PinCode").append("<option value=''>--Select--</option>");
+                        $.each(data, function (i, p) {
+                            $("#PinCode").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+
+    });//Ready
+</script>
+
+
+
+
+
+

@@ -1,0 +1,319 @@
+﻿
+@{
+    ViewBag.Title = "MemberList";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+    int Count = 1;
+}
+
+@using System.Drawing
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+
+      .ListBtn {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+        border: 1px solid lightgray !important;
+    }
+      .mb-n1, .my-n1 {
+             margin-bottom: 0px !important;
+         }
+
+     .mt-n1, .my-n1 {
+         margin-top: 0px !important;
+         }
+
+    tr td {
+        padding: 4px !important;
+        font-weight: 600;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        --bs-table-accent-bg: rgba(233, 236, 239, 0.3) !important;
+    }
+
+    .table-wrap::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .table-wrap::-webkit-scrollbar {
+        width: 6px;
+        height: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .table-wrap::-webkit-scrollbar-thumb {
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+
+
+    /*table first column fixed*/
+    .table-wrap {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-scroll th, .table-scroll td {
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .table-scroll th {
+        background-color: rgba(233, 236, 239, 1) !important;
+    }
+
+    /*.div1 td:nth-child(1) {
+        position: sticky;
+        left: 0;
+    }
+
+    .div1 td:nth-child(2) {
+        position: sticky;
+        left: 62px;
+    }
+
+    .fixed-side {
+        position: sticky;
+        left: 0;
+    }
+
+    .fixed-side1 {
+        position: sticky;
+        left: 62px;
+    }*/
+</style>
+
+
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+        @*<li class="breadcrumb-item"><a href="javascript:;">Individuals</a></li>
+            <li class="breadcrumb-item active">Individuals List</li>
+    </ol>*@
+
+    @*<h1 class="page-header">Church Member List</h1>*@
+
+    <div class="row">
+
+        <div class="col-md-12" style="overflow:auto">
+            <div class="panel panel-inverse">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Church Member List</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-striped table-bordered table-td-valign-middle TablePage" id="tblMemberList" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th hidden>FId</th>
+                                                <th class="text-center" width="1%">Action</th>
+                                                @*<th width="1%">Profile</th>*@
+                                                <th>Name</th>
+                                                <th>Contact No</th>
+                                                <th>Email Id</th>
+                                                <th>Registration Date</th>
+                                                <th>Date OF Birth</th>
+                                                @*<th>Adhar No</th>*@
+                                                @*<th hidden>Address</th>*@
+                                                <th>Address</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in ViewBag.CurchMemberList)
+                                            {
+                                                <tr>
+                                                    <td hidden>@item.MemberFId</td>
+                                                    <td class="text-center">
+                                                        <button type="button" onclick="MemberDeatils('@item.MemberFId','@item.MAS_CHC_FID')" id="btnDelete"
+                                                                class="btn btn-warning btnpress ListBtn">
+                                                            <i class="fa-solid fa-pencil-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                    @*<td><center><a href="#" id="btnactive" onclick="MemberDeatils('@item.MemberFId','@item.MAS_CHC_FID')"><i class="far fa-lg fa-fw m-r-10 fa-edit"></i></a></center></td>*@
+                                                    @*<td width="1%" style="margin-top:40px; text-align: center;">
+                                                        @{
+                                                       
+                                                            var fullPath = item.ImageUrl;
+                                                            if (fullPath != null)
+                                                            {
+                                                                try
+                                                                {
+                                                                    if (!Directory.Exists(fullPath))
+                                                                    {
+
+                                                                        using (Image image = Image.FromFile(fullPath))
+                                                                        {
+                                                                            using (MemoryStream m = new MemoryStream())
+                                                                            {
+                                                                                image.Save(m, image.RawFormat);
+                                                                                byte[] imageBytes = m.ToArray();
+
+                                                                                // Convert byte[] to Base64 String
+                                                                                string base64String = Convert.ToBase64String(imageBytes);
+
+                                                                                var FinalPath = "data:image; base64," + base64String;
+                                                                                ViewBag.imageurl = FinalPath;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                catch (Exception ex)
+                                                                {
+                                                                    ViewBag.imageurl = "";
+                                                                }
+                                                            }
+                                                        }
+                                                
+                                                        <img src="@ViewBag.imageurl" class="rounded h-30px my-n1 mx-n1" style="height:30px; width:35px;" loading="lazy" />
+                                                    </td>*@
+                                                     <td>@item.IND_Name</td>
+                                                    <td><a href="tel:@item.IND_Mob">@item.IND_Mob</a></td>
+                                                    @*<td>@item.IND_Mob</td>*@
+                                                    <td>@item.IND_Email</td>
+                                                    <td>@Convert.ToDateTime(item.IND_DOJ).ToString("dd/MMM/yyyy")</td>
+                                                    <td>@Convert.ToDateTime(item.IND_DOB).ToString("dd/MMM/yyyy")</td>
+                                                    @*<td>@item.AdharNo</td>*@
+                                                    @*<td hidden>@item.IND_Address</td>*@
+                                                    <td>@item.IND_Address</td>
+
+                                                </tr>
+                                                Count++;
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end panel-body -->
+            </div>
+        </div>
+        <!-- end col-10 -->
+
+    </div>
+    <!-- end row -->
+</div>
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        debugger;
+       
+
+ 
+
+
+
+        //$(document).on('click', '#btnactive', function () {
+        //    debugger;
+
+        //    var currentRow = $(this).closest("tr");
+        //    var Fid = currentRow.find("td:eq(0)").html();
+        //    var IND_Name = currentRow.find("td:eq(2)").html();
+        //    var IND_Mob = currentRow.find("td:eq(3)").html();
+        //    var IND_Email = currentRow.find("td:eq(4)").html();
+        //    var IND_DOJ = currentRow.find("td:eq(5)").html();
+        //    //var IND_DOB = currentRow.find("td:eq(8)").html();
+        //    var IND_DOB = currentRow.find("td:eq(6)").text().trim();
+        //    var AdharNo = currentRow.find("td:eq(7)").html();
+        //    var Address = currentRow.find("td:eq(8)").html();
+
+        //    var DOB = convertDateFormat(IND_DOB);
+        //    var DOJ = convertDateFormat(IND_DOJ);
+
+        //    $("#IND_FID").val(Fid);
+        //    $("#IND_Name").val(IND_Name);
+        //    $("#IND_Mob").val(IND_Mob);
+        //    $("#IND_Email").val(IND_Email);
+        //    $("#AdharNo").val(AdharNo);
+        //    $("#Address").val(Address);
+        //    $("#DateOfBirth").val(DOB);
+        //    $("#RegistrationRequest").val(DOJ);
+        //    $("#UserName").val(IND_Mob);
+
+        //    $("#modal-alert").removeClass('modal fade');
+        //    $("#modal-alert").addClass('modal fade show');
+        //    //$("#modal-alert").add('aria-modal="true" ');
+        //    $("#modal-alert").show();
+
+
+
+
+
+        //});
+
+    });
+</script>
+<script>
+
+
+    function MemberDeatils(MemberFId, MAS_CHC_FID) {
+        var url = '@Url.Action("ChurchMemberDetails", "ChurchMemberDetails")' + '?MemberFId=' + MemberFId + '&MAS_CHC_FID=' + MAS_CHC_FID;
+        window.location.href = url;
+    }
+
+
+
+    function convertDateFormat(dateString) {
+        var months = {
+            "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04",
+            "May": "05", "Jun": "06", "Jul": "07", "Aug": "08",
+            "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"
+        };
+
+        var parts = dateString.split(' ');
+        var datePart = parts[0].split('/');
+
+        var day = datePart[0].trim();
+        var monthAbbreviation = datePart[1].trim();
+        var year = datePart[2].trim();
+
+        var monthNumeric = months[monthAbbreviation];
+
+        return year + '-' + monthNumeric + '-' + day;
+    }
+
+
+    $("#btnPopupModelClose").click(function () {
+        $("#modal-alert").hide();
+    });
+
+    $("#btnmodelClose").click(function () {
+        $("#modal-alert").hide();
+    });
+
+</script>
+

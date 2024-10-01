@@ -1,0 +1,337 @@
+﻿
+@{
+    ViewBag.Title = "RegistrationRequstList";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@using System.Drawing
+@using System.Globalization
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .ListBtn {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+        border: 1px solid lightgray !important;
+    }
+
+    .mb-n1, .my-n1 {
+        margin-bottom: 0px !important;
+    }
+
+    .mt-n1, .my-n1 {
+        margin-top: 0px !important;
+    }
+
+    tr td {
+        padding: 4px !important;
+        font-weight: 600;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        --bs-table-accent-bg: rgba(233, 236, 239, 0.3) !important;
+    }
+
+    .table-wrap::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .table-wrap::-webkit-scrollbar {
+        width: 6px;
+        height: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .table-wrap::-webkit-scrollbar-thumb {
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+
+
+    /*table first column fixed*/
+    .table-wrap {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-scroll th, .table-scroll td {
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .table-scroll th {
+        background-color: rgba(233, 236, 239, 1) !important;
+    }
+</style>
+
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+            @*<li class="breadcrumb-item"><a href="javascript:;">Individuals</a></li>
+                <li class="breadcrumb-item active">Individuals List</li>
+        </ol>*@
+
+    @*<h1 class="page-header">Registration Pending List</h1>*@
+    <div class="row">
+        <div class="col-md-12" style="overflow:auto">
+            <div class="panel panel-inverse">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Registration Pending List</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle TablePage" id="tblRegistrationList"
+                                           style="width: 100%;">
+                                        <thead>
+                                            <tr class="trheadingc ">
+                                                <th hidden>FID</th>
+                                                @*<th class="text-center" width="1%">Action</th>*@
+                                                @*<th width="1%">Profile</th>*@
+                                                <th>Member Name</th>
+                                                <th>Contact No</th>
+                                                <th>Email Id</th>
+                                                <th>Registartion Request Date</th>
+                                                <th hidden>Status</th>
+                                                <th hidden>Date Of Birth</th>
+                                                <th hidden>IND_Address</th>
+                                                <th hidden>AdharNo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.RistrationList)
+                                            {
+                                                <tr>
+                                                    <td hidden>@item.FID</td>
+                                                    @*<td class="text-center" width="1%">                                                       
+                                                        <button type="button" onclick="location.href='@Url.Action("RegistrationRequestApprove","RegistrationRequestApprove",new { area = "Leader", id = @item.FID })'"
+                                                                class="btn btn-warning btnpress ListBtn">
+                                                            <i class="fa-solid fa-pencil-alt"></i>
+                                                        </button>
+                                                    </td>*@
+                                                    <td>@item.IND_Name</td>
+                                                    <td>@item.IND_Mob</td>
+                                                    <td>@item.IND_Email</td>
+                                                    <td>@Convert.ToDateTime(item.IND_DOJ).ToString("dd/MMM/yyyy")</td>
+                                                    <td hidden>@item.IND_DOB</td>
+                                                    <td hidden>@item.IND_Address</td>
+                                                    <td hidden>@item.AdharNo</td>
+                                                    @if (@item.Status == true)
+                                                    {
+                                                        <td hidden>Pending</td>
+                                                    }
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        debugger;
+
+
+        debugger;
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        @*if (Message !=null) {
+            swal({
+                title: "",
+                text: Message1,
+                type: Icon1
+
+            },
+                  function () {
+                      window.location.href = '@Url.Action("Dashboard", "Leader")';
+                  }
+                );
+        }*@
+
+
+        if (Message !=null) {
+            debugger;
+            Swal.fire({
+                title: 'Are you sure?',
+                text: Message,
+                icon: Icon,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok, continue!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //.fade:not(.show)
+                    window.location.href = '@Url.Action("Dashboard", "Leader")';
+                    console.log('User clicked confirm');
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Handle when the user clicks cancel or closes the modal
+                    console.log('User clicked cancel or closed the modal');
+                }
+            });
+        }
+
+        $("#btnPopupModelClose").click(function(){
+            $("#modal-alert").hide();
+        });
+
+    });//Ready Function
+
+
+</script>
+<script>
+
+    $('#ShowPassword').click(function() {
+        debugger;
+        var passwordInput = $('#Password');
+        var buttonIcon = $('#ShowPassword i');
+
+        // Toggle password visibility
+        if (passwordInput.attr('type') === 'password') {
+            passwordInput.attr('type', 'text');
+            buttonIcon.removeClass('fa-eye').addClass('fa-eye-slash'); // Change icon to 'eye-slash' icon
+        } else {
+            passwordInput.attr('type', 'password');
+            buttonIcon.removeClass('fa-eye-slash').addClass('fa-eye'); // Change icon back to 'eye' icon
+        }
+    });
+
+
+    function millisecTodate(milliDate) {
+        var date = new Date(milliDate);
+        var mnth = ("0" + (date.getMonth() + 1)).slice(-2);
+        var day = ("0" + date.getDate()).slice(-2);
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        hours = hours < 10 ? '0'+hours : hours;
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var ddmmyyyy = [date.getFullYear(), mnth,day].join("-");
+        return ddmmyyyy;
+    }
+
+    function convertDate(data) {
+        debugger;
+        var getdate = parseInt(data.replace("/Date(", "").replace(")/", ""));
+        var date = millisecTodate(getdate);
+        return date;
+    }
+
+    function convertDateFormat(dateString) {
+        var months = {
+            "Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04",
+            "May": "05", "Jun": "06", "Jul": "07", "Aug": "08",
+            "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"
+        };
+
+        var parts = dateString.split(' ');
+        var datePart = parts[0].split('/');
+
+        var day = datePart[0].trim();
+        var monthAbbreviation = datePart[1].trim();
+        var year = datePart[2].trim();
+
+        var monthNumeric = months[monthAbbreviation];
+
+        return year + '-' + monthNumeric + '-' + day;
+
+    }
+
+
+
+
+
+    $("#btnmodel1").click(function(){
+        debugger;
+        $("#modal-alert").hide();
+        var INDVSLFID=$("#IND_FID").val();
+        var UserName=$("#UserName").val();
+        var UserPassword=$("#Password").val();
+        $.ajax({
+            url: '@Url.Action("CreateUser", "LeaderDashboard")',
+            method:"get",
+            data:{INDVSLFID:INDVSLFID,UserName:UserName,UserPassword:UserPassword},
+            success:function(response){
+                debugger;
+                var Message1 = response.Message;
+                var Icon1 = response.Icon;
+                if (Message1 != null) {
+
+                    Swal.fire({
+                        title: '',
+                        text: Message1,
+                        icon: Icon1,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            //.fade:not(.show)
+                            window.location.href = '@Url.Action("RegistrationList", "LeaderDashboard")';
+                            console.log('User clicked confirm');
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // Handle when the user clicks cancel or closes the modal
+                            console.log('User clicked cancel or closed the modal');
+                        }
+                    });
+                    @*swal({
+                        title: "",
+                        text: Message1,
+                        type: Icon1
+
+                    },
+                    function () {
+                        window.location.href = '@Url.Action("RegistrationList", "LeaderDashboard")';
+                    }
+                    );*@
+
+                }
+
+
+            }
+        });
+
+    });
+
+</script>
+
+
+
+

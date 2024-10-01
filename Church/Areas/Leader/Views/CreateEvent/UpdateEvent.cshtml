@@ -1,0 +1,448 @@
+﻿
+@{
+    ViewBag.Title = "UpdateEvent";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+ 
+}
+@using System.Drawing
+<script src="~/assets/plugins/dropzone/dist/min/dropzone.min.js"></script>
+
+<link href="~/assets/plugins/dropzone/dist/min/dropzone.min.css" rel="stylesheet" />
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+<link href="~/assets/plugins/summernote/dist/summernote-lite.css" rel="stylesheet" />
+
+<script src="~/assets/plugins/summernote/dist/summernote-lite.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+     .ListBtn {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+        border: 1px solid lightgray !important;
+    }
+    .red {
+        color: red;
+    }
+
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+
+    .color {
+        color: red;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 90%;
+        overflow-x: auto;
+        margin-left: 0%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .Error {
+        color: red;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+    </ol>*@
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    @*<h1 class="page-header" style="margin-left:15px;">Event Creation</h1>*@
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        
+        <!-- begin col-6 -->
+        <!-- end col-6 -->
+        <!-- begin col-6 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Update Event</h4>
+
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <form action="/Leader/CreateEvent/SaveCreatedEvent" id="NoticeForm" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+                                @Html.Hidden("EventFid", (int)ViewBag.EventFid)
+                                @Html.Hidden("ChurchId", (int)ViewBag.ChurchFid)
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Event Note :<span style="color:red">*</span></label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <textarea class="summernote form-control" id="EventDescription" name="EventDescription" placeholder="Enter Description...." required="required" rows="6">@ViewBag.EventDesc</textarea>
+                                        @*@Html.TextArea("EventDescription", new { @class = "summernote", style = "border: 1px solid #000;", id = "EventDescription", @required = "required", @placeholder = "Event Description ....", autocomplete = "Off", contenteditable = "true" })*@
+                                        <span id="ErrortxtDescription" class="Error"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-15" style="margin-top:10px;">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Select Images :<span style="color:red"></span></label>
+                                    <div class="col-md-9 col-sm-8">
+                                        <div id="myDropzone" class="dropzone">
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Video :<span style="color:red"></span></label>
+                                    <div class="col-md-9 col-sm-8">
+                                        @Html.TextBox("VideoUrl", (string)ViewBag.EventVideoUrl, new { @class = "form-control", id = "VideoUrl", placeholder = "Enter Video Url", autocomplete = "off" })
+
+                                        @*<textarea class="textarea form-control" id="EventDescription" name="EventDescription" placeholder="Enter Description...." required="required" rows="6"></textarea>*@
+                                        <span id="ErrortxtDescription" class="Error"></span>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" id="submitFormButton" class="btn btn-sm btn-primary btn-lg m-r-5" style="margin-bottom:20px;">Update</button>
+                                </div>
+                            </form>
+                        </div>
+
+
+
+                        <div class="col-md-2">
+
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle" id="tblEventUpdate" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                @*<th hidden></th>*@
+
+                                                <th class="text-center" width="1%">Remove</th>
+                                                <th>Uploaded Image</th>
+                                                <th hidden>Image Url</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @{
+                                                int path=0;
+                                                List<string> normalizedImageUrl = new List<string>();
+
+                                                string[] imageUrls = ViewBag.EventPostImages.ImageURL.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                                                foreach (var fullPath in imageUrls)
+                                                {
+                                                    if (fullPath != null)
+                                                    {
+                                                        if (!Directory.Exists(fullPath))
+                                                        {
+                                                            try
+                                                            {
+                                                                using (Image image = Image.FromFile(fullPath))
+                                                                {
+                                                                    using (MemoryStream m = new MemoryStream())
+                                                                    {
+                                                                        image.Save(m, image.RawFormat);
+                                                                        byte[] imageBytes = m.ToArray();
+
+                                                                        // Convert byte[] to Base64 String
+                                                                        string base64String = Convert.ToBase64String(imageBytes);
+
+                                                                        var FinalPath = "data:image; base64," + base64String;
+                                                                        normalizedImageUrl.Add(FinalPath);
+                                                                    }
+                                                                }
+                                                            }
+                                                            catch(Exception ex)
+                                                            {
+                                                                path = 1;
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                    if(path == 1)
+                                                    {
+                                                        ViewBag.NormalizedImageUrls = "";
+                                                    }
+                                                    else
+                                                    {
+                                                        ViewBag.NormalizedImageUrls = normalizedImageUrl;
+                                                    }
+
+                                                }
+
+                                                for (int i = 0; i < normalizedImageUrl.Count(); i++)
+                                                {
+
+                                                    <tr>
+                                                        <td class="text-center">
+                                                            <button type="button" onclick="deleteRow(this)" id="btnDelete"
+                                                                    class="btn btn-warning btnpress ListBtn">
+                                                                <i class="fas fa-remove"></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+
+                                                            <img src="@normalizedImageUrl[i]" class="rounded h-30px my-n1 mx-n1" style="height:30px; width:30px;" />
+                                                        </td>
+                                                        <td hidden>
+                                                            <img src="@imageUrls[i]" class="rounded h-30px my-n1 mx-n1" style="height:30px; width:30px;" />
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                   
+                </div>
+            </div>
+          
+        </div>
+       
+
+    </div>
+
+   
+
+
+
+
+</div>
+    <script>
+
+       Dropzone.autoDiscover = false;
+
+    const myDropzone = new Dropzone("#myDropzone", {
+        url: '/Leader/CreateEvent/SaveUpdateEvent', // URL for file upload endpoint
+        autoProcessQueue: false, // Do not upload files automatically
+        parallelUploads: 10, // Number of files to upload in parallel
+        maxFiles: 5, // Maximum number of files
+        maxFilesize: 10, // Maximum file size in MB (e.g., 10 MB)
+        acceptedFiles: '.jpg,.png,.jpeg', // Accept only JPG, PNG, and JPEG files
+        addRemoveLinks: true,
+        init: function () {
+            debugger;
+            this.on("addedfile", function (file) {
+                var validFileTypes = ['image/jpeg', 'image/png', 'image/jpeg'];
+                if (!validFileTypes.includes(file.type)) {
+                    showAlert("Only JPG, PNG, and JPEG files are allowed.", this);
+                    this.removeFile(file);
+                } else if (this.files.length > this.options.maxFiles) {
+                    showAlert("You can only upload a maximum of " + this.options.maxFiles + " images.", this);
+                    this.removeFile(file);
+                }else if (file.size > this.options.maxFilesize * 1024 * 1024) { // Check for file size
+                    showAlert("File size must not exceed " + this.options.maxFilesize + "MB.", this);
+                    this.removeFile(file);
+                }
+            });
+
+            // Customize the remove link template
+            this.on("complete", function (file) {
+                file.previewElement.querySelector(".dz-remove").innerHTML = '<i class="fa fa-trash"></i>';
+            });
+
+        }
+    });
+
+    function showAlert(message, dropzone) {
+        // Display confirmation dialog
+        Swal.fire({
+            title: 'File Upload Error',
+            text: message,
+            icon: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Remove excess files
+                while (dropzone.files.length > dropzone.options.maxFiles) {
+                    dropzone.removeFile(dropzone.files[dropzone.files.length - 1]);
+                }
+            }
+        });
+    }
+
+
+
+    $(document).ready(function () {
+        debugger;
+
+        // Event listener for button click to submit form
+        $("#submitFormButton").click(function () {
+            debugger;
+
+            var tbldata = [];
+            $("#tblEventUpdate tbody tr").each(function () {
+                var row = $(this);
+                var tblRowData = {};
+
+                // Find the img tag within the second column (index 1)
+                var imgSrc = row.find("td").eq(2).find("img").attr("src");
+               
+
+                // Store the src attribute value in tblRowData
+                tblRowData.Images = imgSrc;
+          
+
+                // Push tblRowData to the tbldata array
+                tbldata.push(tblRowData);
+              
+            });
+            console.log(tbldata);
+            // Gather form data including EventDescription
+            var formData = new FormData();
+
+            formData.append("EventFid", $("#EventFid").val());
+            formData.append("ChurchId", $("#ChurchId").val());
+            formData.append("VideoUrl", $("#VideoUrl").val());
+            formData.append("EventDescription", $("#EventDescription").val());
+
+            for (var i = 0; i < tbldata.length; i++) {
+                formData.append("ImageUrl" + (i), tbldata[i].Images);
+            }
+
+            // Add files to FormData manually
+            for (var i = 0; i < myDropzone.files.length; i++) {
+                formData.append("file", myDropzone.files[i]);
+            }
+
+            var Description = document.getElementById("EventDescription").value;
+            if(Description==null || Description=="")
+            {
+                $("#ErrortxtDescription").html("Please Enter Event Note");
+                return false;
+            }
+            else
+            {
+                $("#ErrortxtDescription").html("");
+            }
+            // Submit form data with AJAX
+            $.ajax({
+                url: '/Leader/CreateEvent/SaveUpdateEvent',
+                type: 'POST',
+                data: formData,
+                processData: false,  // Important: tell jQuery not to process the data
+                contentType: false,  // Important: tell jQuery not to set contentType
+                success: function (response) {
+                    var Message1 = response.Message;
+                    var Icon1 = response.Icon;
+                    if(Icon1=="error")
+                    {
+                        Swal.fire({
+                            title: '',
+                            text: Message1,
+                            icon: Icon1,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok'
+                        })
+                        return false;
+                    }else{
+                        if (Message1 != null) {
+
+                            Swal.fire({
+                                title: '',
+                                text: Message1,
+                                icon: Icon1,
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    //.fade:not(.show)
+                                    window.location.href = '@Url.Action("EventsList", "CreateEvent")';
+                                    console.log('User clicked confirm');
+                                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                    // Handle when the user clicks cancel or closes the modal
+                                    console.log('User clicked cancel or closed the modal');
+                                }
+                            });
+                        }
+                    }
+                   
+                }
+
+            });
+        });
+
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        if(Message!=null)
+        {
+            debugger;
+            Swal.fire({
+                title: '',
+                text: Message,
+                icon: Icon,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });//ready function
+
+
+
+
+    </script>
+
+<script>
+    function deleteRow(button) {
+        var row = button.closest('tr'); // Find the closest <tr> parent element
+        row.remove(); // Remove the row from the DOM
+    }
+</script>
+<script>
+    $(".summernote").summernote({
+        placeholder: '',
+        height: "300"
+    });
+</script>
+
+
+
+
+
+

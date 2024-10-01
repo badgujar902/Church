@@ -1,0 +1,408 @@
+﻿
+@{
+    ViewBag.Title = "DonationList";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "DonationList";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+    var DonationAttechment = ViewBag.DonationList;
+}
+@using System.Drawing
+@using System.IO
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .btn-cyan {
+        color: #fff;
+        background-color: #01c0c8;
+        border-color: #01c0c8;
+    }
+
+    .ListBtn {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+        border: 1px solid lightgray !important;
+    }
+
+    tr td {
+        padding: 4px !important;
+        font-weight: 600;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        --bs-table-accent-bg: rgba(233, 236, 239, 0.3) !important;
+    }
+
+    .table-wrap::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .table-wrap::-webkit-scrollbar {
+        width: 6px;
+        height: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .table-wrap::-webkit-scrollbar-thumb {
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+
+
+    /*table first column fixed*/
+    .table-wrap {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-scroll th, .table-scroll td {
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .table-scroll th {
+        background-color: rgba(233, 236, 239, 1) !important;
+    }
+
+    .important {
+        color: red;
+    }
+</style>
+
+
+<div id="content" class="content">
+
+    <div class="row">
+        <div class="col-md-12" style="overflow:auto">
+            <div class="panel panel-inverse">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Donation List</h4>
+                    @*<h6 style="float:right;"><a href="#">Home</a></h6>*@
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="/Leader/Leader/SaveIndividualCreation" id="NewRegistraion" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+                                <div class="row" style="margin-top:20px;">
+                                    <div class="col-md-6">
+                                        <div class="row mb-15px" style="margin-bottom:15px;">
+                                            <label class="form-label col-form-label col-md-4">
+                                                From Date
+                                                <span class="important">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.TextBox("FromDate", "", new { @class = "form-control", id = "FromDate", @type = "date", @required = "required" })
+                                                <span class="important" id="ErrortxtFromDate"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row mb-15px" style="margin-bottom:15px;">
+                                            <label class="form-label col-form-label col-md-4">
+                                                To Date
+                                                <span class="important">*</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                @Html.TextBox("ToDate", "", new { @class = "form-control", id = "ToDate", @type = "date", @required = "required" })
+                                                <span class="important" id="ErrortxtFromDate"></span>
+                                            </div>
+                                            @*<div class="col-md-2">
+                                                    <button type="button" id="btnSave" class="btn btn-sm btn-primary m-r-5 btn-custom-height">Show</button>
+                                                </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="text-center">
+                                    <button type="button" id="ShowList" class="btn btn-sm btn-primary m-r-5 btn-custom-height" style="margin-bottom: 20px;">Show List</button>
+                                    <button type="button" id="ClearFilter" class="btn btn-sm  btn-cyan m-r-5 btn-custom-height" style="margin-bottom: 20px;color:white;">Clear Filter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle TablePage" id="tblDonationList" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                @*<th hidden></th>*@
+                                                <th class="text-center" width="1%">View Attachment</th>
+                                                <th>Name</th>
+                                                <th>Donation Date</th>
+                                                <th>Purpose</th>
+                                                <th>Amount</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.DonationList)
+                                            {
+                                                <tr>
+                                                    @*<td hidden>@item.FID</td>*@
+                                                    <td class="text-center">
+                                                        @{
+                                                            var fullPath1 = item.DonationAttechment;
+                                                            int path = 0;
+
+                                                            if (fullPath1 != null)
+                                                            {
+                                                                if (!Directory.Exists(fullPath1))
+                                                                {
+                                                                    try
+                                                                    {
+                                                                        //using (Image image = Image.FromFile(fullPath1))
+                                                                        //{
+                                                                        //    using (MemoryStream m = new MemoryStream())
+                                                                        //    {
+                                                                        //        image.Save(m, image.RawFormat);
+                                                                        //        byte[] imageBytes = m.ToArray();
+
+                                                                        //        // Convert byte[] to Base64 String
+                                                                        //        string base64String = Convert.ToBase64String(imageBytes);
+
+                                                                        //        var FinalPath = "data:image; base64," + base64String;
+                                                                        //        ViewBag.imageurl = FinalPath;
+                                                                        //    }
+                                                                        //}
+                                                                        string fileName = Path.GetFileName(fullPath1);
+                                                                        string baseUrl = @ViewBag.BasUrl;
+                                                                        string relativePath = fullPath1.Replace("C:\\", "").Replace("\\", "/");
+                                                                        string finalImageUrl = baseUrl + relativePath;
+                                                                        ViewBag.imageurl = finalImageUrl;
+                                                                    }
+                                                                    catch (Exception ex)
+                                                                    {
+                                                                        path = 1;
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            if (path == 1)
+                                                            {
+                                                                ViewBag.imageurl = "";
+                                                            }
+                                                            var fullpath = ViewBag.imageurl;
+
+                                                            <button type="button" onclick="ViewAttechment('@fullpath')" id="btnDelete"
+                                                                    class="btn btn-warning ListBtn btnpress">
+                                                                <i class='fa fa-eye'></i>
+                                                            </button>
+                                                        }
+
+                                                    </td>
+
+                                                    <td>@item.IND_Name</td>
+                                                    <td>@Convert.ToDateTime(item.DonationDate).ToString("dd/MMM/yyyy")</td>
+                                                    <td>@item.Purpose</td>
+                                                    <td>@item.Amount</td>
+
+                                                </tr>
+                                                            }
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4" style="text-align: right;"><strong>Total Amount:</strong></td>
+                                                <td id="totalAmount"><strong></strong></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end panel-body -->
+            </div>
+        </div>
+        <!-- end col-10 -->
+    </div>
+    <!-- end row -->
+</div>
+
+<!-- Modal HTML structure -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel" style="text-align:center;">Donation Attechment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
+                    <span aria-hidden="true">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        debugger;
+        if (Message != null) {
+            if (Icon != null) {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+
+            }
+        }
+
+        var today = new Date();
+        var formattedDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+        var CheckEmptyDate = document.getElementById('FromDate').value;
+        if (CheckEmptyDate == "") {
+            document.getElementById('FromDate').value = formattedDate;
+            document.getElementById('ToDate').value = formattedDate;
+        }
+
+
+
+        function calculateTotalAmount() {
+            var total = 0;
+            // Iterate through each row in the table body
+            $('#tblDonationList tbody tr').each(function () {
+                var amount = parseFloat($(this).find('td:eq(4)').text()); // Index 4 corresponds to the Amount column
+                if (!isNaN(amount)) {
+                    total += amount;
+                }
+            });
+            // Display total amount in the footer
+            $('#totalAmount').text(total.toFixed(2)); // Assuming you want to display the total with two decimal places
+        }
+
+        calculateTotalAmount();
+
+
+
+
+        $("#FromDate, #ToDate").on("change", function () {
+            debugger;
+            var input = document.getElementById("FromDate").value;
+            var input1 = document.getElementById("ToDate").value;
+            //define two date object variables with dates inside it
+            fromDateObj = new Date(input);
+            toDateObj = new Date(input1);
+            //calculate time difference
+            var time_difference = toDateObj.getTime() - fromDateObj.getTime();
+            //calculate days difference by dividing total milliseconds in a day
+            var days_differences = time_difference / (1000 * 60 * 60 * 24);
+            var days_difference = days_differences + 1;
+            // Check if toDate is greater than fromDate
+            var from = $("#FromDate").val();
+            var to = $("#ToDate").val();
+            if (Date.parse(from) > Date.parse(to)) {
+
+                $("#ErrortxtFromDate").html("From date should not be greater than todate");
+                return false;
+            }
+            else {
+                $("#ErrortxtFromDate").html("");
+            }
+            if (days_difference > 31) {
+                $("#ErrortxtFromDate").html("You should not allow greter than 31 days");
+            }
+        });
+
+    });//ready
+
+    function ViewAttechment(fullpath) {
+        debugger;
+
+        var imageUrl = fullpath;
+
+
+        // Set the image source and show the modal
+        $('#imagePreview').attr('src', imageUrl);
+        $('#imageModal').modal('show');
+
+        //$("#modal-alert").removeClass('modal fade');
+        //$("#modal-alert").addClass('modal fade show');
+        ////$("#modal-alert").add('aria-modal="true" ');
+        //$("#modal-alert").show();
+
+    }
+
+
+    function DonationVerified(FId, ChurchFId) {
+        debugger;
+        @*var url = '@Url.Action("UpdateEvent", "CreateEvent")'+'?FID=' + FID +'&ChurchFId='+ChurchFId;*@
+        var url = '@Url.Action("DonationVerified", "Donation")' + '?FId=' + FId + '&ChurchFId=' + ChurchFId;
+        window.location.href = url;
+    }
+
+
+    $("#ClearFilter").on("click",function(){
+
+        var Clear="clear";
+        var url = '@Url.Action("DonationList", "LeaderDashboard")' + '?Clear=' + Clear;
+        window.location.href = url;
+    });
+
+
+</script>
+<script>
+    $("#ShowList").click(function(){
+        debugger;
+        var Fromdate=$("#FromDate").val();
+        var ToDate=$("#ToDate").val();
+        DonationList(Fromdate,ToDate);
+        @*$.ajax({
+              url: '@Url.Action("DonationList", "LeaderDashboard", new { area= "Leader" })',
+              method:"get",
+              data:{Fromdate:Fromdate,ToDate:ToDate},
+              success:function(response){
+                  debugger;
+
+              }
+          });*@
+    });
+    function DonationList(Fromdate, ToDate) {
+        var url = '@Url.Action("DonationList", "LeaderDashboard")' + '?Fromdate=' + Fromdate + '&ToDate=' + ToDate;
+        window.location.href = url;
+    }
+</script>
+
+
+
+
+
+
+

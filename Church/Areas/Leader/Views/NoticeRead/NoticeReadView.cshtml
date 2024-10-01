@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "NoticeReadView";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+    var Item = ViewBag.NoticeData;
+}
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/bower_components/moment/moment.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .invoice-footer {
+        text-align: right; /* Aligns content to the right within the container */
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Individuals",new { area = "Individuals" })'">Dashboard</a></li>
+            @*<li class="breadcrumb-item"><a href="javascript:;">Individuals</a></li>
+                <li class="breadcrumb-item active">Individuals List</li>
+        </ol>*@
+    @*<h1 class="page-header">@Session["IndVslCurchName"]</h1>*@
+
+    <input type="hidden" id="NoticeFID" name="id" class="form-control" value=@Item.FId>
+    <input type="hidden" id="NoticeDashboardView" name="id" class="form-control" value=@ViewBag.NoticeDashboardView>
+
+
+    <div class="invoice" style="margin-top:20px;">
+        <!-- BEGIN invoice-company -->
+        <div class="invoice-company">
+            @Item.CHC_Name
+            @*@Session["IndVslCurchName"]*@
+
+        </div>
+        <!-- END invoice-company -->
+        <!-- BEGIN invoice-header -->
+        @*<div class="invoice-header">
+                <div class="invoice-from">
+                    <small style="font-size:15px;">Date</small>
+                    <address class="mt-5px mb-5px">
+                        <strong class="text-dark">@Convert.ToDateTime(Item.NoticeDate).ToString("dd/MMM/yyyy")</strong><br />
+
+                    </address>
+                </div>
+                <div class="invoice-to">
+                    <small style="font-size:15px;">Till Date</small>
+                    <address class="mt-5px mb-5px">
+                        <strong class="text-dark">@Convert.ToDateTime(Item.NoticeDateValid).ToString("dd/MMM/yyyy")</strong><br />
+
+                    </address>
+                </div>
+
+            </div>*@
+        <div class="invoice-header">
+            <div class="invoice-from">
+                <small>from</small>
+                <address class="mt-5px mb-5px">
+                    <strong class="text-dark">@Item.Lead_Name</strong><br>
+                    <b>Address :</b> <br>
+                    @*City, Zip Code<br>*@
+                    @Item.CHC_Address<br>
+                    Phone: @Item.Lead_Mob<br>
+                    @*Fax: (123) 456-7890*@
+                </address>
+            </div>
+            <div class="invoice-date">
+                <small>Date </small>
+                <div class="date text-dark mt-5px">@Item.NoticeDate</div>
+                <div class="invoice-detail">
+                    Till Date<br>
+                    @Item.NoticeDateValid
+                </div>
+            </div>
+        </div>
+        <div class="invoice-content">
+            <!-- BEGIN table-responsive -->
+            <div class="table-responsive">
+                <div><h3>DESCRIPTION</h3></div>
+                <hr />
+                <div>
+                    @Html.Raw(Item.NoticeDescription)
+                </div>
+            </div>
+        </div>
+        @if (Item.Meal_Attandence == true)
+        {
+            <hr />
+            <div class="invoice-content">
+                @*<div class="invoice-footer">*@
+                <div><h3>Attendance</h3></div><br />
+                <form action="/Leader/NoticeRead/MemberMealAttendance" id="MealAttendance" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+                    <div class="row">
+                        <input type="hidden" id="NoticeFID" name="NoticeFid" class="form-control" value=@Item.FId>
+                        <div class="col-md-4">
+                            <label for="NoOfAdult1">No Of Adult</label>
+                            @*@Html.TextBox("NoOfAdult1", null, new { @class = "form-control", id = "NoOfAdult1", @placeholder = "Enter number of adults", @required = "required" })*@
+                            @Html.DropDownList("NoOfAdult", new List<SelectListItem>
+                                               {/*new SelectListItem { Text="All",Value="All" },*/
+                                                   new SelectListItem { Text="1",Value="1" },
+                                                   new SelectListItem { Text="2",Value="2" },
+                                                      new SelectListItem { Text="3",Value="3" },
+                                                     new SelectListItem { Text="4",Value="4" },
+                                                   new SelectListItem { Text="5",Value="5" },
+                                                    new SelectListItem { Text="6",Value="6" },
+                                                       new SelectListItem { Text="7",Value="7" },
+                                                   new SelectListItem { Text="8",Value="8" },
+                                                    new SelectListItem { Text="9",Value="9" },
+                                                    new SelectListItem { Text="10",Value="10" },
+                                               }, "--Select--", new { @class = "form-control", name = "Type", id = "dllGender", @required = "required" })
+
+                        </div>
+                        <div class="col-md-4">
+                            <label for="NoOfAdult2">No Of Child</label>
+                            @Html.DropDownList("NoOfChild", new List<SelectListItem>
+                                               {/*new SelectListItem { Text="All",Value="All" },*/
+                                                    new SelectListItem { Text="0",Value="0" },
+                                                   new SelectListItem { Text="1",Value="1" },
+                                                   new SelectListItem { Text="2",Value="2" },
+                                                      new SelectListItem { Text="3",Value="3" },
+                                                     new SelectListItem { Text="4",Value="4" },
+                                                   new SelectListItem { Text="5",Value="5" },
+                                                    new SelectListItem { Text="6",Value="6" },
+                                                       new SelectListItem { Text="7",Value="7" },
+                                                   new SelectListItem { Text="8",Value="8" },
+                                                    new SelectListItem { Text="9",Value="9" },
+                                                    new SelectListItem { Text="10",Value="10" },
+                                               }, "--Select--", new { @class = "form-control", name = "Type", id = "dllGender", @required = "required" })
+                            @*@Html.TextBox("NoOfAdult2", null, new { @class = "form-control", id = "NoOfAdult2", @placeholder = "Enter number of children", @required = "required" })*@
+                            <span> <b>Note : Children above 5 year</b></span>
+                        </div>
+
+                    </div>
+                    <div class="text-center" style="margin-top:20px;">
+                        <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btn-custom-height">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+            @*</div>*@
+
+
+        }
+
+
+        <div class="invoice-footer">
+            <p class="text-center mb-5px fw-bold">
+
+            </p>
+            <p class="text-center">
+                <span class="me-10px"><i class="fa fa-fw fa-lg fa-globe"></i>ekstasisministries.org</span>
+                <span class="me-10px"><i class="fa fa-fw fa-lg fa-phone-volume"></i> @Item.Lead_Mob</span>
+                <span class="me-10px"><i class="fa fa-fw fa-lg fa-envelope"></i> @Item.Lead_EmailID</span>
+            </p>
+        </div>
+
+        <div class="invoice-footer float-xl-righ">
+            <button class="btn btn-info" type="button" id="btnmodel1">Close</button>
+        </div>
+
+
+        <!-- END invoice-footer -->
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        if (Message!=null) {
+            if(Icon!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+
+        }
+
+        var Message1=@(Html.Raw(Json.Encode(TempData["Message1"])));
+        var Icon1=@(Html.Raw(Json.Encode(TempData["Icon1"])));
+        if(Message1!=null)        {
+            if(Icon1!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message1,
+                    icon: Icon1,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '@Url.Action("Dashboard", "Leader")';
+                        console.log('User clicked confirm');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Handle when the user clicks cancel or closes the modal
+                        console.log('User clicked cancel or closed the modal');
+                    }
+                });
+            }
+
+        }
+    });
+</script>
+<script>
+
+    $("#btnmodel1").click(function () {
+        debugger;
+        var NoticeFid = $("#NoticeFID").val();
+        var DashboardView = $("#NoticeDashboardView").val();
+        var url = '@Url.Action("NoticeReadByMember", "NoticeRead", new { area = "Leader" })?NoticeFid=' + NoticeFid + '&DashboardView=' + DashboardView;
+        window.location.href = url;
+    });
+</script>
+

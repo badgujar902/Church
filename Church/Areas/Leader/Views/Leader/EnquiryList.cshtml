@@ -1,0 +1,346 @@
+﻿@{
+    ViewBag.Title = "EnquiryList";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+    int Count = 1;
+}
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/bower_components/moment/moment.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .ListBtn {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+        border: 1px solid lightgray !important;
+    }
+
+    .custom-dropdown-height {
+        height: 30px; /* Adjust this value as needed */
+        padding: 6px 12px; /* Adjust padding to maintain proper alignment */
+    }
+
+    tr td {
+        padding: 4px !important;
+        font-weight: 600;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        --bs-table-accent-bg: rgba(233, 236, 239, 0.3) !important;
+    }
+
+    .table-wrap::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .table-wrap::-webkit-scrollbar {
+        width: 6px;
+        height: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .table-wrap::-webkit-scrollbar-thumb {
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+
+
+    /*table first column fixed*/
+    .table-wrap {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-scroll th, .table-scroll td {
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .table-scroll th {
+        background-color: rgba(233, 236, 239, 1) !important;
+    }
+
+    .modelerror {
+        color: red;
+    }
+
+    .modal-footer {
+        border-top: none; /* Remove the top border */
+        margin-top: 0; /* Remove any top margin */
+    }
+    .modal-header{
+         padding: 6px 6px;
+    }
+</style>
+
+
+
+
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+            @*<li class="breadcrumb-item"><a href="javascript:;">Individuals</a></li>
+            <li class="breadcrumb-item active">Individuals List</li>
+        </ol>*@
+
+    @*<h1 class="page-header">Inquiry List</h1>*@
+
+    <div class="row">
+
+        <div class="col-md-12" style="overflow:auto">
+            <div class="panel panel-inverse">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Inquiry List</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle TablePage" id="tblInqueryList" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                @*<th hidden></th>*@
+
+                                                <th class="text-center" width="1%">Action</th>
+                                                <th>Member Name</th>
+                                                <th>Inquiry Raised Date</th>
+                                                <th>Subject</th>
+                                                <th>Inquiry</th>
+                                                <th>Member Email</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ViewBag.GetEnquiryList)
+                                            {
+
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <button type="button" onclick="ResponseToMember('@item.EnquiryFId','@item.MemberFId','@item.MemberEmail','@item.Subject','@item.Enquiry')" id="btnDelete"
+                                                                class="btn btn-warning btnpress ListBtn">
+                                                            <i class="fa-solid fa-pencil-alt"></i>
+                                                        </button>
+                                                    </td>
+                                                    @*<td><center><a href="#" id="active" onclick="ResponseToMember('@item.EnquiryFId','@item.MemberFId','@item.MemberEmail','@item.Subject','@item.Enquiry')"><i class="far fa-lg fa-fw m-r-10 fa-edit"></i></a></center></td>*@
+                                                    <td>@item.MemberName</td>
+                                                    <td>@Convert.ToDateTime(item.EnquiryRaisedDate).ToString("dd/MMM/yyyy")</td>
+                                                    @*<td>@item.EnquiryRaisedDate</td>*@
+                                                    <td>@item.Subject</td>
+                                                    <td>@item.Enquiry</td>
+                                                    <td>@item.MemberEmail</td>
+                                                </tr>
+                                                Count++;
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end panel-body -->
+            </div>
+        </div>
+        <!-- end col-10 -->
+        <div class="modal fade" id="modal-alert" aria-modal="true" data-toggle="modal" style="margin-top:10px;">
+            <div class="modal-dialog">
+                <form class="form-horizontal" action="/LeaderDashboard/PrayerRequestApprove" method="post" id="frmsubmit" data-parsley-validate="" name="demo-form" enctype="multipart/form-data">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:black;">
+                            <h4 class="modal-title"></h4>
+                            <h5 style="color:white;">Response</h5>
+                            <button type="button" class="btn-close btn-danger" data-bs-dismiss="modal" aria-label="Close" id="btnPopupModelClose">X</button>
+                        </div>
+                        <div class="modal-body">
+                            @* Your form fields *@
+                            <div class="m-b-0">
+                                <h5><i class=""></i>Subject <span style="color:red"></span></h5>
+                                <input type="text" hidden id="EnquiryFID" name="id" class="form-control">
+                                <input type="text" hidden id="MemberFID" name="id" class="form-control">
+                                <input type="text" hidden id="MemberEmail" name="id" class="form-control">
+                                <p>
+                                    @Html.TextArea("Subject", new { @class = "textarea form-control", id = "EnquirySubject", @required = "required",@readonly="readonly", rows = "2" })
+                                </p>
+                            </div>
+                            <div class="m-b-0">
+                                <h5><i class=""></i>Inquiry <span style="color:red"></span></h5>
+                                <p>
+                                    @Html.TextArea("Enquiry", new { @class = "textarea form-control", id = "Enquiry", @required = "required",@readonly="readonly", rows = "4" })
+                                </p>
+                            </div>
+
+                            <div class="m-b-0">
+                                <h5><i class=""></i>Your Response <span style="color:red">*</span></h5>
+                                <input type="text" hidden id="IND_FID" name="id" class="form-control">
+                                <p>
+                                    @Html.TextArea("LeaderResponse", new { @class = "textarea form-control", id = "LeaderResponse", placeholder = "Your Response...", @required = "required", rows = "5" })
+                                    <span class="modelerror" id="response"></span>
+                                </p>
+                            </div>
+                            <div class="m-b-0">
+                                <h5><i class=""></i>Response Status <span style="color:red">*</span></h5>
+                                <input type="text" hidden id="IND_FID" name="id" class="form-control">
+
+                                @Html.DropDownList("ResponseStatus", new List<SelectListItem>
+                                {
+                                new SelectListItem { Text="WIP",Value="WIP" },
+                                new SelectListItem { Text="Close",Value="Close" },
+
+                                }, "Select Status", new { @class = "form-select w-100 custom-dropdown-height", name = "dllType", id = "dllResponseStatus" })
+                                <span class="modelerror" id="InquiryStatus"></span>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-info" type="button" id="btnmodel1">Response</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+<script>
+    $(document).ready(function () {
+        debugger;
+        $("#dllResponseStatus").select2();
+
+
+        $("#dllResponseStatus").change(function () {
+            debugger;
+            $("#InquiryStatus").html("");
+        });
+
+        $("#LeaderResponse").on("input", function () {
+            $("#response").html("");
+            $("#LeaderResponse").css('border-color', '');
+        });
+
+
+    });//Ready function
+
+    function ResponseToMember(EnquiryFId, MemberFId, MemberEmail, Subject, Enquiry) {
+        debugger;
+
+        $("#EnquiryFID").val(EnquiryFId);
+        $("#MemberFID").val(MemberFId);
+        $("#EnquirySubject").val(Subject);
+        $("#Enquiry").val(Enquiry);
+        $("#MemberEmail").val(MemberEmail);
+
+        $("#modal-alert").removeClass('modal fade');
+        $("#modal-alert").addClass('modal fade show');
+        //$("#modal-alert").add('aria-modal="true" ');
+        $("#modal-alert").show();
+
+    }
+
+    $("#btnPopupModelClose").click(function () {
+        $("#modal-alert").hide();
+    });
+
+    $("#btnmodel1").click(function () {
+        debugger;
+        var EnquiryFID = $("#EnquiryFID").val();
+        var MemberFID = $("#MemberFID").val();
+        var LeaderResponse = $("#LeaderResponse").val();
+        var MemberEmail = $("#MemberEmail").val();
+        var LeaderResponseStatus = $("#dllResponseStatus").val();
+
+        if (LeaderResponse == null || LeaderResponse == "") {
+            //swal("", "Write Your Response", "error");
+            //Swal.fire({
+            //    title: '',
+            //    text: "Write Your Response",
+            //    icon: "error",
+            //    confirmButtonColor: '#3085d6',
+            //    confirmButtonText: 'Ok'
+            //})
+            $("#response").html("Enter Your Response");
+            $("#LeaderResponse").css('border-color', 'red');
+            return false;
+        }
+
+
+        if (LeaderResponseStatus == null || LeaderResponseStatus == "") {
+            //swal("", "Select Response Status", "error");
+            //Swal.fire({
+            //    title: '',
+            //    text: "Select Response Status",
+            //    icon: "error",
+            //    confirmButtonColor: '#3085d6',
+            //    confirmButtonText: 'Ok'
+            //})
+            $("#InquiryStatus").html("Select Status");
+
+
+            return false;
+        }
+
+        $("#modal-alert").hide();
+        $.ajax({
+            url: '@Url.Action("SendResponse", "Leader")',
+            method: "get",
+            data: { EnquiryFID: EnquiryFID, MemberFID: MemberFID, LeaderResponse: LeaderResponse, MemberEmail: MemberEmail, LeaderResponseStatus: LeaderResponseStatus },
+            success: function (response) {
+                debugger;
+                var Message1 = response.Message;
+                var Icon1 = response.Icon;
+                if (Message1 != null) {
+                    if (Icon1 != null) {
+
+                        Swal.fire({
+                            title: '',
+                            text: Message1,
+                            icon: Icon1,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                //.fade:not(.show)
+                                window.location.href = '@Url.Action("EnquiryList", "Leader")';
+                                console.log('User clicked confirm');
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                // Handle when the user clicks cancel or closes the modal
+                                console.log('User clicked cancel or closed the modal');
+                            }
+                        });
+
+                    }
+                }
+
+
+            }
+        });
+
+
+    });
+
+</script>
+
+
+

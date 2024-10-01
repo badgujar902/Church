@@ -1,0 +1,235 @@
+﻿@model Church.Models.Mas_Notice
+@{
+    ViewBag.Title = "NoticeCreate";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+}
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/bower_components/moment/moment.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+@*<script src="~/assets/plugins/ckeditor/ckeditor.js"></script>*@
+<link href="~/assets/plugins/summernote/dist/summernote-lite.css" rel="stylesheet" />
+
+<script src="~/assets/plugins/summernote/dist/summernote-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .note-editor .note-toolbar {
+        background: #eee;
+    }
+
+    .form-check-input {
+       
+        margin-left: -0.25rem;
+    }
+
+    .red {
+        color: red;
+    }
+
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+
+    .color {
+        color: red;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 90%;
+        overflow-x: auto;
+        margin-left: 0%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .Error {
+        color: red;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+        </ol>*@
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    @*<h1 class="page-header" style="margin-left:15px;">Notice Creation</h1>*@
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div id="list">
+            <p class="m-b-10" style="padding-left:10px;">
+                <a href="#" onclick="location.href='@Url.Action("NoticeList", "NoticeUpdate",new {area="Leader" })'" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul" style="color:white"></i>Notice List</a>
+            </p>
+        </div>
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Notice Creation</h4>
+
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+
+                <div class="panel-body">
+                    <form action="/Leader/Leader/NoticeCreate" id="NoticeForm" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+
+                        @*@Html.HiddenFor(m => m.FID)*@
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Notice Date :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextBoxFor(m => m.NoticeDate, new { @class = "form-control", id = "NoticeDate", type = "date", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Subject :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextBoxFor(m => m.NoticeSubject, new { @class = "form-control", id = "NoticeSubject", placeholder = "Enter Title Of Notice", @required = "required", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Description :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextArea("NoticeDescription", new { @class = "summernote", style = "border: 1px solid #000;", id = "Remark", @required = "required", @placeholder = "Notice Description....", autocomplete = "Off", contenteditable = "true" })
+                                @*@Html.TextAreaFor(m => m.NoticeDescription, new { @class = "ckeditor", id = "NoticeDescription", placeholder = "Enter Description....", @required = "required", rows = "10" })*@
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Notice Till Date :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextBoxFor(m => m.NoticeDateValid, new { @class = "form-control", id = "NoticeDateValid", type = "date", @required = "required" })
+                                <span id="ErrortxtFromDate" class="Error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="chk" style="text-align:left"></label>
+                            <div class="col-md-9 col-sm-8 d-flex align-items-center">
+                                @Html.CheckBox("MealAtteande", new { @class = "form-check-input", id = "chk" })
+                                <label for="chk" class="form-check-label" style="margin-left: 0.9rem;">Meal Attendance</label>
+                                <span id="ErrortxtFromDate" class="Error" style="margin-left: 1rem;"></span>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary btn-lg m-r-5">CREATE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var today = new Date();
+        var today1 = new Date().toISOString().split('T')[0];
+        document.getElementById("NoticeDate").setAttribute("min", today1);// Disable Date After Todate
+        document.getElementById("NoticeDateValid").setAttribute("min", today1); // Disable Date Before Todate
+
+
+        var formattedDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+        var CheckEmptyDate = document.getElementById('NoticeDate').value;
+        if (CheckEmptyDate == "") {
+            document.getElementById('NoticeDate').value = formattedDate;
+            document.getElementById('NoticeDateValid').value = formattedDate;
+        }
+        @*var individualCreationUrl = '@Url.Action("IndividualCreation", "Leader")';*@
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        debugger;
+        if (Message != null) {
+            if (Icon != null) {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //.fade:not(.show)
+                        window.location.href = '@Url.Action("NoticeCreate", "Leader")';
+                        console.log('User clicked confirm');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Handle when the user clicks cancel or closes the modal
+                        console.log('User clicked cancel or closed the modal');
+                    }
+                });
+
+            }
+        }
+
+
+
+        $("#NoticeDate, #NoticeDateValid").on("change", function () {
+            debugger;
+            var input = document.getElementById("NoticeDate").value;
+            var input1 = document.getElementById("NoticeDateValid").value;
+            //define two date object variables with dates inside it
+            fromDateObj = new Date(input);
+            toDateObj = new Date(input1);
+            //calculate time difference
+            var time_difference = toDateObj.getTime() - fromDateObj.getTime();
+            //calculate days difference by dividing total milliseconds in a day
+            var days_differences = time_difference / (1000 * 60 * 60 * 24);
+            var days_difference = days_differences + 1;
+            // Check if toDate is greater than fromDate
+            var from = $("#NoticeDate").val();
+            var to = $("#NoticeDateValid").val();
+            if (Date.parse(to) < Date.parse(from)  ) {
+
+                $("#ErrortxtFromDate").html("Notice Till Date should not be less than Notice  Date");
+                return false;
+            }
+            else {
+                $("#ErrortxtFromDate").html("");
+            }
+            if (days_difference > 31) {
+                $("#ErrortxtFromDate").html("You should not allow greter than 31 days");
+            }
+        });
+
+
+    });//Ready Function
+</script>
+<script>
+    $(".summernote").summernote({
+        placeholder: '',
+        height: "300"
+    });
+</script>

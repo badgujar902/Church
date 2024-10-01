@@ -1,0 +1,575 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+}
+<script src="~/assets/plugins/lightbox2/dist/js/lightbox.min.js"></script>
+<link href="~/assets/plugins/lightbox2/dist/css/lightbox.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@using System.Drawing
+@using System.Globalization
+@*<style>
+        @@media (min-width: 1200px) {
+        .col-xl-3 {
+            flex: 0 0 25%;
+            max-width: 20%;
+        }
+    }
+    </style>*@
+
+<style>
+    .img-fluid {
+        height: 100%;
+    }
+
+    .ratio.ratio-1x1 {
+        overflow: hidden;
+    }
+
+        .ratio.ratio-1x1 img {
+            height: 120px;
+        }
+
+    .ratio.ratio-4x3 {
+        overflow: hidden;
+        width: auto;
+        height: 240px;
+    }
+
+        .ratio.ratio-4x3 img {
+            /*width: fit-content;*/
+            object-fit: cover;
+            min-height: 250px;
+            max-height: 300px;
+        }
+
+    .timeline img {
+        padding: 0.7px;
+    }
+    /*@@media (max-width: 768px) {
+        .ratio.ratio-1x1 img {
+            width: 52%;
+        }
+
+    }*/
+    @@media (max-width: 768px) {
+        .ratio-1x1 img {
+            /*width: 50%;*/ /* Adjust width to fit the container */
+            height: auto; /* Maintain aspect ratio */
+            object-fit: cover; /* Ensure image covers the container without distortion */
+        }
+        .note-video-clip {
+            width: 100%; /* Full width of the container */
+            height: 150%; /* Fixed height */
+        }
+    }
+</style>
+
+<style>
+    /*.row > [class^=col-] {
+        padding-left: 0px !important;
+    }*/
+
+    .timeline .timeline-time {
+        top: 7px;
+    }
+
+    .timeline:before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        bottom: -41px;
+        width: 5px;
+    }
+
+    /*.row > [class^=col-] {
+        padding-left: 3px;
+        padding-right: 0px;
+    }*/
+    .profile-content .row > [class^=col-] {
+        padding-left: 3px;
+        padding-right: 0px;
+    }
+
+    /* Override the padding-left to 0px for specific cases, if needed */
+    .profile-content .row > [class^=col-] {
+        padding-left: 0px !important;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
+            @*<li class="breadcrumb-item"><a href="javascript:;">Individual Creation</a></li>
+                <li class="breadcrumb-item active">Individual Form</li>*
+        </ol>*@
+    <h1 class="page-header"></h1>
+    <div class="row" style="margin-top:30px;">
+
+        <!-- begin col-6 -->
+        <!-- end col-6 -->
+        <!-- begin col-6 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    @*<h4 class="panel-title">Dashboard</h4>*@
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+
+                <div class="panel-body">
+                    <div class="row">
+                        @*<div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats bg-blue">
+                                    <div class="stats-icon"><i class="fa fa-cross"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Pending Prayer Request</h4>
+                                        <p>@TempData["PrayerRequestCount"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("PendingPrayerRequest","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats bg-info">
+                                    <div class="stats-icon"><i class="fa fa-circle-question"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Pending Inqury</h4>
+                                        <p>@TempData["TotalEnquiryList"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("EnquiryList","Leader",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats bg-orange">
+                                    <div class="stats-icon"><i class="fa fa-address-card"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Pending Registration Request</h4>
+                                        <p>@TempData["GetResitrationRequestCount"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("RegistrationList","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats" style="background-color:#009688">
+                                    <div class="stats-icon"><i class="fa fa-users"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Total Members</h4>
+                                        <p>@TempData["TotalMeberList"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("MemberList","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="widget widget-stats bg-blue">
+                                <div class="stats-icon"><i class="fa fa-cross"></i></div>
+                                <div class="stats-info">
+                                    <h4>Pending  Request</h4>
+                                    <p>@TempData["PrayerRequestCount"]</p>
+                                </div>
+                                <div class="stats-link">
+                                    <a href="javascript:;" onclick="location.href='@Url.Action("PendingPrayerRequest","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="widget widget-stats bg-info">
+                                <div class="stats-icon"><i class="fa fa-circle-question"></i></div>
+                                <div class="stats-info">
+                                    <h4>Pending Inquiry</h4>
+                                    <p>@TempData["TotalEnquiryList"]</p>
+                                </div>
+                                <div class="stats-link">
+                                    <a href="javascript:;" onclick="location.href='@Url.Action("EnquiryList","Leader",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Session["LeaderDesignation"].ToString() != "Leader")
+                        {
+                            <div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats bg-orange">
+                                    <div class="stats-icon"><i class="fa fa-address-card"></i></div>
+                                    <div class="stats-info">
+                                        <h4> Registration Request</h4>
+                                        <p>@TempData["GetResitrationRequestCount"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("RegistrationList","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <style>
+                                @@media (min-width: 1200px) {
+                                    .col-xl-3 {
+                                        flex: 0 0 25%;
+                                        max-width: 20%;
+                                    }
+                                }
+                            </style>
+                        }
+
+                        @if (Session["LeaderDesignation"].ToString() == "Leader")
+                        {
+                            <div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats bg-orange">
+                                    <div class="stats-icon"><i class="fa fa-users"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Total Members</h4>
+                                        <p>@TempData["TotalMeberList"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("MemberList","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats" style="background-color:#009688">
+                                    <div class="stats-icon"><i class="fa fa-users"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Total Members</h4>
+                                        <p>@TempData["TotalMeberList"]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("MemberList","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        @*<div class="col-xl-3 col-md-6">
+                                <div class="widget widget-stats bg-red" style="background-color:#b53b64">
+                                    <div class="stats-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                                    <div class="stats-info">
+                                        <h4>Total Donation</h4>
+                                        <p>@TempData["DonationList "]</p>
+                                    </div>
+                                    <div class="stats-link">
+                                        <a href="javascript:;" onclick="location.href='@Url.Action("DonationList","LeaderDashboard",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>*@
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="widget widget-stats" style="background-color:#b53b64">
+                                <div class="stats-icon"><i class="fa fa-users"></i></div>
+                                <div class="stats-info">
+                                    <h4>Meal Attendance</h4>
+                                    @if (TempData["GetGetMealAttendance"] == null)
+                                    {
+                                        <p>0</p>
+                                    }
+                                    else
+                                    {
+                                        int MealAtten = (int)TempData["GetGetMealAttendance"];
+                                        <p>@MealAtten</p>
+                                    }
+
+                                </div>
+                                <div class="stats-link">
+                                    @*<a href="javascript:;" onclick="location.href='#'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>*@
+                                    <a href="javascript:;" onclick="location.href='@Url.Action("MealAttendanceList","MealAttendanceList",new { area = "Leader" })'">View Detail <i class="fa fa-arrow-alt-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="profile-content" style="padding:7px">
+        @{
+            if (@ViewBag.Events != null)
+            {
+                foreach (var item in ViewBag.Events)
+                {
+                    List<string> normalizedImageUrls = new List<string>();
+                    string[] imageUrls = item.ImageURL.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    <!-- BEGIN tab-content -->
+                    <div class="tab-content p-0">
+                        <!-- BEGIN #profile-post tab -->
+                        <div class="tab-pane fade show active" id="profile-post">
+                            <!-- BEGIN timeline -->
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-time">
+                                        @{
+                                            var currentDate = DateTime.Today;
+                                            var eventDate = DateTime.ParseExact(item.EventDate, "dd MMM yyyy", CultureInfo.InvariantCulture);
+
+                                            if (eventDate.Date == currentDate)
+                                            {
+                                                <span class="date">today</span>
+                                                <span class="time">@item.EventTime</span>
+                                            }
+                                            else if (eventDate.Date == currentDate.AddDays(-1)) // Check for yesterday
+                                            {
+                                                <span class="date">Yesterday</span>
+                                                <span class="time">@item.EventTime</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="date">@eventDate.ToString("dd MMM yyyy")</span>
+                                                <span class="time">@item.EventTime</span>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="timeline-icon">
+                                        <a href="javascript:;">&nbsp;</a>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-body">
+                                            <div class="mb-3">
+                                                @*<div class="mb-2">                                                  
+                                                    @Html.Raw(@item.EventNote)
+                                                    <a href="@item.VideoUrl">@item.VideoUrl</a>
+                                                </div>*@
+                                                <div class="invoice-content">
+                                                    <!-- BEGIN table-responsive -->
+                                                    <div class="table-responsive">
+                                                        <div><h3></h3></div>
+                                                        <hr />
+                                                        <div>
+                                                            <a href="@item.VideoUrl">@item.VideoUrl</a>
+                                                            @Html.Raw(@item.EventNote)                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                @{
+                                                    int path = 0;
+                                                    foreach (var fullPath in imageUrls)
+                                                    {
+                                                        //if (fullPath != null)
+                                                        //{
+                                                        //    if (!Directory.Exists(fullPath))
+                                                        //    {
+                                                        try
+                                                        {
+                                                            //using (Image image = Image.FromFile(fullPath))
+                                                            //{
+                                                            //    using (MemoryStream m = new MemoryStream())
+                                                            //    {
+                                                            //        image.Save(m, image.RawFormat);
+                                                            //        byte[] imageBytes = m.ToArray();
+
+                                                            //        // Convert byte[] to Base64 String
+                                                            //        string base64String = Convert.ToBase64String(imageBytes);
+
+                                                            //        var FinalPath = "data:image; base64," + base64String;
+                                                            //        normalizedImageUrls.Add(FinalPath);
+                                                            //    }
+                                                            //}
+                                                            //string ImageUrl = GetMemberProfileData.IND_Image;
+                                                            string fileName = Path.GetFileName(fullPath);
+                                                            string baseUrl = @ViewBag.BasUrl;
+                                                            string relativePath = fullPath.Replace("C:\\", "").Replace("\\", "/");
+                                                            string finalImageUrl = baseUrl + relativePath;
+                                                            normalizedImageUrls.Add(finalImageUrl);
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            path = 1;
+                                                        }
+
+                                                        @*}
+                                                            }*@
+                                                    }
+                                                    if (path == 1)
+                                                    {
+                                                        ViewBag.NormalizedImageUrls = "";
+                                                    }
+                                                    else
+                                                    {
+                                                        ViewBag.NormalizedImageUrls = normalizedImageUrls;
+                                                    }
+
+
+
+                                                    /*   int maxImagesToShow = 5; */// Maximum images to show initially
+                                                    if (normalizedImageUrls.Count() == 1)
+                                                    {
+                                                        <div class="row gx-1 mx-auto">
+                                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                                <a href="@normalizedImageUrls[0]" data-lightbox="gallery-group-1">
+                                                                    <img src="@normalizedImageUrls[0]" alt="" class="img-fluid mw-100 d-block" style="min-width:100%;" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    if (normalizedImageUrls.Count() == 2)
+                                                    {
+                                                        <div class="row gx-1 mx-auto">
+                                                            <div class="col-6 col-md-6">
+                                                                <a href="@normalizedImageUrls[0]" data-lightbox="gallery-group-1"><img src="@normalizedImageUrls[0]" alt="" class="img-fluid" /></a>
+                                                            </div>
+                                                            <div class="col-6 col-md-6">
+                                                                <a href="@normalizedImageUrls[1]" data-lightbox="gallery-group-1"><img src="@normalizedImageUrls[1]" alt="" class="img-fluid" /></a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    if (normalizedImageUrls.Count() == 3)
+                                                    {
+                                                        <div class="row gx-1 mx-auto">
+                                                            <div class="col-md-4">
+                                                                <a href="@normalizedImageUrls[0]" data-lightbox="gallery-group-1">
+                                                                    <img src="@normalizedImageUrls[0]" alt="" class="mw-100 d-block" style="height:100%;width:100%" />
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <a href="@normalizedImageUrls[1]" data-lightbox="gallery-group-1">
+                                                                    <img src="@normalizedImageUrls[1]" alt="" class="mw-100 d-block" style="height:100%;width:100%" />
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <a href="@normalizedImageUrls[2]" data-lightbox="gallery-group-1">
+                                                                    <img src="@normalizedImageUrls[2]" alt="" class="mw-100 d-block" style="height:100%;width:100%;" />
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    if (normalizedImageUrls.Count() == 4)
+                                                    {
+                                                        <div class="row gx-1 mx-auto">
+                                                            <div class="col-6 col-md-6">
+                                                                <div class="ratio ratio-4x3 mb-1px">
+                                                                    @*<a href="@normalizedImageUrls[0]" onclick="redirectToAnotherView('@normalizedImageUrls[0]')" data-lightbox="gallery-group-1" class="bg-size-cover bg-position-center" style="background-image: url('@normalizedImageUrls[0]')">
+                                                                            <img src="@normalizedImageUrls[0]" class="bg-size-cover bg-position-center"  />
+                                                                        </a>*@
+                                                                    <a href="@normalizedImageUrls[0]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[0]" alt="" class="img-fluid mw-100 d-block" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="ratio ratio-4x3 mb-1px">
+                                                                    @*<a href="@normalizedImageUrls[1]" data-lightbox="gallery-group-1" class="bg-size-cover bg-position-center" style="background-image: url('@normalizedImageUrls[1]')">
+                                                                            <img src="@normalizedImageUrls[1]" class="bg-size-cover bg-position-center" />
+                                                                        </a>*@
+                                                                    <a href="@normalizedImageUrls[1]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[1]" alt="" class="img-fluid mw-100 d-block" />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 col-md-6">
+                                                                <div class="ratio ratio-4x3 mb-1px">
+                                                                    @*<a href="@normalizedImageUrls[2]" data-lightbox="gallery-group-1" class="bg-size-cover bg-position-center" style="background-image: url('@normalizedImageUrls[2]')">
+                                                                            <img src="@normalizedImageUrls[2]" class="bg-size-cover bg-position-center" />
+                                                                        </a>*@
+                                                                    <a href="@normalizedImageUrls[2]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[2]" alt="" class="img-fluid mw-100 d-block" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="ratio ratio-4x3">
+                                                                    @*<a href="@normalizedImageUrls[3]" data-lightbox="gallery-group-1" class="bg-size-cover bg-position-center" style="background-image: url('@normalizedImageUrls[3]')">
+                                                                            <img src="@normalizedImageUrls[3]" class="bg-size-cover bg-position-center" />
+                                                                        </a>*@
+                                                                    <a href="@normalizedImageUrls[3]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[3]" alt="" class="img-fluid mw-100 d-block" />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    }
+                                                    if (normalizedImageUrls.Count() == 5)
+                                                    {
+                                                        <div class="row gx-1 mx-auto">
+                                                            <div class="col-12 col-md-6">
+
+                                                                <div class="ratio ratio-4x3">
+                                                                    <a href="@normalizedImageUrls[0]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[0]" class="img-fluid" />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 col-md-3">
+                                                                <div class="ratio ratio-1x1">
+                                                                    <a href="@normalizedImageUrls[1]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[1]" style="padding-right: 0.7px;" />
+                                                                    </a>
+                                                                </div>
+                                                                <div class="ratio ratio-1x1">
+                                                                    <a href="@normalizedImageUrls[2]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[2]" style="padding-right: 0.7px;" />
+                                                                    </a>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6 col-md-3">
+                                                                <div class="ratio ratio-1x1">
+                                                                    <a href="@normalizedImageUrls[3]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[3]" style="padding-right: 0.7px;" />
+                                                                    </a>
+
+                                                                </div>
+                                                                <div class="ratio ratio-1x1">
+                                                                    <a href="@normalizedImageUrls[4]" data-lightbox="gallery-group-1">
+                                                                        <img src="@normalizedImageUrls[4]" style="padding-right: 0.7px;" />
+                                                                    </a>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+                                            <hr class="my-10px" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                                                        }
+                                                    }
+        }
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        @*msgComents =@Html.Raw(Json.Encode(TempData["PrayerReqSuccessMassg"]));*@
+
+
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        if (Message!=null) {
+            Swal.fire({
+                title: '',
+                text: Message,
+                icon: Icon,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok'
+            })
+            //swal("",Message,Icon);
+        }
+
+    });
+</script>

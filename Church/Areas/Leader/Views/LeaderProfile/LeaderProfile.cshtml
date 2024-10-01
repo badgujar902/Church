@@ -1,0 +1,646 @@
+﻿
+@{
+    ViewBag.Title = "LeaderProfile";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+    var Item = ViewBag.MemberProfileData;
+}
+
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+
+
+
+
+<link href="~/assets/plugins/x-editable-bs4/dist/bootstrap4-editable/css/bootstrap-editable.css" rel="stylesheet" />
+<link href="~/assets/plugins/x-editable-bs4/dist/inputs-ext/address/address.css" rel="stylesheet" />
+<link href="~/assets/plugins/x-editable-bs4/dist/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css" rel="stylesheet" />
+<link href="~/assets/plugins/bootstrap-datetime-picker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+<link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<script src="~/assets/plugins/jquery-migrate/dist/jquery-migrate.min.js"></script>
+<script src="~/assets/plugins/x-editable-bs4/dist/bootstrap4-editable/js/bootstrap-editable.min.js"></script>
+<script src="~/assets/plugins/x-editable-bs4/dist/inputs-ext/address/address.js"></script>
+<script src="~/assets/plugins/x-editable-bs4/dist/inputs-ext/typeaheadjs/lib/typeahead.js"></script>
+<script src="~/assets/plugins/x-editable-bs4/dist/inputs-ext/typeaheadjs/typeaheadjs.js"></script>
+<script src="~/assets/plugins/x-editable-bs4/dist/inputs-ext/wysihtml5/wysihtml5.js"></script>
+<script src="~/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="~/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="~/assets/plugins/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/assets/plugins/select2/dist/js/select2.full.min.js"></script>
+<script src="~/assets/plugins/jquery-mockjax/dist/jquery.mockjax.min.js"></script>
+<script src="~/assets/plugins/moment/min/moment.min.js"></script>
+<style>  
+
+
+    .Userloaderbg {
+        background: rgb(0 0 0 / 90%);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Userloader {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        border: 3px solid;
+        border-color: #FFF #FFF transparent transparent;
+        box-sizing: border-box;
+        animation: rotation 1s linear infinite;
+    }
+
+        .Userloader::after,
+        .Userloader::before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid;
+            border-color: transparent transparent #FF3D00 #FF3D00;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotationBack 0.5s linear infinite;
+            transform-origin: center center;
+        }
+
+        .Userloader::before {
+            width: 32px;
+            height: 32px;
+            border-color: #FFF #FFF transparent transparent;
+            animation: rotation 1.5s linear infinite;
+        }
+
+    .loadingtext {
+        color: #FFF;
+        display: inline-block;
+        position: relative;
+        font-size: 18px;
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+        margin-top: 10px;
+    }
+
+        .loadingtext::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: currentColor;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 5px;
+            right: -10px;
+            box-sizing: border-box;
+            animation: animloader 1s linear infinite;
+        }
+
+
+    @@keyframes animloader {
+        0% {
+            box-shadow: 10px 0 rgba(255, 255, 255, 0), 20px 0 rgba(255, 255, 255, 0);
+        }
+
+        50% {
+            box-shadow: 10px 0 white, 20px 0 rgba(255, 255, 255, 0);
+        }
+
+        100% {
+            box-shadow: 10px 0 white, 20px 0 white;
+        }
+    }
+
+
+
+    @@keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+
+    @@keyframes rotationBack {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(-360deg);
+        }
+    }
+
+    .pace.pace-active {
+        display: none !important;
+    }
+
+    .dataTables_length label {
+        display: flex;
+        align-items: center;
+    }
+
+        .dataTables_length label .select2 {
+            margin: 0 10px;
+        }
+
+    /*button Css*/
+    .btn-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btnpress:active {
+        transform: translateY(4px);
+    }
+
+
+    .select2.select2-container {
+        width: 100% !important;
+    }
+
+    label {
+        font-weight: 600;
+    }
+
+    .width-45 {
+        width: 45px;
+    }
+
+    .content {
+        margin-left: 220px;
+        padding: 0px 0px;
+    }
+
+
+    @@media (max-width: 768px) {
+        .content {
+            margin-left: 0;
+        }
+
+        .profile-header-content {
+            padding: 20px;
+        }
+
+        .profile-header-img img {
+            height: 80px;
+        }
+
+        .profile-header-info {
+            margin-top: 20px;
+        }
+        .profile-content{
+                padding-top: 0px;
+        }
+    }
+
+
+
+    .profile-header-img {
+        position: relative;
+        display: inline-block;
+    }
+
+      .overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.5); /* Optional: background color with transparency */
+    padding: 5px;
+      }
+    /*.overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0; 
+        transition: opacity 0.3s ease-in-out;
+    }*/
+
+        .overlay:hover {
+            opacity: 1; /* Show overlay on hover */
+        }
+
+        .overlay i {
+            font-size: 24px; /* Adjust icon size */
+        }
+
+
+    .profile-header-img img {
+        display: block;
+        height: 110px;
+        width: auto;
+        border-radius: 30%;
+        object-fit: cover; /* Ensure the image covers the container */
+    }
+
+    @@media (max-width: 991.98px) {
+        .profile-header .profile-header-img {
+            margin: 0;
+            width: 112px;
+            height: 112px;
+        }
+    }
+</style>
+
+
+
+<div id="content" class="content">
+    <div class="profile">
+        <div class="profile-header">
+            <!-- BEGIN profile-header-cover -->
+            <div class="profile-header-cover"></div>
+            <!-- END profile-header-cover -->
+            <!-- BEGIN profile-header-content -->
+            <div class="profile-header-content">
+                <!-- BEGIN profile-header-img -->              
+                <div class="profile-header-img">
+                    @if (ViewBag.LeaderProfileUrl != "" && ViewBag.LeaderProfileUrl != null)
+                    {
+                        <a href="javascript:void(0);" id="openFileDialog">
+                            <div class="overlay">
+                                <i class="fas fa-pencil-alt"></i>
+                            </div>
+                            <img src="@ViewBag.LeaderProfileUrl" style="width:100%" />
+                        </a>
+                    }
+                    else
+                    {
+                        if (@Item.Gender== "female")
+                        {
+                            <a href="javascript:void(0);" id="openFileDialog">
+                                <div class="overlay">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </div>
+                                <img src="~/Content/Images/FemaleDemi.jpg" style="width:100%" />
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="javascript:void(0);" id="openFileDialog">
+                                <div class="overlay">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </div>
+                                <img src="~/Content/Images/DemoProfile (2).jpg" style="width:100%" />
+                            </a>
+                        }
+
+                    }
+                    <input type="file" accept=".png,.jpeg, .jpg" id="fileInput" style="display: none;">
+                </div>
+
+             
+                <!-- END profile-header-img -->
+                <!-- BEGIN profile-header-info -->
+                <div class="profile-header-info">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-2"><b>Name :</b></div>
+                        <div class="col-lg-4 col-sm-4">@Item.LeaderName </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-2"><b>Church Name :</b></div>
+                        <div class="col-lg-4 col-sm-4">@Item.CHC_Name </div>
+                    </div>
+                </div>              
+            </div>
+
+            <!-- END profile-header-content -->
+            <!-- BEGIN profile-header-tab -->
+
+            <br />
+            <br />
+            <br />
+            <br />         
+          
+        </div>
+    </div>
+    <!-- END profile -->
+    <!-- BEGIN profile-content -->
+    <div class="profile-content">
+        <!-- BEGIN tab-content -->
+        <div class="tab-content p-0">
+            <!-- BEGIN #profile-post tab -->
+            <div class="tab-pane fade show active" id="profile-post">
+                <!-- BEGIN timeline -->
+                <div class="timeline">
+                    <!-- BEGIN timeline-item -->
+                    <div class="timeline-item">
+                        <div class="timeline-icon">
+                            <a href="javascript:;">&nbsp;</a>
+                        </div>
+                        <!-- BEGIN timeline-body -->
+                        <div class="timeline-body">
+                            <!-- timeline-post -->
+                            <!-- timeline-action -->
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Name :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        <input type="hidden" id="LeaderFId" value="@Item.LeaderFId " />
+                                        <a href="javascript:;" id="username" data-type="text" data-pk="LeaderName" data-title="Enter Username">@Item.LeaderName</a>
+                                    </div>                               
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Mobile No :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        <a href="javascript:;" id="number" data-type="number" data-pk="contact" data-title="Enter Username">@Item.Lead_Mob</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Email :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        @*<input type="hidden" id="memberId" value="@item.FID" />*@
+                                        <a href="javascript:;" id="Email" data-type="text" data-pk="Email" data-title="Enter Username">@Item.Lead_EmailID</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Gender :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        @*<input type="hidden" id="memberId" value="@item.FID" />*@
+                                        <a href="javascript:;" id="Gender" data-type="select" data-pk="Gender" data-value="@Item.Gender" data-title="Select Gender">@Item.Gender</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Birth Date :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        @{
+                                            string formattedDate="";
+                                            if (Item.LeaderBirthDate!=null)
+                                            {
+                                                DateTime dateOfBirth = (DateTime)Item.LeaderBirthDate; // Assuming IND_DOB is already DateTime type
+                                                formattedDate = dateOfBirth.ToString("yyyy-MM-dd");
+                                            }
+
+                                        }
+                                        <a href="javascript:;" id="BirthDate" data-type="combodate" data-value="@formattedDate" data-format="YYYY-MM-DD" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY" data-pk="DateOfBirth" data-title="Select Date of birth">@Item.BirthDate</a>
+                                        @*@Item.BirthDate*@
+                                    </div>
+                                </div>
+                            </div>
+                            @*<br />*@
+                            @*<div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Address :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        <a href="javascript:;" id="Address" data-type="textarea" data-pk="Address" data-title="Enter Username">@Item.Lead_Add</a>
+                                    </div>
+                                </div>
+                            </div>*@
+                            <br />
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Registration Date :</b></div>
+                                    <div class="col-6 col-sm-6">
+                                        <a href="javascript:;" id="RegistrationDate" data-type="combodate" data-value="@Item.RegistrationDate" data-format="yyyy-MM-dd" data-viewformat="DD/MM/YYYY" data-template="D / MMM / YYYY" data-pk="DateOfBirth" data-title="Select Date of birth">@Item.RegistrationDate</a>
+                                        @*@Item.RegistrationDate</div>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="d-flex align-items-center fw-bold">
+                                <div class="row flex-fill text-decoration-none text-left text-gray-600">
+                                    <div class="col-lg-4 col-sm-4"><b>Type :</b></div>
+                                    @{ 
+                                        var Position = "";
+                                        if(@Item.U_Type== "Head Leader")
+                                        {
+                                            Position = "Head Pastor";
+                                        }else
+                                        {
+                                            Position = "Co-Worker";
+                                        }
+                                    }
+                                    <div class="col-6 col-sm-6">
+                                        <a href="javascript:;" id="U_Type" data-type="text" data-pk="type" data-title="Enter Username">@Position</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />                        
+                        </div>
+
+                        <!-- END timeline-body -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        debugger;
+        var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+        var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+        if(Message!=null)
+        {
+            if(Icon!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        }
+
+        // Click event for opening file dialog
+        $("#openFileDialog").click(function () {
+            // Trigger click event on the hidden file input
+            $("#fileInput").click();
+        });
+
+        // Change event for file input
+        $("#fileInput").change(function () {
+            var file = this.files[0];
+            if (file) {
+                // Check if the selected file type is allowed
+                var allowedTypes = ['.png', '.jpg', '.jpeg'];
+
+                //if (allowedTypes.indexOf(file.type) === -1) {
+                //    alert('Only PNG, JPEG, and JPG files are allowed.');
+                //    return;
+                //}
+
+                // Assuming you want to redirect to a specific URL with the selected file
+                var formData = new FormData();
+                formData.append("file", file);
+
+                // Perform AJAX request or direct form submission to your action method
+                $.ajax({
+                    url: '/Leader/LeaderProfile/UpdateProfile', // Adjust URL as per your action method
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // Handle success, e.g., redirect to another page
+                        window.location.href = '/Leader/LeaderProfile/LeaderProfile'; // Redirect to success page
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+<script>
+
+    var sexOptions = [
+           { value: 'male', text: 'Male' },
+           { value: 'female', text: 'Female' },
+           { value: 'other', text: 'Other' }
+           // Add more options as needed
+    ];
+
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editable.defaults.inputclass = 'form-control input-sm';
+    //$.fn.editable.defaults.url = '/post';
+
+
+    // Initialize each editable field
+    $('#username').editable({
+        type: 'text',
+        url: '/LeaderProfile/UpdateLeaderDetails',
+        pk: "LeaderName",
+        title: 'Enter Username',
+        params: function (params) {
+            // Include additional parameters (memberId) in the request
+            params.LeaderFId = $('#LeaderFId').val();
+            return params;
+        },
+        success: function(response, newValue) {
+            // Handle success response here
+            window.location.reload();
+        },
+    });
+
+    $('#number').editable({
+        type: 'number',
+        url: '/LeaderProfile/UpdateLeaderDetails',
+        pk: "contact",
+        title: 'Enter your number',
+        params: function (params) {
+            params.LeaderFId = $('#LeaderFId').val();
+            return params;
+        },
+    });
+
+    $('#Email').editable({
+        type: 'text',
+        url: '/LeaderProfile/UpdateLeaderDetails',
+        pk: "Email",
+        title: 'Enter your Firstname',
+        params: function (params) {
+            params.LeaderFId = $('#LeaderFId').val();
+            return params;
+        },
+        success: function(response, newValue) {
+            // Handle success response here
+            window.location.reload();
+        },
+    });
+    $('#Gender').editable({
+        type: 'select',
+        url: '/LeaderProfile/UpdateLeaderDetails',
+        pk: "Gender",
+        title: 'Select Gender',
+        source: sexOptions,   
+        params: function (params) {
+            params.LeaderFId = $('#LeaderFId').val();
+            return params;
+        },
+        success: function(response, newValue) {
+            // Handle success response here
+            window.location.reload();
+        },
+    });
+
+    $('#BirthDate').editable({
+        type: 'combodate',
+        url: '/LeaderProfile/UpdateLeaderDetails',
+        pk: "DateOfBirth",
+        title: 'Enter your Birth Date',
+        format: 'YYYY-MM-DD', // Format of date sent to server
+        viewformat: 'dd/MM/yyyy',
+        template: 'D / MMM / YYYY',
+        params: function (params) {
+            params.LeaderFId = $('#LeaderFId').val();
+            return params;
+        },
+        success: function(response, newValue) {
+            // Handle success response here
+            window.location.reload();
+        },
+    });
+
+   
+    // Initialize each editable field
+    $('#Address').editable({
+        type: 'textarea',
+        url: '/LeaderProfile/UpdateLeaderDetails',
+        pk: "Address",
+        title: 'Enter Address',
+        rows: 3,
+        params: function (params) {
+            params.LeaderFId = $('#LeaderFId').val();
+            return params;
+        },
+        success: function(response, newValue) {           
+            // Handle success response here
+            window.location.reload();
+        },
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+

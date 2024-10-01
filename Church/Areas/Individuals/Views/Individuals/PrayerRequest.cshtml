@@ -1,0 +1,136 @@
+﻿@model Church.Models.MAS_PrayerReq
+@{
+    ViewBag.Title = "PrayerRequest";
+    Layout = "~/Areas/Individuals/Views/Shared/_IndividualsLayout.cshtml";
+}
+
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Individuals",new { area = "Individuals" })'">Dashboard</a></li>
+
+        </ol>*@
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    @*<h1 class="page-header">Prayer Request</h1>*@
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <p class="m-b-10" style="padding-left:10px;">
+            <a href="#" onclick="location.href='@Url.Action("PrayerRequestList", "Individuals", new {area= "Individuals" })'" class="btn btn-primary btn-sm"><i class="fas fa-lg fa-fw m-r-10 fa-list-ul" style="color:white"></i>Request List</a>
+        </p>
+        <div class="col-xl-12">
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Request Creation</h4>
+                </div>
+                <div class="panel-body">
+                    <form action="/Individuals/Individuals/SavePrayerRequest" id="userForm" method="post" data-parsley-validate="true">
+                        @Html.HiddenFor(m => m.FID)
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-3 col-sm-3 col-form-label">Church Name:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @*@Html.DropDownListFor(m => m.MAS_CHC_FID, new SelectList(ViewBag.ChurchList, "FID","CHC_Name"),new {@class= "form-control default-select2", id = "MAS_CHC_FID", required = "required" })*@
+                                @Html.TextBox("churchName", ViewBag.ChurchList.CHC_Name as string, new { @class = "form-control", id = "MAS_CHC_FID", @required = "required", @autocomplete = "off", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-3 col-sm-3 col-form-label">Request Type :<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.DropDownListFor(m=>m.RequestType, new List<SelectListItem>
+                                                      {
+                                                          new SelectListItem { Text="Prayer Request",Value="Prayer Request" },
+                                                          new SelectListItem { Text="Testimony",Value="Testimony" },
+                                                             //new SelectListItem { Text="Other",Value="Other" },
+
+                                                      }, "--Select--", new { @class = "form-control", name = "Type", @required = "required", id = "RequestType" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-3 col-sm-3 col-form-label">Request Date:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.Req_Date, new { @class = "form-control", id = "Req_Date", @type = "date", @required = "required", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-3 col-sm-3 col-form-label">Description:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextAreaFor(m => m.PrayerRemark, new { @class = "form-control", id = "PrayerRemark", @required = "required", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" id="btnadd" class="btn btn-sm btn-primary m-r-5">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        debugger
+        var today = new Date();
+        var today1 = new Date().toISOString().split('T')[0];
+        document.getElementById("Req_Date").setAttribute("min", today1);
+        var formattedDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+        var CheckEmptyDate = document.getElementById('Req_Date').value;
+        if (CheckEmptyDate == "") {
+            document.getElementById('Req_Date').value = formattedDate;
+
+        }
+
+        $("#RequestType").select2();
+
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        if(Message!=null)
+        {
+            if(Icon!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //.fade:not(.show)
+                        window.location.href = '@Url.Action("PrayerRequest", "Individuals")';
+                        console.log('User clicked confirm');
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        console.log('User clicked cancel or closed the modal');
+                    }
+                });
+                @*swal({
+                    title:Message,
+                    text: "",
+                    type: Icon
+
+                },
+                function(){
+                    window.location.href = '@Url.Action("PrayerRequest", "Individuals")';
+                }
+                );*@
+            }
+
+        }
+
+
+
+
+    });
+</script>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="20bef92bd9a94b45bdaee6712479a7be" Name="Diagram1">
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_ACTIVITY_I" Width="1.5" PointX="0.625" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_Calender" Width="1.5" PointX="3.875" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_UID" Width="1.5" PointX="4" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_ACTIVITY_II" Width="1.5" PointX="2.25" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_INDVFMLY" Width="1.5" PointX="0.625" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_STATE" Width="1.5" PointX="2.25" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_POSTCOD" Width="1.5" PointX="3.875" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_CHC" Width="1.5" PointX="7.125" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_ReadView" Width="1.5" PointX="7.125" PointY="2" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_LeaderComment" Width="1.5" PointX="0.625" PointY="2.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_Donation" Width="1.5" PointX="5.5" PointY="1.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_Enquiry" Width="1.5" PointX="5.5" PointY="2.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.DocumentBaseUrl" Width="1.5" PointX="7.125" PointY="2.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_LEADER" Width="1.5" PointX="2.25" PointY="3.125" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_PrayerReq" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_AssignArea" Width="1.5" PointX="3.375" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_Event" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_EventPost" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_EventVideo" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MAS_INDVSL" Width="1.5" PointX="8.375" PointY="4.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.Mas_Notice" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="CHC_NewModel.MealAttendance" Width="1.5" PointX="5.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

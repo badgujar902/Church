@@ -1,0 +1,351 @@
+﻿
+@{
+    ViewBag.Title = "DonationList";
+    Layout = "~/Areas/Leader/Views/Shared/_LeaderLayout.cshtml";
+    var DonationAttechment = ViewBag.DonationList;
+}
+@using System.Drawing
+@using System.IO
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .ListBtn {
+        font-size: 10px !important;
+        padding: 5px 8px !important;
+        border: 1px solid lightgray !important;
+    }
+
+    tr td {
+        padding: 4px !important;
+        font-weight: 600;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) > * {
+        --bs-table-accent-bg: rgba(233, 236, 239, 0.3) !important;
+    }
+
+    .table-wrap::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .table-wrap::-webkit-scrollbar {
+        width: 6px;
+        height: 10px;
+        background-color: #F5F5F5;
+    }
+
+    .table-wrap::-webkit-scrollbar-thumb {
+        background-color: #777;
+        border-radius: 10px;
+    }
+
+
+
+    /*table first column fixed*/
+    .table-wrap {
+        width: 100%;
+        overflow: auto;
+    }
+
+    .table-scroll table {
+        width: 100%;
+        margin: auto;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-scroll th, .table-scroll td {
+        padding: 5px 10px;
+        border: 1px solid lightgray;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    .table-scroll th {
+        background-color: rgba(233, 236, 239, 1) !important;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("IndividualCreation","Leader",new { area = "Leader" })'">Registration Form</a></li>
+        </ol>*@
+    @*<h1 class="page-header">Leader Register Members List</h1>*@
+
+    <div class="row">
+        <div class="col-md-12" style="overflow:auto">
+            <div class="panel panel-inverse">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Un-Verify Donation List</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle TablePage" id="tblDonationList" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                @*<th hidden></th>*@
+                                                <th class="text-center" width="1%">View Attachment</th>
+                                                <th class="text-center" width="1%">Verify</th>
+                                                <th>Name</th>
+                                                <th>Contact No</th>
+                                                <th>Donation Date</th>
+                                                <th>Amount</th>
+                                                <th>Purpose</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.DonationList != null)
+                                            {
+                                                foreach (var item in ViewBag.DonationList)
+                                                {
+                                                    <tr>
+                                                        @*<td hidden>@item.FID</td>*@
+                                                        <td class="text-center">
+                                                            @{
+                                                                var fullPath1 = item.DonationAttechment;
+                                                                int path = 0;
+
+                                                                if (fullPath1 != null)
+                                                                {
+                                                                    if (!Directory.Exists(fullPath1))
+                                                                    {
+                                                                        try
+                                                                        {
+
+                                                                            string fileName = Path.GetFileName(fullPath1);
+                                                                            string baseUrl = @ViewBag.BasUrl;
+                                                                            string relativePath = fullPath1.Replace("C:\\", "").Replace("\\", "/");
+                                                                            string finalImageUrl = baseUrl + relativePath;
+                                                                            ViewBag.imageurl = finalImageUrl;
+                                                                        }
+                                                                        catch (Exception ex)
+                                                                        {
+                                                                            path = 1;
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                                if (path == 1)
+                                                                {
+                                                                    ViewBag.imageurl = "";
+                                                                }
+                                                                var fullpath = ViewBag.imageurl;
+
+                                                                <button type="button" onclick="ViewAttechment('@fullpath')" id="btnDelete"
+                                                                        class="btn btn-warning ListBtn btnpress">
+                                                                    <i class='fa fa-eye'></i>
+                                                                </button>
+
+                                                            }
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button type="button" onclick="DonationVerified('@item.FId','@item.ChurchFId')" id="btnDelete"
+                                                                    class="btn btn-success ListBtn btnpress">
+                                                                <i class='fa fa-check'></i>
+                                                            </button>
+                                                        </td>
+                                                        <td>@item.IND_Name</td>
+                                                        <td><a href="tel:@item.IND_Mob">@item.IND_Mob</a></td>
+                                                        <td>@Convert.ToDateTime(item.DonationDate).ToString("dd/MMM/yyyy")</td>
+                                                        <td>@item.Amount</td>
+                                                        <td>@item.Purpose</td>
+
+                                                    </tr>
+                                                                    }
+                                                                }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end panel-body -->
+            </div>
+        </div>
+        <!-- end col-10 -->
+    </div>
+    <!-- end row -->
+</div>
+<div id="content" class="content">
+
+    <div class="row">
+        <div class="col-md-12" style="overflow:auto">
+            <div class="panel panel-inverse">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Donation List</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- BEGIN table-responsive -->
+                            <div class="table-scroll div1">
+                                <div class="table-wrap">
+                                    <table class="table table-bordered align-middle TablePage" id="tblDonationList" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                @*<th hidden></th>*@
+                                                <th class="text-center" width="1%">View Attachment</th>
+                                                <th>Name</th>
+                                                <th>Donation Date</th>
+                                                <th>Amount</th>
+                                                <th>Purpose</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (ViewBag.VerifiedDonationList != null)
+                                            {
+                                                foreach (var item in ViewBag.VerifiedDonationList)
+                                                {
+                                                    <tr>
+                                                        @*<td hidden>@item.FID</td>*@
+                                                        <td class="text-center">
+                                                            @{
+                                                                var fullPath1 = item.DonationAttechment;
+                                                                int path = 0;
+
+                                                                if (fullPath1 != null)
+                                                                {
+                                                                    if (!Directory.Exists(fullPath1))
+                                                                    {
+                                                                        try
+                                                                        {
+                                                                            string fileName = Path.GetFileName(fullPath1);
+                                                                            string baseUrl = @ViewBag.BasUrll;
+                                                                            string relativePath = fullPath1.Replace("C:\\", "").Replace("\\", "/");
+                                                                            string finalImageUrl = baseUrl + relativePath;
+                                                                            ViewBag.imageurl = finalImageUrl;
+                                                                        }
+                                                                        catch (Exception ex)
+                                                                        {
+                                                                            path = 1;
+                                                                        }
+
+                                                                    }
+                                                                }
+                                                                if (path == 1)
+                                                                {
+                                                                    ViewBag.imageurl = "";
+                                                                }
+                                                                var fullpath = ViewBag.imageurl;
+
+                                                                <button type="button" onclick="ViewAttechment('@fullpath')" id="btnDelete"
+                                                                        class="btn btn-warning ListBtn btnpress">
+                                                                    <i class='fa fa-eye'></i>
+                                                                </button>
+
+                                                            }
+
+                                                        </td>
+
+                                                        <td>@item.IND_Name</td>
+                                                        <td>@Convert.ToDateTime(item.DonationDate).ToString("dd/MMM/yyyy")</td>
+                                                        <td>@item.Amount</td>
+                                                        <td>@item.Purpose</td>
+
+                                                    </tr>
+                                                                    }
+                                                                }
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end panel-body -->
+            </div>
+        </div>
+        <!-- end col-10 -->
+    </div>
+    <!-- end row -->
+</div>
+
+<!-- Modal HTML structure -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel" style="text-align:center;">Donation Attachment</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:red;">
+                    <span aria-hidden="true">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; max-height: 400px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        debugger;
+        if (Message != null) {
+            if (Icon != null) {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        }
+    });
+
+    function ViewAttechment(fullpath) {
+        debugger;
+
+        var imageUrl = fullpath;
+        // Set the image source and show the modal
+        $('#imagePreview').attr('src', imageUrl);
+        $('#imageModal').modal('show');       
+
+    }
+
+
+    function DonationVerified(FId, ChurchFId) {
+        debugger;    
+
+        var url = '@Url.Action("DonationVerified", "Donation")' + '?FId=' + FId + '&ChurchFId=' + ChurchFId;
+        window.location.href = url;
+    }
+
+
+</script>
+
+
+
+
+

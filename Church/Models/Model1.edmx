@@ -1,0 +1,1764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CHC_NewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DocumentBaseUrl">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BaseUrl" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="MAS_ACTIVITY_I">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="Mac_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mac_IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAS_CHC_FID" Type="int" />
+          <Property Name="ACT_Header" Type="nvarchar" MaxLength="50" />
+          <Property Name="ACT_Details" Type="nvarchar" MaxLength="50" />
+          <Property Name="ACT_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MAS_ACTIVITY_II">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="Mac_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mac_IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAS_ACTI_FID" Type="int" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="ImageDesc" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Mas_AssignArea">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateFid" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="300" />
+          <Property Name="Area" Type="nvarchar(max)" />
+          <Property Name="Mas_LeaderFid" Type="int" />
+          <Property Name="Mas_churchFId" Type="int" />
+          <Property Name="Deleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="MAS_Calender">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAS_CHC_FID" Type="int" />
+          <Property Name="CAL_Date" Type="datetime" />
+          <Property Name="CAL_Description" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MAS_CHC">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="CHC_Lat" Type="nvarchar" MaxLength="50" />
+          <Property Name="CHC_Long" Type="nvarchar" MaxLength="50" />
+          <Property Name="CHC_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Mas_State_Fid" Type="int" />
+          <Property Name="Mas_Postcode_Fid" Type="int" />
+          <Property Name="CHC_Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Mas_Donation">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="ChurchFId" Type="int" />
+          <Property Name="MemberFId" Type="int" />
+          <Property Name="DonationDate" Type="datetime" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="100" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="100" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="DonationAttechment" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Mas_Enquiry">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="CurchId" Type="int" />
+          <Property Name="MemberFId" Type="int" />
+          <Property Name="LeaderFId" Type="int" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="100" />
+          <Property Name="Enquiry" Type="nvarchar(max)" />
+          <Property Name="EnquiryDate" Type="datetime" />
+          <Property Name="ResponsedDate" Type="datetime" />
+          <Property Name="Respons" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="LeaderResponseStatus" Type="bit" />
+        </EntityType>
+        <EntityType Name="Mas_Event">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChurchFId" Type="int" />
+          <Property Name="LeaderFId" Type="int" />
+          <Property Name="EventNote" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="Edited" Type="bit" />
+          <Property Name="AdminEvent" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Mas_EventPost">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChurchFId" Type="int" />
+          <Property Name="LeaderFId" Type="int" />
+          <Property Name="EventFId" Type="int" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="AdminEvent" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Mas_EventVideo">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="ChurchFId" Type="int" />
+          <Property Name="LeaderFId" Type="int" />
+          <Property Name="EventFId" Type="int" />
+          <Property Name="VideoUrl" Type="nvarchar(max)" />
+          <Property Name="AdminEvent" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MAS_INDVFMLY">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fdate" Type="datetime" />
+          <Property Name="Mid" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mip" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAS_INDVSL_Fid" Type="int" />
+          <Property Name="Relation" Type="nvarchar" MaxLength="100" />
+          <Property Name="Member_id" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="MAS_INDVSL">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateFid" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="300" />
+          <Property Name="Area" Type="nvarchar" MaxLength="300" />
+          <Property Name="MAS_CHC_FID" Type="int" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="IND_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IND_Mob" Type="nvarchar" MaxLength="50" />
+          <Property Name="IND_Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="IND_DOJ" Type="datetime" />
+          <Property Name="IND_DOB" Type="datetime" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="IND_Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="AdharNo" Type="nvarchar" MaxLength="12" />
+          <Property Name="NameAsAadhar" Type="nvarchar" MaxLength="100" />
+          <Property Name="IND_Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="IND_ReffName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Enroll_ID" Type="int" />
+          <Property Name="Enroll_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="MAS_LEADER">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="StateFid" Type="int" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="300" />
+          <Property Name="ChurchArea" Type="nvarchar" MaxLength="300" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAS_CHC_FID" Type="int" />
+          <Property Name="Lead_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Lead_Mob" Type="nvarchar" MaxLength="100" />
+          <Property Name="Lead_EmailID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="8" />
+          <Property Name="Lead_Add" Type="nvarchar" MaxLength="500" />
+          <Property Name="Lead_DOJ" Type="datetime" />
+          <Property Name="Lead_DOB" Type="datetime" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Position" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Mas_LeaderComment">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="Mac_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mac_IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="LeaderFID" Type="int" />
+          <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="ReqFId" Type="int" />
+        </EntityType>
+        <EntityType Name="Mas_Notice">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="LeaderFId" Type="int" />
+          <Property Name="CurchId" Type="int" />
+          <Property Name="NoticeDate" Type="datetime" />
+          <Property Name="NoticeSubject" Type="nvarchar" MaxLength="50" />
+          <Property Name="NoticeDescription" Type="nvarchar(max)" />
+          <Property Name="NoticeDateValid" Type="datetime" />
+          <Property Name="NoticeViews" Type="bit" />
+          <Property Name="Meal_Attandence" Type="bit" />
+          <Property Name="NoticeCreateBy" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="MAS_POSTCOD">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fdate" Type="datetime" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="State_Fid" Type="int" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Area" Type="nvarchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="MAS_PrayerReq">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="Mac_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mac_IP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Deactivate" Type="bit" />
+          <Property Name="RequestType" Type="nvarchar" MaxLength="20" />
+          <Property Name="MAS_CHC_FID" Type="int" />
+          <Property Name="Req_ID" Type="int" />
+          <Property Name="Req_Date" Type="datetime" />
+          <Property Name="Req_Status" Type="bit" />
+          <Property Name="PrayerRemark" Type="nvarchar(max)" />
+          <Property Name="ApprovedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Mas_ReadView">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="NoticeFId" Type="int" />
+          <Property Name="MemberFId" Type="int" />
+          <Property Name="Counter" Type="int" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Like" Type="int" />
+        </EntityType>
+        <EntityType Name="MAS_STATE">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Active" Type="int" />
+        </EntityType>
+        <EntityType Name="MAS_UID">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="MAS_CHC_FID" Type="int" />
+          <Property Name="MAS_LEADER_FID" Type="int" />
+          <Property Name="MAS_INDVSL_FID" Type="int" />
+          <Property Name="U_Type" Type="nvarchar" MaxLength="50" />
+          <Property Name="U_ID" Type="nvarchar" MaxLength="50" />
+          <Property Name="U_Pass" Type="nvarchar" MaxLength="50" />
+          <Property Name="U_Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="MealAttendance">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FDate" Type="datetime" />
+          <Property Name="MacID" Type="nvarchar" MaxLength="50" />
+          <Property Name="MacIP" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mas_ChurchFid" Type="int" />
+          <Property Name="MemberFid" Type="int" />
+          <Property Name="NoticeFid" Type="int" />
+          <Property Name="NoOFAdult" Type="int" />
+          <Property Name="NoOfChild" Type="int" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="Deleted" Type="bit" />
+        </EntityType>
+        <Function Name="PendingPrayerRequest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_LeaderChurchId" Type="int" Mode="In" />
+          <Parameter Name="p_LeaderDesignation" Type="nvarchar" Mode="In" />
+          <Parameter Name="p_LeaderFid" Type="int" Mode="In" />
+          <Parameter Name="p_StateFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_GetMemberData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_INDVSLFID" Type="int" Mode="In" />
+          <Parameter Name="p_ChurchFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_AssignArea" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_LeaderFid" Type="int" Mode="In" />
+          <Parameter Name="p_churchFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_Church" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_List_CurchMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ChurchID" Type="int" Mode="In" />
+          <Parameter Name="p_LeaderFid" Type="int" Mode="In" />
+          <Parameter Name="p_LeaderDesignation" Type="nvarchar" Mode="In" />
+          <Parameter Name="p_StateFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_Donation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_DonationStatus" Type="int" Mode="In" />
+          <Parameter Name="p_ChurchFid" Type="int" Mode="In" />
+          <Parameter Name="p_FromDate" Type="date" Mode="In" />
+          <Parameter Name="p_ToDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_List_Enquiry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ChurhFid" Type="int" Mode="In" />
+          <Parameter Name="p_LeaderDesignation" Type="nvarchar" Mode="In" />
+          <Parameter Name="p_LeaderFid" Type="int" Mode="In" />
+          <Parameter Name="p_StateFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_Events" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_List_GetLeaderDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_LeaderFID" Type="int" Mode="In" />
+          <Parameter Name="p_ChurchFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_INDVSLFamilyMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_INDVSLFID" Type="int" Mode="In" />
+          <Parameter Name="p_ChurchFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_LeaderCreate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_List_LeaderRegistredMembersList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ChurchFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_MealAttendance" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ChurhFid" Type="int" Mode="In" />
+          <Parameter Name="p_LeaderDesignation" Type="nvarchar" Mode="In" />
+          <Parameter Name="p_LeaderFid" Type="int" Mode="In" />
+          <Parameter Name="p_StateFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_MemberPendingEnquiry" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ChurhFid" Type="int" Mode="In" />
+          <Parameter Name="p_MemberFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_Notice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_MemberFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_List_ReadNotice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_NoticeFId" Type="int" Mode="In" />
+          <Parameter Name="p_ChurchFid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Sp_ListofFamilyMember" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Indvsl_Fid" Type="int" Mode="In" />
+          <Parameter Name="Role" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CHC_NewModelStoreContainer">
+          <EntitySet Name="DocumentBaseUrl" EntityType="Self.DocumentBaseUrl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_ACTIVITY_I" EntityType="Self.MAS_ACTIVITY_I" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_ACTIVITY_II" EntityType="Self.MAS_ACTIVITY_II" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_AssignArea" EntityType="Self.Mas_AssignArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_Calender" EntityType="Self.MAS_Calender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_CHC" EntityType="Self.MAS_CHC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_Donation" EntityType="Self.Mas_Donation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_Enquiry" EntityType="Self.Mas_Enquiry" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_Event" EntityType="Self.Mas_Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_EventPost" EntityType="Self.Mas_EventPost" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_EventVideo" EntityType="Self.Mas_EventVideo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_INDVFMLY" EntityType="Self.MAS_INDVFMLY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_INDVSL" EntityType="Self.MAS_INDVSL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_LEADER" EntityType="Self.MAS_LEADER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_LeaderComment" EntityType="Self.Mas_LeaderComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_Notice" EntityType="Self.Mas_Notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_POSTCOD" EntityType="Self.MAS_POSTCOD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_PrayerReq" EntityType="Self.MAS_PrayerReq" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mas_ReadView" EntityType="Self.Mas_ReadView" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_STATE" EntityType="Self.MAS_STATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAS_UID" EntityType="Self.MAS_UID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MealAttendance" EntityType="Self.MealAttendance" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CHC_NewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MAS_ACTIVITY_I">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="Mac_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mac_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_CHC_FID" Type="Int32" />
+          <Property Name="ACT_Header" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ACT_Details" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ACT_Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="MAS_Calender">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_CHC_FID" Type="Int32" />
+          <Property Name="CAL_Date" Type="DateTime" Precision="3" />
+          <Property Name="CAL_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="CHC_NewEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MAS_ACTIVITY_I" EntityType="Self.MAS_ACTIVITY_I" />
+          <EntitySet Name="MAS_Calender" EntityType="Self.MAS_Calender" />
+          <EntitySet Name="MAS_UID" EntityType="CHC_NewModel.MAS_UID" />
+          <EntitySet Name="MAS_ACTIVITY_II" EntityType="CHC_NewModel.MAS_ACTIVITY_II" />
+          <EntitySet Name="MAS_INDVFMLY" EntityType="CHC_NewModel.MAS_INDVFMLY" />
+          <FunctionImport Name="Sp_ListofFamilyMember" ReturnType="Collection(CHC_NewModel.Sp_ListofFamilyMember_Result)">
+            <Parameter Name="Indvsl_Fid" Mode="In" Type="Int32" />
+            <Parameter Name="Role" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="MAS_STATE" EntityType="CHC_NewModel.MAS_STATE" />
+          <EntitySet Name="MAS_POSTCOD" EntityType="CHC_NewModel.MAS_POSTCOD" />
+          <EntitySet Name="MAS_CHC" EntityType="CHC_NewModel.MAS_CHC" />
+          <EntitySet Name="Mas_ReadView" EntityType="CHC_NewModel.Mas_ReadView" />
+          <FunctionImport Name="sp_List_INDVSLFamilyMember" ReturnType="Collection(CHC_NewModel.sp_List_INDVSLFamilyMember_Result)">
+            <Parameter Name="p_INDVSLFID" Mode="In" Type="Int32" />
+            <Parameter Name="p_ChurchFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Mas_LeaderComment" EntityType="CHC_NewModel.Mas_LeaderComment" />
+          <FunctionImport Name="sp_List_MemberPendingEnquiry" ReturnType="Collection(CHC_NewModel.sp_List_MemberPendingEnquiry_Result)">
+            <Parameter Name="p_ChurhFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_MemberFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_Events" ReturnType="Collection(CHC_NewModel.sp_List_Events_Result)" />
+          <EntitySet Name="Mas_Donation" EntityType="CHC_NewModel.Mas_Donation" />
+          <FunctionImport Name="sp_List_LeaderRegistredMembersList" ReturnType="Collection(CHC_NewModel.sp_List_LeaderRegistredMembersList_Result)">
+          <Parameter Name="p_ChurchFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_GetLeaderDetail" ReturnType="Collection(CHC_NewModel.sp_List_GetLeaderDetail_Result)">
+            <Parameter Name="p_LeaderFID" Mode="In" Type="Int32" />
+            <Parameter Name="p_ChurchFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Mas_Enquiry" EntityType="CHC_NewModel.Mas_Enquiry" />
+          <FunctionImport Name="sp_List_Donation" ReturnType="Collection(CHC_NewModel.sp_List_Donation_Result)">
+            <Parameter Name="p_DonationStatus" Mode="In" Type="Int32" />
+            <Parameter Name="p_ChurchFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_FromDate" Mode="In" Type="DateTime" />
+            <Parameter Name="p_ToDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="DocumentBaseUrls" EntityType="CHC_NewModel.DocumentBaseUrl" />
+          <FunctionImport Name="sp_List_Church" ReturnType="Collection(CHC_NewModel.sp_List_Church_Result)" />
+          <FunctionImport Name="sp_GetMemberData" ReturnType="Collection(CHC_NewModel.sp_GetMemberData_Result)">
+            <Parameter Name="p_INDVSLFID" Mode="In" Type="Int32" />
+            <Parameter Name="p_ChurchFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="MAS_LEADER" EntityType="CHC_NewModel.MAS_LEADER" />
+          <EntitySet Name="MAS_PrayerReq" EntityType="CHC_NewModel.MAS_PrayerReq" />
+          <EntitySet Name="Mas_AssignArea" EntityType="CHC_NewModel.Mas_AssignArea" />
+          <EntitySet Name="Mas_Event" EntityType="CHC_NewModel.Mas_Event" />
+          <EntitySet Name="Mas_EventPost" EntityType="CHC_NewModel.Mas_EventPost" />
+          <EntitySet Name="Mas_EventVideo" EntityType="CHC_NewModel.Mas_EventVideo" />
+          <EntitySet Name="MAS_INDVSL" EntityType="CHC_NewModel.MAS_INDVSL" />
+          <FunctionImport Name="sp_List_ReadNotice" ReturnType="Collection(CHC_NewModel.sp_List_ReadNotice_Result)">
+            <Parameter Name="p_NoticeFId" Mode="In" Type="Int32" />
+            <Parameter Name="p_ChurchFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Mas_Notice" EntityType="CHC_NewModel.Mas_Notice" />
+          <FunctionImport Name="PendingPrayerRequest" ReturnType="Collection(CHC_NewModel.PendingPrayerRequest_Result)">
+            <Parameter Name="p_LeaderChurchId" Mode="In" Type="Int32" />
+            <Parameter Name="p_LeaderDesignation" Mode="In" Type="String" />
+            <Parameter Name="p_LeaderFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_StateFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_CurchMember" ReturnType="Collection(CHC_NewModel.sp_List_CurchMember_Result)">
+            <Parameter Name="p_ChurchID" Mode="In" Type="Int32" />
+            <Parameter Name="p_LeaderFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_LeaderDesignation" Mode="In" Type="String" />
+            <Parameter Name="p_StateFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_Enquiry" ReturnType="Collection(CHC_NewModel.sp_List_Enquiry_Result)">
+            <Parameter Name="p_ChurhFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_LeaderDesignation" Mode="In" Type="String" />
+            <Parameter Name="p_LeaderFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_StateFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_AssignArea" ReturnType="Collection(CHC_NewModel.sp_List_AssignArea_Result)">
+            <Parameter Name="p_LeaderFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_churchFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="MealAttendances" EntityType="CHC_NewModel.MealAttendance" />
+          <FunctionImport Name="sp_List_MealAttendance" ReturnType="Collection(CHC_NewModel.sp_List_MealAttendance_Result)">
+            <Parameter Name="p_ChurhFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_LeaderDesignation" Mode="In" Type="String" />
+            <Parameter Name="p_LeaderFid" Mode="In" Type="Int32" />
+            <Parameter Name="p_StateFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_Notice" ReturnType="Collection(CHC_NewModel.sp_List_Notice_Result)">
+          <Parameter Name="p_MemberFid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_List_LeaderCreate" ReturnType="Collection(CHC_NewModel.sp_List_LeaderCreate_Result)" />
+        </EntityContainer>
+        <EntityType Name="MAS_UID">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_CHC_FID" Type="Int32" />
+          <Property Name="MAS_LEADER_FID" Type="Int32" />
+          <Property Name="MAS_INDVSL_FID" Type="Int32" />
+          <Property Name="U_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="U_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="U_Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="U_Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MAS_ACTIVITY_II">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="Mac_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mac_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_ACTI_FID" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MAS_INDVFMLY">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fdate" Type="DateTime" Precision="3" />
+          <Property Name="Mid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mip" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_INDVSL_Fid" Type="Int32" />
+          <Property Name="Relation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Member_id" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="Sp_ListofFamilyMember_Result">
+          <Property Type="Int32" Name="FID" Nullable="false" />
+          <Property Type="DateTime" Name="FDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="MacID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MacIP" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MAS_CHC_FID" Nullable="true" />
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Mob" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Email" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="IND_DOJ" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="IND_DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="IND_Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="AdharNo" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="NameAsAadhar" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="IND_Image" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="IND_ReffName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Enroll_ID" Nullable="true" />
+          <Property Type="String" Name="Enroll_Type" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="Relation" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Family_Fid" Nullable="true" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="MAS_STATE">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MAS_POSTCOD">
+          <Key>
+            <PropertyRef Name="Fid" />
+          </Key>
+          <Property Name="Fid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fdate" Type="DateTime" Precision="3" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State_Fid" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MAS_CHC">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CHC_Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CHC_Long" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CHC_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Mas_State_Fid" Type="Int32" />
+          <Property Name="Mas_Postcode_Fid" Type="Int32" />
+          <Property Name="CHC_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Mas_ReadView">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoticeFId" Type="Int32" />
+          <Property Name="MemberFId" Type="Int32" />
+          <Property Name="Counter" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Like" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="sp_List_INDVSLFamilyMember_Result">
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FamilyMemberFid" Nullable="false" />
+          <Property Type="Int32" Name="MAS_CHC_FID" Nullable="true" />
+          <Property Type="String" Name="RegistrationDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="Relation" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Mas_LeaderComment">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="Mac_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mac_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LeaderFID" Type="Int32" />
+          <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReqFId" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="sp_List_MemberPendingEnquiry_Result">
+          <Property Type="Int32" Name="EnquiryFId" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Enquiry" Nullable="true" />
+          <Property Type="Int32" Name="MemberFId" Nullable="true" />
+          <Property Type="String" Name="EnquiryRaisedDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="MemberName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MemberEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ChurchName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ChurhFId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_List_Events_Result">
+          <Property Type="Int32" Name="ChurchFId" Nullable="true" />
+          <Property Type="Int32" Name="LeaderFId" Nullable="true" />
+          <Property Type="Int32" Name="EventFId" Nullable="true" />
+          <Property Type="String" Name="ImageURL" Nullable="true" />
+          <Property Type="String" Name="EventNote" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="EventTime" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="EventDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="VideoUrl" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Mas_Donation">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="ChurchFId" Type="Int32" />
+          <Property Name="MemberFId" Type="Int32" />
+          <Property Name="DonationDate" Type="DateTime" Precision="3" />
+          <Property Name="Purpose" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="DonationAttechment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="sp_List_LeaderRegistredMembersList_Result">
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FID" Nullable="false" />
+          <Property Type="Int32" Name="MAS_CHC_FID" Nullable="true" />
+          <Property Type="String" Name="IND_Mob" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Enroll_Type" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdharNo" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="RegistraionDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="BirthDate" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="sp_List_GetLeaderDetail_Result">
+          <Property Type="String" Name="LeaderName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Lead_Mob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Lead_EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BirthDate" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="LeaderBirthDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Lead_Add" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="LeaderFId" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="RegistrationDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="U_Type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Mas_Enquiry">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="CurchId" Type="Int32" />
+          <Property Name="MemberFId" Type="Int32" />
+          <Property Name="LeaderFId" Type="Int32" />
+          <Property Name="Subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Enquiry" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EnquiryDate" Type="DateTime" Precision="3" />
+          <Property Name="ResponsedDate" Type="DateTime" Precision="3" />
+          <Property Name="Respons" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="LeaderResponseStatus" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="sp_List_Donation_Result">
+          <Property Type="Int32" Name="FId" Nullable="false" />
+          <Property Type="Int32" Name="ChurchFId" Nullable="true" />
+          <Property Type="Int32" Name="MemberFId" Nullable="true" />
+          <Property Type="DateTime" Name="DonationDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Purpose" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Amount" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="Status" Nullable="true" />
+          <Property Type="String" Name="DonationAttechment" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Mob" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="DocumentBaseUrl">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BaseUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="sp_List_Church_Result">
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="FDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="churchFid" Nullable="false" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="stateFid" Nullable="false" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Area" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="postcodeFid" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_GetMemberData_Result">
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MAS_CHC_FID" Nullable="true" />
+          <Property Type="String" Name="IND_Mob" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Email" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BirthDate" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="IndvslBirthDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="IND_Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="AdharNo" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="IND_ReffName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MemberFId" Nullable="false" />
+          <Property Type="String" Name="IND_Image" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RegistrationDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="U_Type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="MAS_LEADER">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateFid" Type="Int32" />
+          <Property Name="CityName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ChurchArea" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PostCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_CHC_FID" Type="Int32" />
+          <Property Name="Lead_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Lead_Mob" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Lead_EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="Lead_Add" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Lead_DOJ" Type="DateTime" Precision="3" />
+          <Property Name="Lead_DOB" Type="DateTime" Precision="3" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MAS_PrayerReq">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="Mac_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mac_IP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="RequestType" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_CHC_FID" Type="Int32" />
+          <Property Name="Req_ID" Type="Int32" />
+          <Property Name="Req_Date" Type="DateTime" Precision="3" />
+          <Property Name="Req_Status" Type="Boolean" />
+          <Property Name="PrayerRemark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Mas_AssignArea">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateFid" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mas_LeaderFid" Type="Int32" />
+          <Property Name="Mas_churchFId" Type="Int32" />
+          <Property Name="Deleted" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Mas_Event">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChurchFId" Type="Int32" />
+          <Property Name="LeaderFId" Type="Int32" />
+          <Property Name="EventNote" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" />
+          <Property Name="Edited" Type="Boolean" />
+          <Property Name="AdminEvent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Mas_EventPost">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChurchFId" Type="Int32" />
+          <Property Name="LeaderFId" Type="Int32" />
+          <Property Name="EventFId" Type="Int32" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="AdminEvent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Mas_EventVideo">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="ChurchFId" Type="Int32" />
+          <Property Name="LeaderFId" Type="Int32" />
+          <Property Name="EventFId" Type="Int32" />
+          <Property Name="VideoUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdminEvent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MAS_INDVSL">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StateFid" Type="Int32" />
+          <Property Name="City" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MAS_CHC_FID" Type="Int32" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="IND_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IND_Mob" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IND_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IND_DOJ" Type="DateTime" Precision="3" />
+          <Property Name="IND_DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="IND_Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AdharNo" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="NameAsAadhar" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IND_Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IND_ReffName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Enroll_ID" Type="Int32" />
+          <Property Name="Enroll_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="sp_List_ReadNotice_Result">
+          <Property Type="Int32" Name="FId" Nullable="false" />
+          <Property Type="Int32" Name="LeaderFId" Nullable="true" />
+          <Property Type="Int32" Name="CurchId" Nullable="true" />
+          <Property Type="Boolean" Name="Meal_Attandence" Nullable="true" />
+          <Property Type="String" Name="NoticeDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="NoticeDateValid" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="NoticeSubject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NoticeDescription" Nullable="true" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CHC_Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Lead_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Lead_Mob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Lead_EmailID" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="Mas_Notice">
+          <Key>
+            <PropertyRef Name="FId" />
+          </Key>
+          <Property Name="FId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Deactivate" Type="Boolean" />
+          <Property Name="LeaderFId" Type="Int32" />
+          <Property Name="CurchId" Type="Int32" />
+          <Property Name="NoticeDate" Type="DateTime" Precision="3" />
+          <Property Name="NoticeSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NoticeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NoticeDateValid" Type="DateTime" Precision="3" />
+          <Property Name="NoticeViews" Type="Boolean" />
+          <Property Name="Meal_Attandence" Type="Boolean" />
+          <Property Name="NoticeCreateBy" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="PendingPrayerRequest_Result">
+          <Property Type="Int32" Name="Req_ID" Nullable="true" />
+          <Property Type="Int32" Name="FID" Nullable="false" />
+          <Property Type="Boolean" Name="Req_Status" Nullable="true" />
+          <Property Type="DateTime" Name="Req_Date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="RequestType" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="PrayerRemark" Nullable="true" />
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdharNo" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_List_CurchMember_Result">
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Mob" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="MAS_CHC_FID" Nullable="true" />
+          <Property Type="String" Name="IND_Email" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="IND_DOJ" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="IND_DOB" Nullable="true" Precision="23" />
+          <Property Type="String" Name="IND_Address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="AdharNo" Nullable="true" MaxLength="12" />
+          <Property Type="Int32" Name="MemberFId" Nullable="false" />
+          <Property Type="String" Name="ImageUrl" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="U_Type" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="U_Status" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_List_Enquiry_Result">
+          <Property Type="Int32" Name="EnquiryFId" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Enquiry" Nullable="true" />
+          <Property Type="Int32" Name="MemberFId" Nullable="true" />
+          <Property Type="String" Name="EnquiryRaisedDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="MemberName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MemberEmail" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ChurchName" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="ChurhFId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_List_AssignArea_Result">
+          <Property Type="String" Name="city" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Area" Nullable="true" />
+          <Property Type="Int32" Name="stateFid" Nullable="true" />
+          <Property Type="Int32" Name="mas_LeaderFid" Nullable="true" />
+          <Property Type="Int32" Name="mas_churchFID" Nullable="true" />
+          <Property Type="String" Name="Lead_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <EntityType Name="MealAttendance">
+          <Key>
+            <PropertyRef Name="FID" />
+          </Key>
+          <Property Name="FID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FDate" Type="DateTime" Precision="3" />
+          <Property Name="MacID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MacIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mas_ChurchFid" Type="Int32" />
+          <Property Name="MemberFid" Type="Int32" />
+          <Property Name="NoticeFid" Type="Int32" />
+          <Property Name="NoOFAdult" Type="Int32" />
+          <Property Name="NoOfChild" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="sp_List_MealAttendance_Result">
+          <Property Type="Int32" Name="MemberFid" Nullable="true" />
+          <Property Type="Int32" Name="NoOFAdult" Nullable="true" />
+          <Property Type="Int32" Name="NoOfChild" Nullable="true" />
+          <Property Type="Int32" Name="FID" Nullable="false" />
+          <Property Type="Boolean" Name="Deleted" Nullable="true" />
+          <Property Type="Int32" Name="totalCount" Nullable="true" />
+          <Property Type="String" Name="IND_Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="IND_Mob" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_List_Notice_Result">
+          <Property Type="Int32" Name="FId" Nullable="false" />
+          <Property Type="DateTime" Name="FDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="LeaderFId" Nullable="true" />
+          <Property Type="Int32" Name="CurchId" Nullable="true" />
+          <Property Type="String" Name="NoticeDate" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="NoticeSubject" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NoticeDescription" Nullable="true" />
+          <Property Type="String" Name="NoticeDateValid" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="NoticeTillDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Meal_Attandence" Nullable="true" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_List_LeaderCreate_Result">
+          <Property Type="String" Name="Lead_Name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Lead_Mob" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Lead_EmailID" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Gender" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Lead_Add" Nullable="true" MaxLength="500" />
+          <Property Type="DateTime" Name="Lead_DOJ" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Lead_DOB" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="FID" Nullable="false" />
+          <Property Type="Int32" Name="MAS_CHC_FID" Nullable="true" />
+          <Property Type="String" Name="CHC_Name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="U_Type" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CHC_NewModelStoreContainer" CdmEntityContainer="CHC_NewEntities">
+          <EntitySetMapping Name="MAS_ACTIVITY_I">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_ACTIVITY_I">
+              <MappingFragment StoreEntitySet="MAS_ACTIVITY_I">
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="Mac_ID" ColumnName="Mac_ID" />
+                <ScalarProperty Name="Mac_IP" ColumnName="Mac_IP" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="ACT_Header" ColumnName="ACT_Header" />
+                <ScalarProperty Name="ACT_Details" ColumnName="ACT_Details" />
+                <ScalarProperty Name="ACT_Date" ColumnName="ACT_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_Calender">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_Calender">
+              <MappingFragment StoreEntitySet="MAS_Calender">
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="CAL_Date" ColumnName="CAL_Date" />
+                <ScalarProperty Name="CAL_Description" ColumnName="CAL_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_UID">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_UID">
+              <MappingFragment StoreEntitySet="MAS_UID">
+                <ScalarProperty Name="U_Status" ColumnName="U_Status" />
+                <ScalarProperty Name="U_Pass" ColumnName="U_Pass" />
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="U_Type" ColumnName="U_Type" />
+                <ScalarProperty Name="MAS_INDVSL_FID" ColumnName="MAS_INDVSL_FID" />
+                <ScalarProperty Name="MAS_LEADER_FID" ColumnName="MAS_LEADER_FID" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_ACTIVITY_II">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_ACTIVITY_II">
+              <MappingFragment StoreEntitySet="MAS_ACTIVITY_II">
+                <ScalarProperty Name="ImageDesc" ColumnName="ImageDesc" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="MAS_ACTI_FID" ColumnName="MAS_ACTI_FID" />
+                <ScalarProperty Name="Mac_IP" ColumnName="Mac_IP" />
+                <ScalarProperty Name="Mac_ID" ColumnName="Mac_ID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_INDVFMLY">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_INDVFMLY">
+              <MappingFragment StoreEntitySet="MAS_INDVFMLY">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Member_id" ColumnName="Member_id" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="MAS_INDVSL_Fid" ColumnName="MAS_INDVSL_Fid" />
+                <ScalarProperty Name="Mip" ColumnName="Mip" />
+                <ScalarProperty Name="Mid" ColumnName="Mid" />
+                <ScalarProperty Name="Fdate" ColumnName="Fdate" />
+                <ScalarProperty Name="Fid" ColumnName="Fid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_ListofFamilyMember" FunctionName="CHC_NewModel.Store.Sp_ListofFamilyMember">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.Sp_ListofFamilyMember_Result">
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+                <ScalarProperty Name="IND_Email" ColumnName="IND_Email" />
+                <ScalarProperty Name="IND_DOJ" ColumnName="IND_DOJ" />
+                <ScalarProperty Name="IND_DOB" ColumnName="IND_DOB" />
+                <ScalarProperty Name="IND_Address" ColumnName="IND_Address" />
+                <ScalarProperty Name="AdharNo" ColumnName="AdharNo" />
+                <ScalarProperty Name="NameAsAadhar" ColumnName="NameAsAadhar" />
+                <ScalarProperty Name="IND_Image" ColumnName="IND_Image" />
+                <ScalarProperty Name="IND_ReffName" ColumnName="IND_ReffName" />
+                <ScalarProperty Name="Enroll_ID" ColumnName="Enroll_ID" />
+                <ScalarProperty Name="Enroll_Type" ColumnName="Enroll_Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="Family_Fid" ColumnName="Family_Fid" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="MAS_STATE">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_STATE">
+              <MappingFragment StoreEntitySet="MAS_STATE">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Fid" ColumnName="Fid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_POSTCOD">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_POSTCOD">
+              <MappingFragment StoreEntitySet="MAS_POSTCOD">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State_Fid" ColumnName="State_Fid" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Fdate" ColumnName="Fdate" />
+                <ScalarProperty Name="Fid" ColumnName="Fid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_CHC">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_CHC">
+              <MappingFragment StoreEntitySet="MAS_CHC">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CHC_Address" ColumnName="CHC_Address" />
+                <ScalarProperty Name="Mas_Postcode_Fid" ColumnName="Mas_Postcode_Fid" />
+                <ScalarProperty Name="Mas_State_Fid" ColumnName="Mas_State_Fid" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+                <ScalarProperty Name="CHC_Long" ColumnName="CHC_Long" />
+                <ScalarProperty Name="CHC_Lat" ColumnName="CHC_Lat" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mas_ReadView">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_ReadView">
+              <MappingFragment StoreEntitySet="Mas_ReadView">
+                <ScalarProperty Name="Like" ColumnName="Like" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Counter" ColumnName="Counter" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="NoticeFId" ColumnName="NoticeFId" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_INDVSLFamilyMember" FunctionName="CHC_NewModel.Store.sp_List_INDVSLFamilyMember">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_INDVSLFamilyMember_Result">
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="FamilyMemberFid" ColumnName="FamilyMemberFid" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Mas_LeaderComment">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_LeaderComment">
+              <MappingFragment StoreEntitySet="Mas_LeaderComment">
+                <ScalarProperty Name="ReqFId" ColumnName="ReqFId" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="LeaderFID" ColumnName="LeaderFID" />
+                <ScalarProperty Name="Mac_IP" ColumnName="Mac_IP" />
+                <ScalarProperty Name="Mac_ID" ColumnName="Mac_ID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_MemberPendingEnquiry" FunctionName="CHC_NewModel.Store.sp_List_MemberPendingEnquiry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_MemberPendingEnquiry_Result">
+                <ScalarProperty Name="EnquiryFId" ColumnName="EnquiryFId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Enquiry" ColumnName="Enquiry" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="EnquiryRaisedDate" ColumnName="EnquiryRaisedDate" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberEmail" ColumnName="MemberEmail" />
+                <ScalarProperty Name="ChurchName" ColumnName="ChurchName" />
+                <ScalarProperty Name="ChurhFId" ColumnName="ChurhFId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_Events" FunctionName="CHC_NewModel.Store.sp_List_Events">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_Events_Result">
+                <ScalarProperty Name="ChurchFId" ColumnName="ChurchFId" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="EventFId" ColumnName="EventFId" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="EventNote" ColumnName="EventNote" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Mas_Donation">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_Donation">
+              <MappingFragment StoreEntitySet="Mas_Donation">
+                <ScalarProperty Name="DonationAttechment" ColumnName="DonationAttechment" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="DonationDate" ColumnName="DonationDate" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="ChurchFId" ColumnName="ChurchFId" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_LeaderRegistredMembersList" FunctionName="CHC_NewModel.Store.sp_List_LeaderRegistredMembersList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_LeaderRegistredMembersList_Result">
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+                <ScalarProperty Name="IND_Email" ColumnName="IND_Email" />
+                <ScalarProperty Name="IND_Address" ColumnName="IND_Address" />
+                <ScalarProperty Name="Enroll_Type" ColumnName="Enroll_Type" />
+                <ScalarProperty Name="AdharNo" ColumnName="AdharNo" />
+                <ScalarProperty Name="RegistraionDate" ColumnName="RegistraionDate" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_GetLeaderDetail" FunctionName="CHC_NewModel.Store.sp_List_GetLeaderDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_GetLeaderDetail_Result">
+                <ScalarProperty Name="LeaderName" ColumnName="LeaderName" />
+                <ScalarProperty Name="Lead_Mob" ColumnName="Lead_Mob" />
+                <ScalarProperty Name="Lead_EmailID" ColumnName="Lead_EmailID" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="LeaderBirthDate" ColumnName="LeaderBirthDate" />
+                <ScalarProperty Name="Lead_Add" ColumnName="Lead_Add" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+                <ScalarProperty Name="U_Type" ColumnName="U_Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Mas_Enquiry">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_Enquiry">
+              <MappingFragment StoreEntitySet="Mas_Enquiry">
+                <ScalarProperty Name="LeaderResponseStatus" ColumnName="LeaderResponseStatus" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Respons" ColumnName="Respons" />
+                <ScalarProperty Name="ResponsedDate" ColumnName="ResponsedDate" />
+                <ScalarProperty Name="EnquiryDate" ColumnName="EnquiryDate" />
+                <ScalarProperty Name="Enquiry" ColumnName="Enquiry" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="CurchId" ColumnName="CurchId" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_Donation" FunctionName="CHC_NewModel.Store.sp_List_Donation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_Donation_Result">
+                <ScalarProperty Name="FId" ColumnName="FId" />
+                <ScalarProperty Name="ChurchFId" ColumnName="ChurchFId" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="DonationDate" ColumnName="DonationDate" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DonationAttechment" ColumnName="DonationAttechment" />
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+                <ScalarProperty Name="IND_Email" ColumnName="IND_Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="DocumentBaseUrls">
+            <EntityTypeMapping TypeName="CHC_NewModel.DocumentBaseUrl">
+              <MappingFragment StoreEntitySet="DocumentBaseUrl">
+                <ScalarProperty Name="BaseUrl" ColumnName="BaseUrl" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_Church" FunctionName="CHC_NewModel.Store.sp_List_Church">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_Church_Result">
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="churchFid" ColumnName="churchFid" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="stateFid" ColumnName="stateFid" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="postcodeFid" ColumnName="postcodeFid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetMemberData" FunctionName="CHC_NewModel.Store.sp_GetMemberData">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_GetMemberData_Result">
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+                <ScalarProperty Name="IND_Email" ColumnName="IND_Email" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="IndvslBirthDate" ColumnName="IndvslBirthDate" />
+                <ScalarProperty Name="IND_Address" ColumnName="IND_Address" />
+                <ScalarProperty Name="AdharNo" ColumnName="AdharNo" />
+                <ScalarProperty Name="IND_ReffName" ColumnName="IND_ReffName" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="IND_Image" ColumnName="IND_Image" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+                <ScalarProperty Name="U_Type" ColumnName="U_Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="MAS_LEADER">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_LEADER">
+              <MappingFragment StoreEntitySet="MAS_LEADER">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Lead_DOB" ColumnName="Lead_DOB" />
+                <ScalarProperty Name="Lead_DOJ" ColumnName="Lead_DOJ" />
+                <ScalarProperty Name="Lead_Add" ColumnName="Lead_Add" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Lead_EmailID" ColumnName="Lead_EmailID" />
+                <ScalarProperty Name="Lead_Mob" ColumnName="Lead_Mob" />
+                <ScalarProperty Name="Lead_Name" ColumnName="Lead_Name" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="ChurchArea" ColumnName="ChurchArea" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="StateFid" ColumnName="StateFid" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_PrayerReq">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_PrayerReq">
+              <MappingFragment StoreEntitySet="MAS_PrayerReq">
+                <ScalarProperty Name="ApprovedDateTime" ColumnName="ApprovedDateTime" />
+                <ScalarProperty Name="PrayerRemark" ColumnName="PrayerRemark" />
+                <ScalarProperty Name="Req_Status" ColumnName="Req_Status" />
+                <ScalarProperty Name="Req_Date" ColumnName="Req_Date" />
+                <ScalarProperty Name="Req_ID" ColumnName="Req_ID" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="Mac_IP" ColumnName="Mac_IP" />
+                <ScalarProperty Name="Mac_ID" ColumnName="Mac_ID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mas_AssignArea">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_AssignArea">
+              <MappingFragment StoreEntitySet="Mas_AssignArea">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Mas_churchFId" ColumnName="Mas_churchFId" />
+                <ScalarProperty Name="Mas_LeaderFid" ColumnName="Mas_LeaderFid" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateFid" ColumnName="StateFid" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mas_Event">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_Event">
+              <MappingFragment StoreEntitySet="Mas_Event">
+                <ScalarProperty Name="AdminEvent" ColumnName="AdminEvent" />
+                <ScalarProperty Name="Edited" ColumnName="Edited" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="EventNote" ColumnName="EventNote" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="ChurchFId" ColumnName="ChurchFId" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mas_EventPost">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_EventPost">
+              <MappingFragment StoreEntitySet="Mas_EventPost">
+                <ScalarProperty Name="AdminEvent" ColumnName="AdminEvent" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="EventFId" ColumnName="EventFId" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="ChurchFId" ColumnName="ChurchFId" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mas_EventVideo">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_EventVideo">
+              <MappingFragment StoreEntitySet="Mas_EventVideo">
+                <ScalarProperty Name="AdminEvent" ColumnName="AdminEvent" />
+                <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+                <ScalarProperty Name="EventFId" ColumnName="EventFId" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="ChurchFId" ColumnName="ChurchFId" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAS_INDVSL">
+            <EntityTypeMapping TypeName="CHC_NewModel.MAS_INDVSL">
+              <MappingFragment StoreEntitySet="MAS_INDVSL">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Enroll_Type" ColumnName="Enroll_Type" />
+                <ScalarProperty Name="Enroll_ID" ColumnName="Enroll_ID" />
+                <ScalarProperty Name="IND_ReffName" ColumnName="IND_ReffName" />
+                <ScalarProperty Name="IND_Image" ColumnName="IND_Image" />
+                <ScalarProperty Name="NameAsAadhar" ColumnName="NameAsAadhar" />
+                <ScalarProperty Name="AdharNo" ColumnName="AdharNo" />
+                <ScalarProperty Name="IND_Address" ColumnName="IND_Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IND_DOB" ColumnName="IND_DOB" />
+                <ScalarProperty Name="IND_DOJ" ColumnName="IND_DOJ" />
+                <ScalarProperty Name="IND_Email" ColumnName="IND_Email" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateFid" ColumnName="StateFid" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_ReadNotice" FunctionName="CHC_NewModel.Store.sp_List_ReadNotice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_ReadNotice_Result">
+                <ScalarProperty Name="FId" ColumnName="FId" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="CurchId" ColumnName="CurchId" />
+                <ScalarProperty Name="Meal_Attandence" ColumnName="Meal_Attandence" />
+                <ScalarProperty Name="NoticeDate" ColumnName="NoticeDate" />
+                <ScalarProperty Name="NoticeDateValid" ColumnName="NoticeDateValid" />
+                <ScalarProperty Name="NoticeSubject" ColumnName="NoticeSubject" />
+                <ScalarProperty Name="NoticeDescription" ColumnName="NoticeDescription" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+                <ScalarProperty Name="CHC_Address" ColumnName="CHC_Address" />
+                <ScalarProperty Name="Lead_Name" ColumnName="Lead_Name" />
+                <ScalarProperty Name="Lead_Mob" ColumnName="Lead_Mob" />
+                <ScalarProperty Name="Lead_EmailID" ColumnName="Lead_EmailID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Mas_Notice">
+            <EntityTypeMapping TypeName="CHC_NewModel.Mas_Notice">
+              <MappingFragment StoreEntitySet="Mas_Notice">
+                <ScalarProperty Name="NoticeCreateBy" ColumnName="NoticeCreateBy" />
+                <ScalarProperty Name="Meal_Attandence" ColumnName="Meal_Attandence" />
+                <ScalarProperty Name="NoticeViews" ColumnName="NoticeViews" />
+                <ScalarProperty Name="NoticeDateValid" ColumnName="NoticeDateValid" />
+                <ScalarProperty Name="NoticeDescription" ColumnName="NoticeDescription" />
+                <ScalarProperty Name="NoticeSubject" ColumnName="NoticeSubject" />
+                <ScalarProperty Name="NoticeDate" ColumnName="NoticeDate" />
+                <ScalarProperty Name="CurchId" ColumnName="CurchId" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="Deactivate" ColumnName="Deactivate" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FId" ColumnName="FId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PendingPrayerRequest" FunctionName="CHC_NewModel.Store.PendingPrayerRequest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.PendingPrayerRequest_Result">
+                <ScalarProperty Name="Req_ID" ColumnName="Req_ID" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="Req_Status" ColumnName="Req_Status" />
+                <ScalarProperty Name="Req_Date" ColumnName="Req_Date" />
+                <ScalarProperty Name="RequestType" ColumnName="RequestType" />
+                <ScalarProperty Name="PrayerRemark" ColumnName="PrayerRemark" />
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="AdharNo" ColumnName="AdharNo" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_CurchMember" FunctionName="CHC_NewModel.Store.sp_List_CurchMember">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_CurchMember_Result">
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="IND_Email" ColumnName="IND_Email" />
+                <ScalarProperty Name="IND_DOJ" ColumnName="IND_DOJ" />
+                <ScalarProperty Name="IND_DOB" ColumnName="IND_DOB" />
+                <ScalarProperty Name="IND_Address" ColumnName="IND_Address" />
+                <ScalarProperty Name="AdharNo" ColumnName="AdharNo" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="U_Type" ColumnName="U_Type" />
+                <ScalarProperty Name="U_Status" ColumnName="U_Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_Enquiry" FunctionName="CHC_NewModel.Store.sp_List_Enquiry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_Enquiry_Result">
+                <ScalarProperty Name="EnquiryFId" ColumnName="EnquiryFId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Enquiry" ColumnName="Enquiry" />
+                <ScalarProperty Name="MemberFId" ColumnName="MemberFId" />
+                <ScalarProperty Name="EnquiryRaisedDate" ColumnName="EnquiryRaisedDate" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberEmail" ColumnName="MemberEmail" />
+                <ScalarProperty Name="ChurchName" ColumnName="ChurchName" />
+                <ScalarProperty Name="ChurhFId" ColumnName="ChurhFId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_AssignArea" FunctionName="CHC_NewModel.Store.sp_List_AssignArea">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_AssignArea_Result">
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="stateFid" ColumnName="stateFid" />
+                <ScalarProperty Name="mas_LeaderFid" ColumnName="mas_LeaderFid" />
+                <ScalarProperty Name="mas_churchFID" ColumnName="mas_churchFID" />
+                <ScalarProperty Name="Lead_Name" ColumnName="Lead_Name" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="MealAttendances">
+            <EntityTypeMapping TypeName="CHC_NewModel.MealAttendance">
+              <MappingFragment StoreEntitySet="MealAttendance">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="NoOfChild" ColumnName="NoOfChild" />
+                <ScalarProperty Name="NoOFAdult" ColumnName="NoOFAdult" />
+                <ScalarProperty Name="NoticeFid" ColumnName="NoticeFid" />
+                <ScalarProperty Name="MemberFid" ColumnName="MemberFid" />
+                <ScalarProperty Name="Mas_ChurchFid" ColumnName="Mas_ChurchFid" />
+                <ScalarProperty Name="MacIP" ColumnName="MacIP" />
+                <ScalarProperty Name="MacID" ColumnName="MacID" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_MealAttendance" FunctionName="CHC_NewModel.Store.sp_List_MealAttendance">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_MealAttendance_Result">
+                <ScalarProperty Name="MemberFid" ColumnName="MemberFid" />
+                <ScalarProperty Name="NoOFAdult" ColumnName="NoOFAdult" />
+                <ScalarProperty Name="NoOfChild" ColumnName="NoOfChild" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="totalCount" ColumnName="totalCount" />
+                <ScalarProperty Name="IND_Name" ColumnName="IND_Name" />
+                <ScalarProperty Name="IND_Mob" ColumnName="IND_Mob" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_Notice" FunctionName="CHC_NewModel.Store.sp_List_Notice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_Notice_Result">
+                <ScalarProperty Name="FId" ColumnName="FId" />
+                <ScalarProperty Name="FDate" ColumnName="FDate" />
+                <ScalarProperty Name="LeaderFId" ColumnName="LeaderFId" />
+                <ScalarProperty Name="CurchId" ColumnName="CurchId" />
+                <ScalarProperty Name="NoticeDate" ColumnName="NoticeDate" />
+                <ScalarProperty Name="NoticeSubject" ColumnName="NoticeSubject" />
+                <ScalarProperty Name="NoticeDescription" ColumnName="NoticeDescription" />
+                <ScalarProperty Name="NoticeDateValid" ColumnName="NoticeDateValid" />
+                <ScalarProperty Name="NoticeTillDate" ColumnName="NoticeTillDate" />
+                <ScalarProperty Name="Meal_Attandence" ColumnName="Meal_Attandence" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_List_LeaderCreate" FunctionName="CHC_NewModel.Store.sp_List_LeaderCreate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CHC_NewModel.sp_List_LeaderCreate_Result">
+                <ScalarProperty Name="Lead_Name" ColumnName="Lead_Name" />
+                <ScalarProperty Name="Lead_Mob" ColumnName="Lead_Mob" />
+                <ScalarProperty Name="Lead_EmailID" ColumnName="Lead_EmailID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Lead_Add" ColumnName="Lead_Add" />
+                <ScalarProperty Name="Lead_DOJ" ColumnName="Lead_DOJ" />
+                <ScalarProperty Name="Lead_DOB" ColumnName="Lead_DOB" />
+                <ScalarProperty Name="FID" ColumnName="FID" />
+                <ScalarProperty Name="MAS_CHC_FID" ColumnName="MAS_CHC_FID" />
+                <ScalarProperty Name="CHC_Name" ColumnName="CHC_Name" />
+                <ScalarProperty Name="U_Type" ColumnName="U_Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

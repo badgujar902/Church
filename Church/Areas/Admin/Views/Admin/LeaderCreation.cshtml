@@ -1,0 +1,280 @@
+﻿@model Church.Models.ViewModel
+@{
+    ViewBag.Title = "LeaderCreation";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+<style>
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+</style>
+
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        let today = new Date().toLocaleDateString();
+       // let today= moment('YYYY-MM-D').format(today1);         
+        $("#Lead_DOJ").val(today);
+
+        msgLeaderCreate = @Html.Raw(Json.Encode(TempData["CreateLeader"]));
+
+        if (msgLeaderCreate!=null) {
+            swal("",msgLeaderCreate,"success");
+        }
+
+        //Space Not Allowed
+        $('#Lead_Mob').on('keypress', function (e) {
+            if (e.which == 32) {
+                swal("", "Space not Allowed", "error");
+                return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+            {
+                swal("", "Enter Only Digits", "error");
+                return false;
+            }
+        });
+
+        $('#Lead_EmailID').on('keypress', function (e) {
+            if (e.which == 32) {
+                swal("", "Space not Allowed", "error");
+                return false;
+            }
+        });
+
+        $('#U_ID').on('keypress', function (e) {
+            if (e.which == 32) {
+                swal("", "Space not Allowed", "error");
+                return false;
+            }
+        });
+
+        $('#U_Pass').on('keypress', function (e) {
+            if (e.which == 32) {
+                swal("", "Space not Allowed", "error");
+                return false;
+            }
+        });
+
+        $("#btnSave").click(function(){
+            var today = new Date();
+            var dob = new Date($("#Lead_DOB").val());
+            var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));         
+            if(age < 18)
+            {
+                swal("","Age should be minimum 18","error");
+                $("#Lead_DOB").css('border-color', 'red');
+                $("#loading").fadeOut();
+                return false;
+            }
+            else {
+                $("#Lead_DOB").css('border-color', '');
+            }
+        });
+
+        $("#MasStateId").on("change", function () {
+            debugger;
+            $("#MasCity").find("option").remove();
+            var StateId = $("#MasStateId").val();
+            $.ajax({
+                type: 'GET',
+                dataType: 'JSON',
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("GetCity", "Admin")',
+                data: { StateId: StateId },
+                success: function (data) {
+                    debugger;
+                    if (data != null) {
+                        //var data1 = data.data;
+                        $("#MasCity").append("<option value=''>--Select-- </option>");
+                        $.each(data, function (i, p) {
+                            $("#MasCity").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                        });
+                    }
+                    else {
+                        $('#ErrorESSPassword').html(" ");
+                    }
+                }
+            })
+
+        });
+    });//Ready
+</script>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="javascript:;">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="javascript:;">Leader Creation</a></li>
+        <li class="breadcrumb-item active">Leader Form</li>
+    </ol>
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Leader Creation Form</h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        
+        <!-- begin col-6 -->
+        <!-- end col-6 -->
+        <!-- begin col-6 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Leader Creation</h4>
+
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">                    
+                    <form action="/Admin/Admin/SaveLeaderCreation" id="userForm" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+
+                        @Html.HiddenFor(m => m.MAS_LEADER.FID)
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">State Name:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.DropDownList("Mas_StateId", new SelectList(ViewBag.GEtStateName, "Id", "Name"), "Select", new { @class = "form-control default-select2", id = "MasStateId", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">City Name:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.DropDownList("Mas_City", new SelectList(""), "Select", new { @class = "form-control default-select2", id = "MasCity", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Church Name:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.DropDownListFor(m => m.MAS_LEADER.MAS_CHC_FID, new SelectList(ViewBag.ChurchList, "FID", "CHC_Name"), "Select", new { @class = "form-control default-select2", id = "MAS_CHC_FID", @required = "required" })
+                            </div>
+                        </div>
+
+                      <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Leader Name:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.MAS_LEADER.Lead_Name, new { @class = "form-control", id = "Lead_Name", @placeholder = "Enter Full Name", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Mobile No:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.MAS_LEADER.Lead_Mob, new { @class = "form-control", id = "Lead_Mob", maxlength = "10", pattern = @"\d{10}", @placeholder = "999-999-9999", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Leader Email Id:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.MAS_LEADER.Lead_EmailID, new { @class = "form-control", id = "Lead_EmailID", @placeholder = "Enter Email Id", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Leader Address:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextAreaFor(m => m.MAS_LEADER.Lead_Add, new { @class = "form-control", id = "Lead_Add", @placeholder = "Enter Address", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label"> Date Of Joining:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.MAS_LEADER.Lead_DOJ, new { @class = "form-control", type="date",  id = "Lead_DOJ" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Date  Of Birth:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.MAS_LEADER.Lead_DOB, new { @class = "form-control",@type="date", id = "Lead_DOB", @placeholder = "Date Of Birth", @required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">UserName:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.TextBoxFor(m => m.MAS_UID.U_ID, new { @class = "form-control", id = "U_ID1", @placeholder = "Enter UserName", @required = "required",autocomplete="off" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label">Password:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                @Html.PasswordFor(m => m.MAS_UID.U_Pass, new { @class = "form-control", id = "U_Pass1", @placeholder = "Enter Password", @required = "required", autocomplete = "off" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-4 col-sm-4 col-form-label" for="website" style="text-align:left">Upload Image:<span style="color:red">*</span></label>
+                            <div class="col-md-8 col-sm-8">
+                                <input type="file" name="file" data-max-size="32154" accept="image/x-png, image/jpeg" id="file" value="" class="form-control" />
+                            </div>
+                        </div>
+
+ 
+                        <div class="text-center">
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5"><i class="fas fa-lg fa-fw m-r-10 fa-save" style="color:white"></i>CREATE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-5"></div>
+                <div id="loading">
+                    <div id="loadingcontent">
+                        <p id="loadingspinner">
+                            <i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>  Please Wait...
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+ 
+
+     

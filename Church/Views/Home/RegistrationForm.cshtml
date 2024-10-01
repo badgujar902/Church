@@ -1,0 +1,964 @@
+﻿@model Church.Models.MAS_INDVSL
+@{
+    Layout = null;
+}
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .btn-custom-height {
+        height: 35px;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    .important {
+        color: red;
+        margin-left: 5px; /* Optional: Add some space between the label text and the asterisk */
+    }
+</style>
+
+
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Registration Form</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="~/assets/css/apple/app.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+    <link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link href="~/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/danielfarrell/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/tag-it/css/jquery.tagit.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+    <link href="~/SweetAlert/sweetalert.css" rel="stylesheet" />
+    <script src="~/SweetAlert/sweetalert.js"></script>
+    <style>
+        .pace {
+            display: none !important;
+        }
+
+        .red {
+            color: red;
+        }
+
+
+
+        .color {
+            color: red;
+        }
+
+        .table-responsive {
+            display: block;
+            width: 90%;
+            overflow-x: auto;
+            margin-left: 0%;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .fillError {
+            color: red;
+        }
+        .Emailerror{
+              color: red;
+        }
+    </style>
+
+
+
+
+    <style>
+        .Userloaderbg {
+            background: rgb(0 0 0 / 90%);
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            z-index: 9999;
+        }
+
+        .Userloader {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            border: 3px solid;
+            border-color: #FFF #FFF transparent transparent;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+            .Userloader::after,
+            .Userloader::before {
+                content: '';
+                box-sizing: border-box;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                border: 3px solid;
+                border-color: transparent transparent #FF3D00 #FF3D00;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                box-sizing: border-box;
+                animation: rotationBack 0.5s linear infinite;
+                transform-origin: center center;
+            }
+
+            .Userloader::before {
+                width: 32px;
+                height: 32px;
+                border-color: #FFF #FFF transparent transparent;
+                animation: rotation 1.5s linear infinite;
+            }
+
+        .loadingtext {
+            color: #FFF;
+            display: inline-block;
+            position: relative;
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+            margin-top: 10px;
+        }
+
+            .loadingtext::after {
+                content: '';
+                width: 4px;
+                height: 4px;
+                background: currentColor;
+                border-radius: 50%;
+                position: absolute;
+                bottom: 5px;
+                right: -10px;
+                box-sizing: border-box;
+                animation: animloader 1s linear infinite;
+            }
+
+        @@keyframes animloader {
+            0% {
+                box-shadow: 10px 0 rgba(255, 255, 255, 0), 20px 0 rgba(255, 255, 255, 0);
+            }
+
+            50% {
+                box-shadow: 10px 0 white, 20px 0 rgba(255, 255, 255, 0);
+            }
+
+            100% {
+                box-shadow: 10px 0 white, 20px 0 white;
+            }
+        }
+
+        @@keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @@keyframes rotationBack {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+    </style>
+
+</head>
+
+
+
+
+
+
+<body>
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-without-sidebar" style="position:relative; width:100%;height:100%;">
+        <!-- begin #page-loader -->
+
+        <div class="Userloaderbg app-loader" id="loader">
+            <span class="Userloader"></span>
+            <span class="loadingtext">Loading</span>
+        </div>
+        <div id="content pt-5" class="content">
+            @*<ol class="breadcrumb float-xl-right">
+                @*<li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Login","Home",new { area = "" })'">Login</a></li>*
+                <li class="breadcrumb-item">
+                    <a href="#" onclick="location.href='@Url.Action("Login", "Home", new { area = "" })'">
+                        <i class="fa fa-sign-in-alt"></i> Login
+                    </a>
+                </li>
+
+            </ol>*@
+            <!-- begin page-header -->
+            @*<h1 class="page-header"></h1>*@
+            <!-- end page-header -->
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Registration</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" action="/Home/SaveRegistrationForm" method="post" id="frmRegistration" data-parsley-validate="" name="demo-form" enctype="multipart/form-data">
+                                <div>
+                                    <div id="basic">
+                                        @Html.HiddenFor(m => m.FID)
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        State Name
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m=>m.StateFid, new SelectList(ViewBag.GEtStateName, "Id", "Name"), "--Select--", new { @class = "form-control default-select2", id = "MasStateId", @required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        City Name
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m=>m.City, new SelectList(""), "--Select--", new { @class = "form-control default-select2", id = "MasCity", @required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                   
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Area
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m=>m.Area, new SelectList(""), "--Select--", new { @class = "form-control default-select2", id = "MasArea", @required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Post Code
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownList("PostCode", new SelectList(""), "--Select--", new { @class = "form-control default-select2", id = "MasPostCode", @required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Church Name
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.MAS_CHC_FID, new SelectList(""), "--Select--", new { @class = "form-control default-select2", id = "MAS_CHC_FID", @required = "required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Full Name
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.IND_Name, new { @class = "form-control", id = "IND_Name", placeholder = "Enter Full Name", @required = "required", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="row mb-15px" style="margin-bottom:15px;">
+                                                        <label class="form-label col-form-label col-md-4">
+                                                            Contact No
+                                                            <span class="important">*</span>
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(m => m.IND_Mob, new { @class = "form-control", id = "IND_Mob", maxlength = "10", pattern = @"\d{10}", placeholder = "999-999-9999", @required = "required", @autocomplete = "off" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="row mb-15px" style="margin-bottom:15px;">
+                                                        <label class="form-label col-form-label col-md-4">
+                                                            Email Id
+                                                            <span class="important">*</span>
+                                                        </label>
+                                                        <div class="col-md-8">
+                                                            @Html.TextBoxFor(m => m.IND_Email, new { @class = "form-control", id = "IND_Email",type="email", placeholder = "Enter Email Id", @required = "required", @autocomplete = "off" })
+                                                          <spane class="Emailerror" id="Email"></spane>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Date Of Birth
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.IND_DOB, new { @class = "form-control", id = "IND_DOB", type = "date", @required = "required", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Gender
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.DropDownListFor(m => m.Gender, new List<SelectListItem>
+                                                      {
+                                                          new SelectListItem { Text="Male",Value="Male" },
+                                                          new SelectListItem { Text="Female",Value="Female" },
+                                                             new SelectListItem { Text="Other",Value="Other" },
+
+                                                      }, "--Select--", new { @class = "form-control", name = "Type", id = "dllGender" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Aadhar No
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.AdharNo, new { @class = "form-control", id = "AdharNo", type = "text", maxlength = "12", pattern = "[0-9]*", placeholder = "Enter Adhar No", @required = "required", @autocomplete = "off" })                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Name As Par Aadhar
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextBoxFor(m => m.NameAsAadhar, new { @class = "form-control", id = "NameAsAadhar", placeholder = "Name as Par Adhar", @required = "required", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Address
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-8">
+                                                        @Html.TextAreaFor(m => m.IND_Address, new { @class = "form-control", id = "IND_Address", placeholder = "Enter Address", @required = "required", @autocomplete = "off" })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row mb-15px" style="margin-bottom:15px;">
+                                                    <label class="form-label col-form-label col-md-4">
+                                                        Upload Image
+                                                        <span class="important">*</span>
+                                                    </label>
+                                                    <div class="col-md-6">
+                                                        @*<input type="file" name="file" data-max-size="32154" accept=".png,.jpeg, .jpg" id="file" value="" class="form-control" required />*@
+                                                        <input type="file" name="file" data-max-size="32154" accept=".png,.jpeg,.jpg" id="file" class="form-control" required onchange="showImage(event)" />
+                                                        <span class="fillError" id="fillerro"></span>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <img id="imagePreview" src="" alt="Image Preview" style="display:none; max-width: 64px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="text-center">
+                                            @*<button type="button" id="btnSave" class="btn btn-sm btn-primary m-r-5"><i class="fas fa-lg fa-fw m-r-10 fa-save" style="color:white"></i>Register</button>*@
+                                            <button type="button" id="btnSave" class="btn btn-sm btn-primary m-r-5 btn-custom-height">Register</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+
+        @*<a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>*@
+        <!-- end scroll to top btn -->
+    </div>
+
+    <!-- end page container -->
+    <script>
+        $(document).ready(function () {
+            debugger
+            $("#MasStateId").select2();
+            $("#MasCity").select2();
+            $("#MAS_CHC_FID").select2();
+            $("#dllGender").select2();
+
+            $(".Userloaderbg").css("display", "none");
+            var Message=@(Html.Raw(Json.Encode(TempData["Message"])));
+            var Icon=@(Html.Raw(Json.Encode(TempData["Icon"])));
+            if (Message!=null) {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                })
+
+            }
+
+            //var today1 = new Date();
+            //var formattedDate = today1.getFullYear() + '-' + ('0' + (today1.getMonth() + 1)).slice(-2) + '-' + ('0' + today1.getDate()).slice(-2);
+            //var CheckEmptyDate = document.getElementById('IND_DOB').value;
+            //if (CheckEmptyDate == "") {
+
+            //    document.getElementById('IND_DOB').value = formattedDate;
+            //    //document.getElementById('IND_DOJ').value = formattedDate;
+            //}
+
+
+
+            msgRegistration =@Html.Raw(Json.Encode(TempData["Registration"]));
+
+            if (msgRegistration!=null) {
+                Swal.fire({
+                    title: '',
+                    text: msgRegistration,
+                    icon: "success",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                })
+
+            }
+
+
+
+
+            //Space Not Allowed
+            $('#IND_Mob').on('keypress', function (e) {
+                debugger
+
+                if (e.which == 32) {
+                    Swal.fire({
+                        title: '',
+                        text:  "Space not Allowed",
+                        icon: "error",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    })
+
+                    return false;
+                }
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+                {
+                    Swal.fire({
+                        title: '',
+                        text:   "Enter Only Digits",
+                        icon: "error",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    })
+
+                    return false;
+                }
+
+
+            });
+
+            $('#AdharNo').on('keypress', function (e) {
+                debugger
+
+                if (e.which == 32) {
+                    Swal.fire({
+                        title: '',
+                        text:"Space not Allowed",
+                        icon: "error",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    })
+
+                    return false;
+                }
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+                {
+                    Swal.fire({
+                        title: '',
+                        text: "Enter Only Digits",
+                        icon: "error",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    })
+
+                    return false;
+                }
+
+
+            });
+
+
+            $('#IND_Email').on('keypress', function (e) {
+                if (e.which == 32) {
+                    Swal.fire({
+                        title: '',
+                        text: "Space not Allowed",
+                        icon: "error",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    })
+
+                    return false;
+                }
+            });
+
+            $("#file").change(function () {
+                debugger;
+                $("#fillerro").html("");
+            })
+
+            $("#IND_Email").click(function () {
+                debugger;
+                $("#Email").html("");
+            })
+
+
+
+
+            $("#btnSave").click(function(){
+                debugger;
+                var form = $('#frmRegistration');
+
+                var today = new Date();
+                var dob = new Date($("#IND_DOB").val());
+                var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+
+                var fileInput = document.getElementById('file');
+                if (fileInput && fileInput.value) {
+                    var validExtensions = ['.png', '.jpg', '.jpeg'];
+                    var fileInput = document.getElementById('file');
+                    var filePath = fileInput.value;
+                    var fileExtension = filePath.substring(filePath.lastIndexOf('.'));
+                    if (validExtensions.indexOf(fileExtension.toLowerCase()) == -1) {
+
+                        Swal.fire({
+                            title: '',
+                            text: "Only PNG, JPG, and JPEG files are allowed.",
+                            icon: "warning",
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok'
+                        });
+                        // Clear the file input
+                        return false;
+                    }
+                }else{
+                    $("#fillerro").html("select your profile image");
+
+                    return false;
+                }
+                if(age < 18)
+                {
+                    Swal.fire({
+                        title: '',
+                        text:"Age should be minimum 18",
+                        icon: "error",
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    });
+                    $("#IND_DOB").css('border-color', 'red');
+                    //$("#DoB").after('<span class="red"></span>');
+                    $("#loading").fadeOut();
+                    return false;
+                }
+                else {
+                    $("#IND_DOB").css('border-color', '');
+                }
+
+                //var AdharLenght = $("#AdharNo").val().length;
+                //if (AdharLenght >12 && AdharLenght!=0 ) {
+                //    Swal.fire({
+                //        title: '',
+                //        text: "Adhar No Should Not be More Then 12 Digits",
+                //        icon: "error",
+                //        confirmButtonColor: '#3085d6',
+                //        confirmButtonText: 'Ok'
+                //    });
+                //    $("#AdharNo").css('border-color', 'red');
+                //    $("#loading").fadeOut();
+                //    return false;
+                //}
+
+                //if(AdharLenght <12 && AdharLenght!=0){
+                //    Swal.fire({
+                //        title: '',
+                //        text:  " Adhar No Should Not be less than 12 Digits",
+                //        icon: "error",
+                //        confirmButtonColor: '#3085d6',
+                //        confirmButtonText: 'Ok'
+                //    });
+
+                //    $("#AdharNo").css('border-color', 'red');
+                //    $("#loading").fadeOut();
+                //    return false;
+                //}
+                //check DataExistsOR
+
+                //var AdharNo = $("#AdharNo").val();
+                var ContactNo=$("#IND_Mob").val();
+                var EmailId=$("#IND_Email").val();
+
+                $.ajax({
+                    url: '@Url.Action("IsExists", "Home")',
+                    method:"get",
+                    data:{ContactNo:ContactNo,EmailId:EmailId},
+                    success:function(response){
+                        debugger;
+                        var Message1 = response.Message;
+                        var Icon1 = response.Icon;
+                        if (response.Icon=="error") {
+                            $(".Userloaderbg").css("display", "none");
+                            if (Message1!="" ) {
+                                if(Message1=="Email Already Exist")
+                                {
+                                    $("#Email").html(Message1);
+                                    $("#IND_Email").css("border", "1px solid red");
+                                    return false;
+                                }else{
+                                    Swal.fire({
+                                        title: '',
+                                        text: Message1,
+                                        icon: Icon1,
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Ok'
+                                    });
+                                }
+
+                                //swal("",Message1,Icon1);
+                            }
+                        }
+                        else{
+                            if (form[0].checkValidity()) {                          
+                                $(".Userloaderbg").css("display", "flex");
+                         
+                            }  
+                            $("#frmRegistration").submit();
+                          
+
+                        }
+
+                    }
+                });
+
+            });
+
+            $("#MasStateId").on("change", function () {
+                debugger;
+                $("#MasCity").find("option").remove();
+                var StateId = $("#MasStateId").val();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetCity", "Home")',
+                    data: { StateId: StateId },
+                    success: function (data) {
+                        debugger;
+                        if (data != null) {
+                            //var data1 = data.data;
+                            $("#MasCity").append("<option value=''>--Select--</option>");
+                            $.each(data, function (i, p) {
+                                $("#MasCity").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                            });
+                        }
+                        else {
+                            $('#ErrorESSPassword').html(" ");
+                        }
+                    }
+                })
+
+            });
+
+            @*$("#MasCity").on("change", function () {
+                debugger;
+                $("#MAS_CHC_FID").find("option").remove();
+                var MasCityName = $("#MasCity").val();
+                var StateId = $("#MasStateId").val();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetChurchName", "Home")',
+                    data: {StateId:StateId, MasCityName: MasCityName },
+                    success: function (data) {
+                        debugger;
+                        if (data != null) {
+                            //var data1 = data.data;
+                            $("#MAS_CHC_FID").append("<option value=''>--Select--</option>");
+                            $.each(data, function (i, p) {
+                                $("#MAS_CHC_FID").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                            });
+                        }
+                        else {
+                            $('#ErrorESSPassword').html(" ");
+                        }
+                    }
+                })
+
+            });*@
+
+
+            
+            $("#MasPostCode").on("change", function () {
+                debugger;
+                $("#MAS_CHC_FID").find("option").remove();
+                var MasCityName = $("#MasCity").val();
+                var StateId = $("#MasStateId").val();
+                var CityArea = $("#MasArea").val();
+                var PostCode = $("#MasPostCode").val();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetChurchName", "Home")',
+                    data: {StateId:StateId, MasCityName: MasCityName ,CityArea:CityArea,PostCode:PostCode},
+                    success: function (data) {
+                        debugger;
+                        if (data != null) {
+                            //var data1 = data.data;
+                            $("#MAS_CHC_FID").append("<option value=''>--Select--</option>");
+                            $.each(data, function (i, p) {
+                                $("#MAS_CHC_FID").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                            });
+                        }
+                        else {
+                            $('#ErrorESSPassword').html(" ");
+                        }
+                    }
+                })
+
+            });
+
+
+            @*$("#MasCity").on("change", function () {
+                debugger;
+                $("#MasArea").find("option").remove();
+                var MasCityName = $("#MasCity").val();
+                var StateId = $("#MasStateId").val();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetArea", "Home")',
+                    data: {StateId:StateId, MasCityName: MasCityName },
+                    success: function (data) {
+                        debugger;
+                        if (data != null) {
+                            //var data1 = data.data;
+                            $("#MasArea").append("<option value=''>--Select--</option>");
+                            $.each(data, function (i, p) {
+                                $("#MasArea").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                            });
+                        }
+                        else {
+                            $('#ErrorESSPassword').html(" ");
+                        }
+                    }
+                })
+
+            });*@
+
+
+            $("#MasCity").on("change", function () {
+                debugger;
+                $("#MasArea").find("option").remove();
+                var MasCityName = $("#MasCity").val();
+                var StateId = $("#MasStateId").val();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetArea", "Home")',
+                    data: {StateId:StateId, MasCityName: MasCityName },
+                    success: function (data) {
+                        debugger;
+                        if (data != null) {
+                            var GetArea  = data.Data;
+                            var GetChurch=data.GetChurch;
+                            if(GetArea!=null)
+                            {
+                                $("#MasArea").append("<option value=''>--Select--</option>");
+                                $.each(GetArea, function (i, p) {
+                                    $("#MasArea").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                                });
+                            }
+                            if(GetChurch!=null)
+                            {
+                                //$("#MAS_CHC_FID").append("<option value=''>--Select--</option>");
+                                $.each(GetChurch, function (i, p) {
+                                    $("#MAS_CHC_FID").append("<option value='" + p.Id + "'>" + p.Name + "</option>");
+                                });
+                            }
+                   
+                        }
+                        else {
+                            $('#ErrorESSPassword').html(" ");
+                        }
+                    }
+                })
+
+            });
+
+
+
+
+
+            @*$("#MasArea").on("change", function () {
+                debugger;
+                $("#MasPostCode").find("option").remove();
+                var CityArea = $("#MasArea").val();
+                var StateId = $("#MasStateId").val();
+                var MasCityName = $("#MasCity").val();
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'JSON',
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("PostCode", "Home")',
+                    data: {StateId:StateId, CityArea: CityArea,MasCityName:MasCityName },
+                    success: function (data) {
+                        debugger;
+                        var GetChurchName=data.GetChurch;
+                        if (data != null) {                       
+                            //var data1 = data.data;
+                            $("#MasPostCode").append("<option value=''>--Select--</option>");
+                            $.each(data, function (i, p) {
+                                $("#MasPostCode").append("<option value='" + p.Name + "'>" + p.Name + "</option>");
+                            });
+                        }                      
+                        else {
+                            $('#ErrorESSPassword').html(" ");
+                        }
+                    }
+                })
+
+            });*@
+
+        });//Ready Function
+    </script>
+    <script>
+        function showImage(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // Show the image
+                }
+
+                reader.readAsDataURL(file); // Convert the file to a DataURL (Base64)
+            }
+        }
+    </script>
+
+
+
+
+
+
+
+
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="~/assets/js/app.min.js"></script>
+    <script src="/assets/js/theme/apple.min.js"></script>
+    <script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <script src="~/assets/plugins/highlight.js/highlight.min.js"></script>
+    <script src="~/assets/js/demo/render.highlight.js"></script>
+    <!-- ================== END BASE JS ================== -->
+</body>
+</html>
+
+<script src="~/assets/plugins/select2/dist/js/select2.min.js"></script>
+
+<script src="~/assets/plugins/moment/min/moment.min.js"></script>
+<script src="~/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<script src="~/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="~/assets/plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="~/assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js"></script>
+<script src="~/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="~/assets/plugins/pwstrength-bootstrap/dist/pwstrength-bootstrap.min.js"></script>
+<script src="~/assets/plugins/danielfarrell/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+<script src="~/assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="~/assets/plugins/tag-it/js/tag-it.min.js"></script>
+<script src="~/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="~/assets/plugins/select2/dist/js/select2.min.js"></script>
+<script src="~/assets/plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/assets/plugins/bootstrap-show-password/dist/bootstrap-show-password.js"></script>
+<script src="~/assets/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js"></script>
+<script src="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+<script src="~/assets/plugins/clipboard/dist/clipboard.min.js"></script>
+<script src="~/assets/js/demo/form-plugins.demo.js"></script>
+

@@ -1,0 +1,229 @@
+﻿@model Church.Models.Mas_Donation
+
+@{
+    ViewBag.Title = "UpdateDonation";
+    Layout = "~/Areas/Individuals/Views/Shared/_IndividualsLayout.cshtml";
+}
+
+
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/bower_components/moment/moment.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+@*<script src="~/assets/plugins/ckeditor/ckeditor.js"></script>*@
+<link href="~/assets/plugins/summernote/dist/summernote-lite.css" rel="stylesheet" />
+
+<script src="~/assets/plugins/summernote/dist/summernote-lite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    .note-editor .note-toolbar {
+        background: #eee;
+    }
+
+    .red {
+        color: red;
+    }
+
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+
+    .color {
+        color: red;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 90%;
+        overflow-x: auto;
+        margin-left: 0%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .Error {
+        color: red;
+    }
+    .Updatedfill{
+        color:#fc5a03;
+        font-family:2%;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+            <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Leader",new { area = "Leader" })'">Dashboard</a></li>
+        </ol>*@
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    @*<h1 class="page-header" style="margin-left:15px;">Notice Creation</h1>*@
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        
+        <!-- begin col-6 -->
+        <!-- end col-6 -->
+        <!-- begin col-6 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Update Donation </h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+
+                <div class="panel-body">
+                    <form action="/Individuals/DonationForChurch/SaveUpdate" id="DonationForm" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+
+                        @Html.HiddenFor(m => m.FId)
+                        @Html.HiddenFor(m => m.ChurchFId)
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Donation Date :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextBoxFor(m => m.DonationDate, new { @class = "form-control", id = "DonationDate", type = "date", @required = "required" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Purpose :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextAreaFor(m => m.Purpose, new { @class = "form-control", id = "Purpose", @required = "required", @placeholder = "Purpose", autocomplete = "Off" })
+                            </div>
+                        </div>
+
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Amount :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                @Html.TextBoxFor(m => m.Amount, new { @class = "form-control", id = "Amount", type = "text", pattern = "[0-9]*", placeholder = "Amount", @required = "required", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="form-group row m-b-15">
+                            <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Attechment :<span style="color:red">*</span></label>
+                            <div class="col-md-9 col-sm-8">
+                                <input type="file" name="file" data-max-size="32154" id="file" value="" class="form-control" />
+                                <span class="Updatedfill">@ViewBag.file</span>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary btn-lg m-r-5">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var today = new Date();
+        var today1 = new Date().toISOString().split('T')[0];
+        document.getElementById("DonationDate").setAttribute("min", today1);// Disable Date After Todate
+
+
+
+        var formattedDate = today.getFullYear() + '-' + ('0' + (today.getMonth() + 1)).slice(-2) + '-' + ('0' + today.getDate()).slice(-2);
+        var CheckEmptyDate = document.getElementById('DonationDate').value;
+        if (CheckEmptyDate == "") {
+            document.getElementById('DonationDate').value = formattedDate;
+
+        }
+
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        debugger;
+        if (Message != null) {
+            if (Icon != null) {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+
+            }
+        }
+
+        $('#Amount').on('input', function (e) {
+            debugger;
+            var input = $(this).val();
+            if (e.which == 32) {
+                Swal.fire({
+                    title: '',
+                    text: "Space not Allowed",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });            
+                return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+            {
+                Swal.fire({
+                    title: '',
+                    text:  "Enter Only Digits",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });            
+                return false;
+            }
+            if (!/^\d*$/.test(input)) {
+                Swal.fire({
+                    title: '',
+                    text: "Enter Only Digits",
+                    icon: "error",
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+
+                $(this).val(input.replace(/\D/g, '')); // Remove non-digit characters from input
+                return false;
+            }
+        });
+
+    });//Ready Function
+</script>
+
+
+
+
+

@@ -1,0 +1,161 @@
+﻿@model Church.Models.Mas_Enquiry
+
+@{
+    ViewBag.Title = "UpdateEnquiry";
+    Layout = "~/Areas/Individuals/Views/Shared/_IndividualsLayout.cshtml";
+}
+
+
+<script src="~/scripts/jquery-1.10.2.js"></script>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/assets/plugins/sweetalert/dist/sweetalert.min.js"></script>
+<script src="~/assets/bower_components/moment/moment.js"></script>
+<script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+<script src="~/SweetAlert/sweetalert.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    .red {
+        color: red;
+    }
+
+    #loading {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255,255,255,0.8);
+        z-index: 1000;
+    }
+
+    #loadingcontent {
+        display: table;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #loadingspinner {
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+        text-align: center;
+        font-size: larger;
+        padding-top: 80px;
+    }
+
+    .color {
+        color: red;
+    }
+
+    .table-responsive {
+        display: block;
+        width: 90%;
+        overflow-x: auto;
+        margin-left: 0%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .Error {
+        color: red;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    @*<ol class="breadcrumb float-xl-right">
+        <li class="breadcrumb-item"><a href="#" onclick="location.href='@Url.Action("Dashboard","Individuals",new { area = "Individuals" })'">Dashboard</a></li>
+    </ol>*@
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    @*<h1 class="page-header">inquiry</h1>*@
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        
+        <!-- begin col-6 -->
+        <div class="col-xl-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-validation-2">
+                <!-- begin panel-heading -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Inquiry Update</h4>
+                </div>
+                <!-- end panel-heading -->
+                <!-- begin panel-body -->
+                <div class="panel-body">                   
+                        <form action="/Individuals/UpdateDeleteEnquiry/saveUpdateEnquiry" id="NewRegistraion" method="post" data-parsley-validate="true" enctype="multipart/form-data">
+                            @Html.HiddenFor(m => m.FId)
+                            @Html.HiddenFor(m => m.CurchId)
+                            <div class="form-group row m-b-15">
+                                <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Subject :<span style="color:red">*</span></label>
+                                <div class="col-md-9 col-sm-8">
+                                    @Html.TextBoxFor(m => m.Subject, new { @class = "form-control", id = "EnquirySubject", placeholder = "Enter Subject Of Enquiry", @required = "required", @autocomplete = "off" })
+                                    <span id="ErrortxtSubject" class="Error"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row m-b-15">
+                                <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Inquiry :<span style="color:red">*</span></label>
+                                <div class="col-md-9 col-sm-8">
+                                    @Html.TextAreaFor(m => m.Enquiry, new { @class = "textarea form-control", id = "Enquiry", placeholder = "Inquiry...", @required = "required", rows = "5", @autocomplete = "off" })
+                                    <span id="ErrortxtInquiry" class="Error"></span>
+                                </div>
+                            </div>                           
+                            <div class="text-center">
+                                <button type="submit" id="btnSave" class="btn btn-sm btn-primary btn-lg m-r-5">Update</button>
+                            </div>
+                        </form>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-5"></div>
+                <div id="loading">
+                    <div id="loadingcontent">
+                        <p id="loadingspinner">
+                            <i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>  Please Wait...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        debugger;
+        var Message = @Html.Raw(Json.Encode(TempData["Message"]));
+        var Icon = @Html.Raw(Json.Encode(TempData["Icon"]));
+        if(Message!=null)
+        {
+            if(Icon!=null)
+            {
+                Swal.fire({
+                    title: '',
+                    text: Message,
+                    icon: Icon,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                });
+            }
+
+        }
+       
+    });//ready
+
+
+
+   
+
+
+</script>
+
+
+

@@ -1,0 +1,1101 @@
+﻿@model Church.Models.ViewModel
+@{
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Registration Form</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <!-- ================== BEGIN BASE CSS STYLE ================== -->
+    <link href="~/assets/css/apple/app.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <!-- ================== END BASE CSS STYLE ================== -->
+    <link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+    <link href="~/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/danielfarrell/bootstrap-combobox/css/bootstrap-combobox.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/tag-it/css/jquery.tagit.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="~/assets/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-fontawesome.css" rel="stylesheet" />
+    <link href="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker-glyphicons.css" rel="stylesheet" />
+    @*<link href="~/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+        <link href="~/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+    <link href="~/SweetAlert/sweetalert.css" rel="stylesheet" />
+    <script src="~/SweetAlert/sweetalert.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        #loading {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            z-index: 1000;
+        }
+
+        #loadingcontent {
+            display: table;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #loadingspinner {
+            display: table-cell;
+            vertical-align: middle;
+            width: 100%;
+            text-align: center;
+            font-size: larger;
+            padding-top: 80px;
+        }
+
+        .color {
+            color: red;
+        }
+
+        .table-responsive {
+            display: block;
+            width: 90%;
+            overflow-x: auto;
+            margin-left: 0%;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- begin #page-loader -->
+    <div id="page-loader" class="fade show">
+        <span class="spinner"></span>
+    </div>
+    <!-- end #page-loader -->
+    <!-- begin #page-container -->
+    <div id="page-container" class="fade page-without-sidebar page-header-fixed">
+        <!-- begin #header -->
+        <div id="header" class="header navbar-default">
+            <!-- begin navbar-header -->
+            <div class="navbar-header">
+                @*<a href="index.html" class="navbar-brand"><span class="navbar-logo"><i class="ion-ios-cloud"></i></span> <b class="mr-1">Color</b> Admin</a>*@
+            </div>
+            <!-- end navbar-header --><!-- begin header-nav -->
+            <ul class="navbar-nav navbar-right">
+                <li class="navbar-form">
+                    <form action="" method="POST" name="search_form">
+                        @*<div class="form-group">
+                                <input type="text" class="form-control" placeholder="Enter keyword" />
+                                <button type="submit" class="btn btn-search"><i class="ion-ios-search"></i></button>
+                            </div>*@
+                    </form>
+                </li>
+
+                <li class="dropdown navbar-user">
+                    @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @*<img src="../assets/img/user/user-13.jpg" alt="" />
+                        <span class="d-none d-md-inline">@Session["Email"]</span> <b class="caret"></b>
+                    </a>*@
+                    @*<div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-divider"></div>
+                        <a href="#" id="btnlogin" class="dropdown-item">Log Out</a>
+                    </div>*@
+                </li>
+            </ul>
+            <!-- end header navigation right -->
+        </div>
+        <!-- end #header -->
+        <!-- begin #content -->
+        <div id="content" class="content">
+
+            <!-- end breadcrumb -->
+            <!-- begin page-header -->
+            <h1 class="page-header">Registration Form</h1>
+            <!-- end page-header -->
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Registration</h4>
+                    @*<div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                        </div>*@
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/Leader/Leader/SaveIndividualCreation" method="post" id="frmsubmit" data-parsley-validate="" name="demo-form" enctype="multipart/form-data">
+                        <div>
+                            <div id="basic">
+                                @Html.HiddenFor(m => m.MAS_INDVSL.FID)
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="fullname" style="text-align:left">Full Name :</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_Name, new { @class = "form-control", id = "IND_Name", placeholder="Enter Full Name", @required = "required" })
+
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Contact No :</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_Mob, new { @class = "form-control", id = "IND_Mob", placeholder="999-999-9999", @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="email" style="text-align:left">Email Id :</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_Email, new { @class = "form-control", id = "IND_Email", placeholder = "Enter Email Id", @required = "required" })
+
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Date Of Joining :</label>
+                                    <div class="col-md-9 col-sm-8">
+
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_DOJ, new { @class = "form-control",type="date", id = "IND_DOJ", @required = "required" })
+
+
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Date Of Birth :</label>
+                                    <div class="col-md-9 col-sm-8">
+
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_DOB, new { @class = "form-control", id = "IND_DOB", type="date", @required = "required" })
+                                    </div>
+                                </div>
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Address :</label>
+                                    <div class="col-md-9 col-sm-8">
+
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_Address, new { @class = "form-control", id = "IND_Address",placeholder="Enter Address", @required = "required" })
+                                    </div>
+                                </div>
+                                @*<div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Upload Photo :</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        @Html.TextBoxFor(m => m.IND_Image, new { @class = "form-control", id = "AadharName",  @required = "required" })
+                                    </div>
+                                </div>*@
+                                <div class="form-group row m-b-15">
+                                    <label class="col-md-2 col-sm-4 col-form-label" for="website" style="text-align:left">Reffrence Name :</label>
+                                    <div class="col-md-9 col-sm-8">
+                                        @Html.TextBoxFor(m => m.MAS_INDVSL.IND_ReffName, new { @class = "form-control", id = "IND_ReffName",  @required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button type="submit" id="btnadd" class="btn btn-sm btn-primary m-r-5"><i class="fas fa-lg fa-fw m-r-10 fa-save" style="color:white"></i>CREATE</button>
+                                </div>
+
+
+                                </div>
+                            </div>                                    
+                    </form>
+                    
+                </div>
+                <div>
+                    <div class="col-md-5"></div>
+                    <div id="loading">
+                        <div id="loadingcontent">
+                            <p id="loadingspinner">
+                                <i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>  Please Wait...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel -->
+
+        </div>
+
+        <a href="javascript:;" class="btn btn-icon btn-circle btn-primary btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+        <!-- end scroll to top btn -->
+    </div>
+    <!-- end page container -->
+    <!-- ================== BEGIN BASE JS ================== -->
+    <script src="~/assets/js/app.min.js"></script>
+    <script src="/assets/js/theme/apple.min.js"></script>
+    <script src="~/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+    <script src="~/assets/plugins/highlight.js/highlight.min.js"></script>
+    <script src="~/assets/js/demo/render.highlight.js"></script>
+    <!-- ================== END BASE JS ================== -->
+</body>
+</html>
+<script src="~/assets/plugins/moment/min/moment.min.js"></script>
+<script src="~/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+<script src="~/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<script src="~/assets/plugins/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script src="~/assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js"></script>
+<script src="~/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script src="~/assets/plugins/pwstrength-bootstrap/dist/pwstrength-bootstrap.min.js"></script>
+<script src="~/assets/plugins/danielfarrell/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+<script src="~/assets/plugins/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="~/assets/plugins/tag-it/js/tag-it.min.js"></script>
+<script src="~/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="~/assets/plugins/select2/dist/js/select2.min.js"></script>
+<script src="~/assets/plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="~/assets/plugins/bootstrap-show-password/dist/bootstrap-show-password.js"></script>
+<script src="~/assets/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js"></script>
+<script src="~/assets/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+<script src="~/assets/plugins/clipboard/dist/clipboard.min.js"></script>
+<script src="~/assets/js/demo/form-plugins.demo.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $('.txtDate').datepicker({
+                format: "dd/mm/yyyy"
+            });
+        });
+        var nextClick=  @Html.Raw(Json.Encode(TempData["Next"]));
+        var succMsg=  @Html.Raw(Json.Encode(TempData["MsgCand"]));
+        if (succMsg!=null) {
+            swal("",succMsg,"success");
+        }
+
+        //if (nextClick!=null) {
+        //    $("#basic").hide();
+        //    $("#divQua").show();
+
+
+        //}
+        //else{
+        //    $("#divQua").hide();
+        //    $("#finalsub").hide();
+        //}
+
+        let edittbl = @Html.Raw(Json.Encode(ViewBag.edittbl));
+        if (edittbl!=null) {
+
+            $("#btnaddedu").text("UPDATE");
+            $("#Qualification").val(edittbl.Qualification);
+            $("#Type").val(edittbl.Type);
+            $("#PassingYear").val(edittbl.PassingYear);
+            $("#University").val(edittbl.University);
+            $("#Grades").val(edittbl.Grades);
+            $("#UploadDocument").val(edittbl.UploadDocument);
+
+        }
+        else{
+            $("#Qualification").val("");
+            $("#Type").val("");
+            $("#PassingYear").val("");
+            $("#University").val("");
+            $("#Grades").val("");
+            $("#UploadDocument").val("");
+        }
+        var tbldataQuali=@Html.Raw(Json.Encode(ViewBag.tblQualification));
+
+        $("#IFSC").change(function(){
+            debugger
+            var ifscid = $("#IFSC").val();
+            $("#loading").fadeIn();
+            $.ajax({
+                type:"post",
+                url:"@Url.Action("GetIFSCAddress")",
+                data:{ifscid:ifscid},
+                success:function(response){
+                    if (response==false) {
+                        $("#loading").fadeOut();
+
+
+                        swal("","Bank name not found","info");
+                    }
+                    else{
+                        $("#loading").fadeOut()
+                        $("#Branch").empty();
+                        $("#Branch").val(response.ifsc.Address);
+                        $("#BankName").empty();
+                        $.each(response.bankName,function(data,value){
+                            $("#BankName").append($('<option></option>').val(value.BankId).html(value.BankName))
+
+                        });
+                    }
+
+                }
+
+
+            })
+        });
+        $("#SameAsAddress").click(function(){
+            var permanent=$("#PAddress").val();
+            var permanentPin=$("#PPin").val();
+            var permanentState=$("#PState option:selected").val();
+            $("#CAddress").val(permanent);
+            $("#CPin").val(permanentPin);
+            $("#state option:selected").val(permanentState);
+
+        });
+        $("#AadharNo").change(function(){
+            var  adharno = $("#AadharNo").val();
+            //var regx= "/^[2-9]{1}[0-9]{3}\s{1}[0-9]{4}\s{1}[0-9]{4}$/";
+            if (adharno=="") {
+                swal("","Please Enter Aadhaar No","error");
+                $("#AadharNo").css('border-color','red');
+                return false;
+            }
+            else if (adharno.length!=12 ){
+                swal("","Please Enter Valid Aadhaar No","error");
+                $("#AadharNo").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#AadharNo").css('border-color','');
+
+            }
+        });
+        $("#AadharURL").change(function(){
+
+            var aadhaarfile = document.getElementById('AadharURL');
+            if(aadhaarfile.files.length === 0){
+                swal("","Please Upload Aadhaar","error");
+                $("#AadharURL").css('border-color','red');
+                return false;
+            }
+            var aadhaarfiles =$("#AadharURL").get(0).files;
+            var filesAdhar= Math.round((aadhaarfiles[0].size/1024));
+            if (filesAdhar > 3072)
+            {
+
+                //show an alert to the user
+                swal("","Aadhaar File should not be more than 3 Mb","error");
+                $("#AadharURL").css('border-color','red');
+                return false;
+            }
+            else {
+                $("#AadharURL").css('border-color','');
+
+            }
+        });
+        $("#PANURL").change(function(){
+            var panName = document.getElementById('PANURL');
+            if(panName.files.length === 0){
+                swal("","Please Upload PAN","error");
+                $("#PANURL").css('border-color','red');
+                return false;
+            }
+
+            var panname =$("#PANURL").get(0).files;
+            var filesPan= Math.round((panname[0].size/1024));
+
+            if (filesPan > 3072)
+            {
+                //show an alert to the user
+                swal("","PAN File should not be more than 3 Mb","error");
+                $("#PANURL").css('border-color','red');
+                return false;
+            }
+            else {
+                $("#PANURL").css('border-color','');
+
+            }
+        });
+        $("#CancelChequeURL").change(function(){
+            var cancelChequeURL = document.getElementById('CancelChequeURL');
+            if(cancelChequeURL.files.length === 0){
+                swal("","Please Upload Cancel Cheque ","error");
+                $("#CancelChequeURL").css('border-color','red');
+                return false;
+            }
+            var cheque =$("#CancelChequeURL").get(0).files;
+            var filecheque= Math.round((cheque[0].size/1024));
+
+            if (filecheque > 3072)
+            {
+                //show an alert to the user
+                swal("","Cancel Cheque File should not be more than 3 Mb","error");
+                $("#CancelChequeURL").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#CancelChequeURL").css('border-color','');
+
+            }
+        });
+
+        $("#Other1").change(function(){
+            var Other1URL = document.getElementById('Other1');
+            if(Other1URL.files.length === 0){
+                swal("","Please Upload Photo ","error");
+                $("#Other1").css('border-color','red');
+                return false;
+            }
+            var photo =$("#Other1").get(0).files;
+            var filephoto= Math.round((photo[0].size/1024));
+
+            if (filephoto > 3072)
+            {
+                //show an alert to the user
+                swal("","Profile Photo should not be more than 3 Mb","error");
+                $("#Other1").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#Other1").css('border-color','');
+
+            }
+        });
+
+        $("#Other2").change(function(){
+            var Other2URL = document.getElementById('Other2');
+            if(Other2URL.files.length === 0){
+                swal("","Please Upload other photo ","error");
+                $("#Other2").css('border-color','red');
+                return false;
+            }
+            var photo =$("#Other2").get(0).files;
+            var filephoto= Math.round((photo[0].size/1024));
+
+            if (filephoto > 3072)
+            {
+                //show an alert to the user
+                swal("","Other Photo should not be more than 3 Mb","error");
+                $("#Other2").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#Other2").css('border-color','');
+
+            }
+        });
+
+
+        $("#PhysicalDisability").change(function(){
+            var pdisable=$("#PhysicalDisability  option:selected").val();
+            if (pdisable=="true") {
+                $("#PDDescription").removeAttr("disabled");
+
+            }
+        })
+        $("#MarritalStatus").change(function(){
+            var Mdisable=$("#MarritalStatus  option:selected").val();
+            if (Mdisable=="Married") {
+                $("#AnniversaryDate").removeAttr("disabled");
+
+            }
+        })
+        $("#btnsave").click(function(){
+
+            let adharname=  $("#AadharName").val();
+            if ($("#AadharName").val()=="") {
+                swal("","Please Enter Aadhaar Name","error");
+                $("#AadharName").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#AadharName").css('border-color','');
+            }
+
+            var  adharno = $("#AadharNo").val();
+            if (adharno=="") {
+                swal("","Please Enter Aadhaar No","error");
+                $("#AadharNo").css('border-color','red');
+                return false;
+            }
+            else if (adharno.length!=12){
+                swal("","Please Enter Valid Aadhaar No","error");
+                $("#AadharNo").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#AadharNo").css('border-color','');
+
+            }
+            var status= @Html.Raw(Json.Encode(TempData["Status"]));
+
+            if (status=="Rejected") {
+                var aadhaarfiles =$("#AadharURL").get(0).files;
+                if (aadhaarfiles.length!=0) {
+
+
+                    var filesAdhar= Math.round((aadhaarfiles[0].size/1024));
+                    if (filesAdhar > 3072)
+                    {
+
+                        //show an alert to the user
+                        swal("","Aadhaar File should not be more than 3 Mb","error");
+                        $("#AadharURL").css('border-color','red');
+                        return false;
+                    }
+                    else {
+                        $("#AadharURL").css('border-color','');
+
+                    }
+                }
+            }
+            else{
+
+                var aadhaarfile = document.getElementById('AadharURL');
+                if(aadhaarfile.files.length === 0){
+                    swal("","Please Upload Aadhaar","error");
+                    $("#AadharURL").css('border-color','red');
+                    return false;
+                }
+                var aadhaarfiles =$("#AadharURL").get(0).files;
+                var filesAdhar= Math.round((aadhaarfiles[0].size/1024));
+                if (filesAdhar > 3072)
+                {
+
+                    //show an alert to the user
+                    swal("","Aadhaar File should not be more than 3 Mb","error");
+                    $("#AadharURL").css('border-color','red');
+                    return false;
+                }
+                else {
+                    $("#AadharURL").css('border-color','');
+
+                }
+            }
+
+
+
+            //if ($("#PanName").val()!="") {
+            //    swal("","Please Enter PAN Name","error");
+            //    $("#PanName").css('border-color','red');
+            //    return false;
+            //}
+
+            //else{
+            //    $("#PanName").css('border-color','');
+            //}
+
+            var  panNo = $("#PanNo").val();
+            if (panNo!="") {
+
+
+                if (panNo=="") {
+                    swal("","Please Enter PAN Numbar","error");
+                    $("#PanNo").css('border-color','red');
+                    return false;
+                }
+
+                else if (panNo.length!=10){
+                    swal("","Please Enter Valid PAN Number","error");
+                    $("#PanNo").css('border-color','red');
+                    return false;
+
+                }
+                else {
+                    $("#PanNo").css('border-color','');
+
+                }
+            }
+            if (status=="Rejected" && $("#PanNo").val()!="") {
+
+                var panName = document.getElementById('PANURL');
+
+                var panname =$("#PANURL").get(0).files;
+                if (panname.length!=0) {
+
+
+                    var filesPan= Math.round((panname[0].size/1024));
+
+                    if (filesPan > 3072)
+                    {
+                        //show an alert to the user
+                        swal("","PAN File should not be more than 3 Mb","error");
+                        $("#PANURL").css('border-color','red');
+                        return false;
+                    }
+                    else {
+                        $("#PANURL").css('border-color','');
+
+                    }
+                }
+            }
+            else{
+                if ($("#PanNo").val()!="") {
+                    var panName = document.getElementById('PANURL');
+                    if(panName.files.length === 0){
+                        swal("","Please Upload PAN","error");
+                        $("#PANURL").css('border-color','red');
+                        return false;
+                    }
+
+                    var panname =$("#PANURL").get(0).files;
+                    var filesPan= Math.round((panname[0].size/1024));
+
+                    if (filesPan > 3072)
+                    {
+                        //show an alert to the user
+                        swal("","PAN File should not be more than 3 Mb","error");
+                        $("#PANURL").css('border-color','red');
+                        return false;
+                    }
+                    else {
+                        $("#PANURL").css('border-color','');
+
+                    }
+                }
+            }
+            var today = new Date();
+            var dob = new Date($("#dobDate").val());
+            var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+
+            if ($("#dobDate").val() == ""){
+                swal("","Please Enter Date of Birth","error");
+                $("#dobDate").css('border-color','red');
+                return false;
+            }
+
+            else if(age < 18)
+            {
+                swal("","Age should be minimum 18","error");
+                $("#dobDate").css('border-color', 'red');
+                //$("#dobDate").after('<span class="red"></span>');
+                return false;
+
+            }
+
+            else {
+                $("#dobDate").css('border-color', '');
+
+            }
+
+
+
+            if ($("#PAddress").val()=="") {
+                swal("","Please Enter Present Address","error");
+                $("#PAddress").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#PAddress").css('border-color','');
+            }
+
+            var  PPin = $("#PPin").val();
+            if (PPin=="") {
+                swal("","Please Enter Permanent Address Pin Code","error");
+                $("#PPin").css('border-color','red');
+                return false;
+            }
+            else if (PPin.length!=6){
+                swal("","Please Enter Valid Permanent Address Pin Code","error");
+                $("#PPin").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#PPin").css('border-color','');
+
+            }
+
+
+            if ($("#CAddress").val()=="") {
+                swal("","Please Enter Current Address","error");
+                $("#CAddress").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#CAddress").css('border-color','');
+            }
+
+            var  cPin = $("#CPin").val();
+            if (cPin=="") {
+                swal("","Please Enter Current Address ","error");
+                $("#CPin").css('border-color','red');
+                return false;
+            }
+            else if (cPin.length!=6){
+                swal("","Please Enter Valid Current Address Pin Code","error");
+                $("#CPin").css('border-color','red');
+                return false;
+
+            }
+            else {
+                $("#CPin").css('border-color','');
+
+            }
+
+            var  bankAccountNo = $("#BankAccountNo").val();
+            if (bankAccountNo=="") {
+                swal("","Please Enter Bank Account No","error");
+                $("#BankAccountNo").css('border-color','red');
+                return false;
+            }
+
+            else {
+                $("#BankAccountNo").focus();
+                $("#BankAccountNo").css('border-color','');
+
+            }
+
+
+            if ($("#BankName option:selected").val()=="") {
+                swal("","Please Enter Bank Name","error");
+                $("#BankName").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#BankName").css('border-color','');
+            }
+            if ($("#IFSC").val()=="") {
+                swal("","Please Enter IFSC","error");
+                $("#IFSC").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#IFSC").css('border-color','');
+            }
+            if ($("#Branch option:selected").val()=="") {
+                swal("","Please Enter Bank Address","error");
+                $("#Branch").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#Branch").css('border-color','');
+            }
+            if ($("#EmpBankName").val()=="") {
+                swal("","Please Enter Emp Bank Name","error");
+                $("#EmpBankName").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#EmpBankName").css('border-color','');
+            }
+            if (status=="Rejected") {
+                var cheque =$("#CancelChequeURL").get(0).files;
+                if (cheque.length!=0) {
+
+
+                    var filecheque= Math.round((cheque[0].size/1024));
+
+                    if (filecheque > 3072)
+                    {
+                        //show an alert to the user
+                        swal("","Cancel Cheque File should not be more than 3 Mb","error");
+                        $("#CancelChequeURL").css('border-color','red');
+                        return false;
+
+                    }
+                    else {
+                        $("#CancelChequeURL").css('border-color','');
+
+                    }
+                }
+            }
+            else{
+
+
+                var cancelChequeURL = document.getElementById('CancelChequeURL');
+                if(cancelChequeURL.files.length === 0){
+                    swal("","Please Upload Cancel Cheque ","error");
+                    $("#CancelChequeURL").css('border-color','red');
+                    return false;
+                }
+                var cheque =$("#CancelChequeURL").get(0).files;
+                var filecheque= Math.round((cheque[0].size/1024));
+
+                if (filecheque > 3072)
+                {
+                    //show an alert to the user
+                    swal("","Cancel Cheque File should not be more than 3 Mb","error");
+                    $("#CancelChequeURL").css('border-color','red');
+                    return false;
+
+                }
+                else {
+                    $("#CancelChequeURL").css('border-color','');
+
+                }
+            }
+
+            var refContactNo= $("#RefContactNo").val();
+
+
+            if ($("#RefContactNo").val()=="") {
+                swal("","Please Enter Emergency Mobile No","error");
+                $("#RefContactNo").css('border-color','red');
+                return false;
+            }
+            else if (refContactNo.length!=10) {
+                swal("","Please Enter Valid Emergency Mobile No","error");
+                $("#RefContactNo").css('border-color','red');
+                return false;
+            }
+            else{
+                $("#RefContactNo").css('border-color','');
+            }
+
+
+
+            var uanNo= $("#UANNo").val();
+            if (uanNo!="") {
+
+                //if ($("#UANNo").val()=="") {
+                //    swal("","Please Enter Emp Bank Name","error");
+                //    $("#UANNo").css('border-color','red');
+                //    return false;
+                //}
+                if (uanNo.length!=12) {
+                    swal("","Please Enter Valid UAN No","error");
+                    $("#UANNo").css('border-color','red');
+                    return false;
+                }
+                else{
+                    $("#UANNo").css('border-color','');
+                }
+
+            }
+            else{
+                $("#UANNo").css('border-color','');
+            }
+            var eSICNo= $("#ESICNo").val();
+            if (eSICNo!="") {
+
+                //if ($("#UANNo").val()=="") {
+                //    swal("","Please Enter Emp Bank Name","error");
+                //    $("#UANNo").css('border-color','red');
+                //    return false;
+                //}
+                if (eSICNo.length!=10) {
+                    swal("","Please Enter Valid ESIC No","error");
+                    $("#ESICNo").css('border-color','red');
+                    return false;
+                }
+                else{
+                    $("#ESICNo").css('border-color','');
+                }
+
+            }
+            else{
+                $("#ESICNo").css('border-color','');
+            }
+
+            var nomineeMobileNo= $("#NomineeMobileNo").val();
+            if (nomineeMobileNo!="") {
+
+                if ($("#NomineeMobileNo").val()=="") {
+                    swal("","Please Enter Emergency Mobile No","error");
+                    $("#NomineeMobileNo").css('border-color','red');
+                    return false;
+                }
+                if (nomineeMobileNo.length!=10) {
+                    swal("","Please Enter Valid Mobile No","error");
+                    $("#NomineeMobileNo").css('border-color','red');
+                    return false;
+                }
+                else{
+                    $("#NomineeMobileNo").css('border-color','');
+                }
+
+            }
+            else{
+                $("#NomineeMobileNo").css('border-color','');
+            }
+            if (status=="Rejected") {
+                var photo =$("#Other1").get(0).files;
+                if (photo.length!=0) {
+
+
+                    var filephoto= Math.round((photo[0].size/1024));
+
+                    if (filephoto > 3072)
+                    {
+                        //show an alert to the user
+                        swal("","Profile Photo should not be more than 3 Mb","error");
+                        $("#Other1").css('border-color','red');
+                        return false;
+
+                    }
+                    else {
+                        $("#Other1").css('border-color','');
+
+                    }
+                }
+            }
+            else{
+
+
+                var Other1URL = document.getElementById('Other1');
+                if(Other1URL.files.length === 0){
+                    swal("","Please Upload Photo ","error");
+                    $("#Other1").css('border-color','red');
+                    return false;
+                }
+                var photo =$("#Other1").get(0).files;
+                var filephoto= Math.round((photo[0].size/1024));
+
+                if (filephoto > 3072)
+                {
+                    //show an alert to the user
+                    swal("","Profile Photo should not be more than 3 Mb","error");
+                    $("#Other1").css('border-color','red');
+                    return false;
+
+                }
+                else {
+                    $("#Other1").css('border-color','');
+
+                }
+            }
+
+            swal({
+                title: "Are you sure?",
+                text: "You want to saved this form !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-success",
+                confirmButtonText: "Yes",
+                closeOnConfirm: true
+            },
+function (isConfirm) {
+    if (isConfirm==true) {
+        $("#loading").fadeIn();
+        document.getElementById("frmsubmit").submit();
+        //$('form#frmsubmit').submit();
+        $("#divQua").show();
+        $("#basic").hide();
+        $("#loading").fadeOut();
+    }
+
+
+})
+        });
+
+        $("#btnaddedu").click(function(){
+            var qualification = $("#Qualification").val();
+            if (qualification == null) {
+                $("#Qualification").after('<span class=red>Please select qualification</span>');
+                return false;
+            }
+            else {
+                $(".red").html('');
+            }
+            var type = $("#Type");
+            if (type.val() == "") {
+                $("#Type").css('border-color', 'red');
+                return false;
+            }
+            else {
+                $("#Type").css('border-color', '');
+            }
+            if ($("#PassingYear").val() == "") {
+                $("#PassingYear").css('border-color', 'red');
+                return false;
+            }
+            else {
+                $("#PassingYear").css('border-color', '');
+            }
+            if ($("#University").val() == "") {
+                $("#University").css('border-color', 'red');
+                return false;
+            }
+            else {
+                $("#University").css('border-color', '');
+            }
+            if ($("#Grades").val() == "") {
+                $("#Grades").css('border-color', 'red');
+                return false;
+            }
+            else {
+                $("#Grades").css('border-color', '');
+            }
+            var btnname= $("#btnaddedu").text();
+            if ( btnname=="Add") {
+
+
+                var educationfile = document.getElementById('urleducation');
+
+                if(educationfile.files.length === 0){
+                    swal("","Please Upload File","error");
+                    $("#educationfile").css('border-color','red');
+                    return false;
+                }
+                var edufiles =$("#urleducation").get(0).files;
+                var filesEdu= Math.round((edufiles[0].size/1024));
+                if (filesEdu > 3072)
+                {
+
+                    //show an alert to the user
+                    swal("","Education Document should not be more than 3 Mb","error");
+                    $("#urleducation").css('border-color','red');
+                    return false;
+                }
+                else {
+                    $("#urleducation").css('border-color','');
+
+                }
+
+            }
+            $("#loading").fadeIn();
+        });
+        $("#loading").fadeOut();
+    });
+    $(document).on("click", "#btnsaveedufinal", function () {
+
+        swal({
+            title: "",
+            text: 'Are you sure to save this form?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#ff002f',
+            confirmButtonText: 'Yes'
+        },
+    function (isConfirm) {
+
+        if (isConfirm) {
+            document.getElementById("finalsub").submit();
+            //$('form#finalsub').submit();
+            @*//TempData["MsgCand"] = "Pre Boarding Form Saved Successfully";
+            //location.href = '@Url.Action("FinalSubmit", "PreBoarding", new {area= "CandidateFormQualification", id = fid })'*@
+        }
+    });
+
+    });
+
+    $(document).on("click", "#btnlogin", function () {
+        swal({
+            title: "",
+            text: 'Are you sure to logout?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#ff002f',
+            confirmButtonText: 'Yes'
+        },
+    function (isConfirm) {
+        if (isConfirm) {
+            location.href = '@Url.Action("Login","Home",new {area="" })'
+        }
+    });
+
+    });
+
+</script>
