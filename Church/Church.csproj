@@ -1080,7 +1080,6 @@
     <Compile Include="Areas\Leader\Controllers\RegistrationRequestApproveController.cs" />
     <Compile Include="Areas\Leader\Controllers\UpdateLeaderRegisterMemberController.cs" />
     <Compile Include="Areas\Leader\LeaderAreaRegistration.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
