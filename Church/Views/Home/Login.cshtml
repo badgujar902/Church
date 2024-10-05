@@ -151,7 +151,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Forgot Password</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Forgot</h5>
                     <button type="button" class="close" data-dismiss="modal" id="btnclose" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -187,17 +187,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-md-12">
                                     <div class="row mb-15px" style="margin-bottom:15px;">
                                         <label class="form-label col-form-label col-md-4">
                                             Password
                                             <span class="important">*</span>
-                                        </label>
-                                        @*<div class="col-md-8">
-                                            <input type="password" class="form-control" id="password" placeholder="Enter password" autocomplete="off">
-                                            <span class="forgotError" id="passwordError"></span>
-                                        </div>*@
+                                        </label>                                      
                                         <div class="col-md-8">
                                             <div class="input-group">
                                                 <input type="password" class="form-control form-control-lg" name="Password" placeholder="Enter password" autocomplete="off" required id="OldPassword" />
@@ -211,9 +207,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>*@
                             <div class="modal-footer">
-                                <button type="button" id="btnforgot" class="btn btn-primary">Forgot</button>
+                                <button type="button" id="btnforgot" class="btn btn-primary">Reset</button>
                             </div>
                         </div>                       
                         <div id="NewPassowrdDive">
@@ -486,7 +482,7 @@
         debugger;
         var email = $("#email").val();
         var UserId = $("#userid").val();
-        var pass = $("#OldPassword").val();
+        //var pass = $("#OldPassword").val();
 
 
         if(email=="")
@@ -505,19 +501,19 @@
         }else{
             $("#UserIdError").html("");
         }
-        if(pass=="")
-        {
-            $("#passwordError").html("Enter Password");
-            $("#password").css("border", "1px solid red");
-            return false;
-        }else{
-            $("#passwordError").html("");
-        }
+        //if(pass=="")
+        //{
+        //    $("#passwordError").html("Enter Password");
+        //    $("#password").css("border", "1px solid red");
+        //    return false;
+        //}else{
+        //    $("#passwordError").html("");
+        //}
 
         $.ajax({
             url: '@Url.Action("CheckUserIsValid", "Home", new { area= "" })',
             method:"get",
-            data:{email:email,UserId:UserId,pass:pass},
+            data:{email:email,UserId:UserId},
             success:function(response){
                 debugger;
                 var Message1 = response.Message;

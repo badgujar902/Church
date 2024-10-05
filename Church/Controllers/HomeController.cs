@@ -434,8 +434,8 @@ namespace Church.Controllers
                 if (EmailId != "")
                 {
                     //var Data = dbcontext.MAS_INDVSL.Where(X => X.AdharNo == AdharNo).FirstOrDefault();
-                    var GetEmail = dbcontext.MAS_INDVSL.Where(X => X.IND_Email == EmailId).FirstOrDefault();
-                    var GetMobileNumber = dbcontext.MAS_INDVSL.Where(X => X.IND_Mob == ContactNo).FirstOrDefault();
+                    var GetEmail = dbcontext.MAS_INDVSL.Where(X => X.IND_Email == EmailId && X.Deactivate==false).FirstOrDefault();
+                    var GetMobileNumber = dbcontext.MAS_INDVSL.Where(X => X.IND_Mob == ContactNo && X.Deactivate==false).FirstOrDefault();
 
                     //if (Data != null)
                     //{
@@ -879,7 +879,7 @@ namespace Church.Controllers
             {
                 if (email != null)
                 {
-                    var GetMemberId = (from data in dbcontext.MAS_INDVSL where data.IND_Email == email && data.Status == false select data).FirstOrDefault();
+                    var GetMemberId = (from data in dbcontext.MAS_INDVSL where data.IND_Email == email && data.Status == false && data.Deactivate==false select data).FirstOrDefault();
 
                     var ForgoteData = (from data in dbcontext.MAS_UID where data.MAS_INDVSL_FID == GetMemberId.FID && data.MAS_CHC_FID == GetMemberId.MAS_CHC_FID && data.U_Status == true select data).FirstOrDefault();
                     if (newUserId != null && newPassword != null)
@@ -889,15 +889,26 @@ namespace Church.Controllers
 
                         int update = dbcontext.SaveChanges();
 
+                        var GetChurchName = (from data in dbcontext.MAS_CHC where data.FID == GetMemberId.MAS_CHC_FID && data.Status == true select data).FirstOrDefault();
+
                         SendMail mail = new SendMail();
-                        var Title= "Account Recovery Information "; 
-                        var GetBody = "Dear <b>" + GetMemberId.IND_Name + "</b>,<br><br>We send  your password and UserId </br></br><br>UserID :<b>" + newUserId + " <b></br><br></br><br>Passord is <b>" + newPassword + "</b></br></br></b></br></br><br>Best regards.</br><br>Mumbai Church</br>";
+                        var Title= "Account Recovery Information ";
+                        var GetBody = "Dear <b>" + GetMemberId.IND_Name + "</b>,<br><br>" +
+                                         "Your New username and password are as follows:<br>" +
+                                         "New Username : <b>" + newUserId + "</b><br>" +
+                                         " New Password : <b>" + newPassword + "</b><br><br>" +
+                                         "For Login , click the link below:<br>" +
+                                         "<a href='http://ekstasisministries.org/'>Login Here</a><br><br>" +
+                                         "Best regards,<br>" +
+                                         GetChurchName.CHC_Name;
+                        //var GetBody = "Dear <b>" + GetMemberId.IND_Name + "</b>,<br><br>We send  your password and UserId </br></br><br>UserID :<b>" + newUserId + " <b></br><br></br><br>Passord is <b>" + newPassword + "</b></br></br></b></br></br><br>Best regards.</br><br>Mumbai Church</br>";
                         mail.SendMailToMember(GetMemberId.IND_Email, GetBody, Title);
-                       
+                        
+
                         if (update >= 1)
                         {
                             //TempData["Message"] = "UserId & Password change successfully";
-                            TempData["Message"] = "Password send successfull ! to your register emailid";
+                            TempData["Message"] = "UserName and Password send successfull ! to your register emailid";
                             TempData["Icon"] = "success";
                             return Json(new { Message = TempData["Message"], Icon = TempData["Icon"] }, JsonRequestBehavior.AllowGet);
                         }

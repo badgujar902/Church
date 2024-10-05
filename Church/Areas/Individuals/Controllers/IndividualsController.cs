@@ -32,7 +32,6 @@ namespace Church.Areas.Individuals.Controllers
 
                 var currentDate = DateTime.Today;
 
-
                 var GetNoticeData = dbcontext.Mas_Notice
                                           .Where(data => data.NoticeDateValid >= currentDate && data.Deactivate == false)
                                           .OrderByDescending(data => data.FId)

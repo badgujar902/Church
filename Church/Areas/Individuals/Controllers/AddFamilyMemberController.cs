@@ -71,8 +71,8 @@ namespace Church.Areas.Individuals.Controllers
                 if (Email != "")
                 {
                     //var Data = dbcontext.MAS_INDVSL.Where(X => X.AdharNo == AdharNumber).FirstOrDefault();
-                    var GetEmail = dbcontext.MAS_INDVSL.Where(X => X.IND_Email == Email).FirstOrDefault();
-                    var GetMobileNumber = dbcontext.MAS_INDVSL.Where(X => X.IND_Mob == MobileNumber).FirstOrDefault();
+                    var GetEmail = dbcontext.MAS_INDVSL.Where(X => X.IND_Email == Email && X.Deactivate==false).FirstOrDefault();
+                    var GetMobileNumber = dbcontext.MAS_INDVSL.Where(X => X.IND_Mob == MobileNumber && X.Deactivate==false).FirstOrDefault();
 
                     //if (Data != null)
                     //{

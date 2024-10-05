@@ -307,8 +307,8 @@ namespace Church.Areas.Leader.Controllers
                 if (Email != "")
                 {
                     //var Data = dbcontext.MAS_INDVSL.Where(X => X.AdharNo == AdharNumber).FirstOrDefault();
-                    var GetEmail = dbcontext.MAS_INDVSL.Where(X => X.IND_Email == Email).FirstOrDefault();
-                    var GetMobileNumber = dbcontext.MAS_INDVSL.Where(X => X.IND_Mob == MobileNumber).FirstOrDefault();
+                    var GetEmail = dbcontext.MAS_INDVSL.Where(X => X.IND_Email == Email && X.Deactivate==false).FirstOrDefault();
+                    var GetMobileNumber = dbcontext.MAS_INDVSL.Where(X => X.IND_Mob == MobileNumber && X.Deactivate==false).FirstOrDefault();
 
                     //if (Data != null)
                     //{
@@ -440,9 +440,18 @@ namespace Church.Areas.Leader.Controllers
                         }
                     }
 
+                    var GetChurchName = (from data in dbcontext.MAS_CHC where data.FID == individual1.MAS_CHC_FID && data.Status == true select data).FirstOrDefault();
                     SendMail mail = new SendMail();
                     var Title = "User ID and Password";
-                    var GetBody = "Dear <b>" + individual1.IND_Name + "</b>,<br><br>We send  your password and UserId </br></br><br>UserID : <b>" + individual1.U_ID + " <b></br><br></br><br>Passord : <b>" + individual1.U_Pass + "</b></br></br></b></br></br><br>Best regards.</br><br>Mumbai Church</br>";
+                    //var GetBody = "Dear <b>" + individual1.IND_Name + "</b>,<br><br>We send  your password and UserId </br></br><br>UserID : <b>" + individual1.U_ID + " <b></br><br></br><br>Passord : <b>" + individual1.U_Pass + "</b></br></br></b></br></br><br>Best regards.</br><br>Mumbai Church</br>";
+                    var GetBody = "Dear <b>" + individual1.IND_Name + "</b>,<br><br>" +
+                                         "Your default username and password are as follows:<br>" +
+                                         "Username: <b>" + individual1.U_ID + "</b><br>" +
+                                         "Password: <b>" + individual1.U_Pass + "</b><br><br>" +
+                                         "To reset your username and password, click the link below:<br>" +
+                                         "<a href='http://ekstasisministries.org/'>Reset Here</a><br><br>" +
+                                         "Best regards,<br>" +
+                                         GetChurchName.CHC_Name;
                     mail.SendMailToMember(individual1.IND_Email, GetBody, Title);
                 }
                 else
